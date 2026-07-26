@@ -1,18 +1,14 @@
-name: Deploy to GitHub Pages
+# CI only — deployment happens from the kidastro (portfolio) repo, whose Pages
+# workflow checks out this repo, builds it, and serves dist/ at
+# kidastro.com/themes. After pushing changes here, trigger that deploy:
+#   gh workflow run deploy.yml --repo davekeller/kidastro
+name: CI
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
   build:
@@ -26,16 +22,3 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4

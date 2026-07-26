@@ -19,13 +19,17 @@ Dropdown, Table, Alert, Progress, Skeleton, Breadcrumb, Pagination) demoed in a
 keyboard nav, Copy-tokens button). The app chrome (gallery) uses the `kidastro`
 theme, matched to the owner's portfolio site (`/Users/dk/Git/kidastro`).
 
-**Repo & deploy:** `github.com/davekeller/kidastro-themes`, deployed to GitHub
-Pages via Actions (`.github/workflows/deploy.yml`): every push to `main`
-typechecks, builds, and deploys. `scripts/spa-fallback.mjs` (postbuild) copies
-index.html to 404.html + `theme/<slug>/index.html` so deep links work without
-rewrites. Custom domain `ui.kidastro.com` (public/CNAME + Pages setting); DNS
-is a CNAME record `ui → davekeller.github.io` at Hover. Enable Enforce-HTTPS
-in Pages settings once the cert is issued after DNS propagates.
+**Repo & deploy:** `github.com/davekeller/kidastro-themes`, served at
+**kidastro.com/themes**. GitHub Pages allows one site per domain, so the
+portfolio repo (`davekeller/kidastro`) owns the deploy: its Pages workflow
+checks out this repo, builds it (Vite `base: "/themes/"`, router
+`basename="/themes"`), and copies `dist/` into the site output at `/themes`.
+This repo's own workflow is CI-only (typecheck + build). After pushing changes
+here, trigger the portfolio deploy:
+`gh workflow run deploy.yml --repo davekeller/kidastro`.
+`scripts/spa-fallback.mjs` (postbuild) copies index.html to
+`theme/<slug>/index.html` per theme so deep links work without rewrites.
+Local dev serves at `http://localhost:5173/themes/`.
 
 **Stack:** Vite + React 19 + TypeScript + Tailwind CSS v4 + React Router 7.
 
