@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { getTheme, themes } from "../themes";
 import { ThemeShowcase } from "../components/ThemeShowcase";
+import { customShowcases } from "../showcases";
 import { ArrowLeft, Check, ChevronDown, Copy } from "../components/icons";
 import { themeTokensToCss } from "../lib/tokens";
 import { cn } from "../lib/cn";
@@ -37,6 +38,10 @@ export default function ThemePage() {
   }, [theme, navigate]);
 
   if (!theme) return <Navigate to="/" replace />;
+
+  // Hybrid model: a theme with a registered custom composition renders it;
+  // everything else shares the default one-pager.
+  const Showcase = customShowcases[theme.slug] ?? ThemeShowcase;
 
   const copyTokens = async () => {
     if (!wrapperRef.current) return;
@@ -84,7 +89,7 @@ export default function ThemePage() {
         </div>
       </div>
 
-      <ThemeShowcase theme={theme} />
+      <Showcase theme={theme} />
     </div>
   );
 }

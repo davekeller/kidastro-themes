@@ -76,14 +76,18 @@ Also read `CLAUDE.md` (conventions) and `README.md` in the repo root before edit
 tokens, and add an entry to `src/themes/index.ts`. Keep token *names* identical
 across themes — only the values change.
 
+**Hybrid model (live):** themes are tokens-first, but a theme can register its
+own page composition in `src/showcases/index.ts` — `/theme/:slug` renders it
+instead of the shared `ThemeShowcase`. Built exemplars: `bento` (the page is
+one asymmetric tile grid) and `linear` (dense dark product column with feature
+rows and keyboard chips).
+
 **Roadmap / what's next:**
-1. Mobbin-informed themes with *structural* variety: same component library,
-   but per-theme showcase layouts/feels (the plan's "hybrid" growth path).
-   Style candidates to choose from are in `docs/style-candidates.md`.
+1. More Mobbin-informed themes with structural variety — remaining style
+   candidates are in `docs/style-candidates.md` (bento + linear are built).
    The Mobbin MCP is registered (`claude mcp add mobbin` → https://api.mobbin.com/mcp);
-   needs a one-time OAuth by the owner.
+   needs a one-time OAuth by the owner before pulling references.
 2. Refine the `neon` and `editorial` tokens against real UI references.
-3. Push to `github.com/davekeller/theme-lab` and deploy to Vercel.
 
 **Start here:** Read `CLAUDE.md` and `README.md`, confirm you understand the token
 model, then help me with: <state your task, e.g. "refine the neon theme" or "add a

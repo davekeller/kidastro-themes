@@ -84,6 +84,20 @@ export const themes: ThemeMeta[] = [
       "Ivory, deep emerald, and antique gold under a Cinzel display. Gatsby-grade elegance.",
     tags: ["Geometric", "Gold", "Elegant"],
   },
+  {
+    slug: "bento",
+    name: "Bento / Grid",
+    description:
+      "Keynote-modern: the whole page is one asymmetric grid of rounded tiles. Custom layout.",
+    tags: ["Bento", "Modern", "Custom layout"],
+  },
+  {
+    slug: "linear",
+    name: "Product / Dark",
+    description:
+      "Dev-tool precision — dense centered column, feature rows, hairline glows, keyboard chips. Custom layout.",
+    tags: ["Dark", "Dev-tool", "Custom layout"],
+  },
 ];
 
 export function getTheme(slug?: string): ThemeMeta | undefined {

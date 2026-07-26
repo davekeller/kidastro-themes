@@ -10,14 +10,14 @@ Pick any — they're ordered roughly by how popular/recognizable they are right 
 
 ---
 
-## 1. Bento grid
+## 1. Bento grid ✅ *built — theme `bento`*
 - **Vibe:** Apple-keynote modernism. Dense, confident, product-led.
 - **Layout signature:** The page *is* a grid of mixed-size rounded tiles.
   No linear hero→features→pricing flow — stats, features, testimonials all
   live as tiles in one asymmetric bento. Big numerals, tight captions.
 - **References on Mobbin:** Apple product pages, Vercel, Raycast, Arc.
 
-## 2. Linear-style dark product
+## 2. Linear-style dark product ✅ *built — theme `linear`*
 - **Vibe:** Dev-tool precision. Quiet, engineered, premium dark.
 - **Layout signature:** Narrow centered column, small dense type, feature
   *rows* (not cards) alternating text/screenshot, hairline gradient borders,

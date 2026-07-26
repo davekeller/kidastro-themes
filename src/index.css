@@ -368,6 +368,66 @@
   --elev-glow: 0 0 26px rgba(57, 213, 203, 0.2), 0 0 90px rgba(57, 213, 203, 0.1);
 }
 
+/* Bento / Grid — keynote-modern light. Big rounded tiles, electric blue.
+   Has a custom showcase layout (src/showcases/BentoShowcase.tsx). */
+[data-theme="bento"] {
+  --bg: #f4f4f6;
+  --surface: #ffffff;
+  --surface-2: #ececf1;
+  --fg: #17171b;
+  --muted: #6e6e76;
+  --border: #e3e3ea;
+  --ring: #0a84ff;
+  --primary: #0a84ff;
+  --primary-fg: #ffffff;
+  --accent: #ff375f;
+  --accent-fg: #ffffff;
+  --success: #2fa860;
+  --warning: #ff9f0a;
+  --danger: #ff453a;
+
+  --radius: 22px;
+
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Manrope", system-ui, sans-serif;
+
+  --elev-1: 0 1px 2px rgba(23, 23, 27, 0.04), 0 8px 24px rgba(23, 23, 27, 0.05);
+  --elev-2: 0 2px 4px rgba(23, 23, 27, 0.05), 0 18px 50px rgba(23, 23, 27, 0.09);
+  --elev-glow: none;
+}
+
+/* Product / Dark — dev-tool precision: indigo on near-black, hairline borders.
+   Has a custom showcase layout (src/showcases/LinearShowcase.tsx). */
+[data-theme="linear"] {
+  --bg: #08090c;
+  --surface: #101116;
+  --surface-2: #17181f;
+  --fg: #f7f8f8;
+  --muted: #8a8f98;
+  --border: #23242d;
+  --ring: #5e6ad2;
+  --primary: #5e6ad2;
+  --primary-fg: #ffffff;
+  --accent: #26b5ce;
+  --accent-fg: #04181d;
+  --success: #4cb782;
+  --warning: #f2c94c;
+  --danger: #eb5757;
+
+  --radius: 8px;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Inter", system-ui, sans-serif;
+
+  --elev-1: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 1px 3px rgba(0, 0, 0, 0.5);
+  --elev-2: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 16px 50px rgba(0, 0, 0, 0.65);
+  --elev-glow: 0 0 50px rgba(94, 106, 210, 0.28);
+}
+
 /* ======================== BASE STYLES ======================== */
 
 @layer base {

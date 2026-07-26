@@ -30,6 +30,18 @@ or a literal font — stop and use a token instead.
 The gallery and `/theme/:slug` route pick it up automatically. Keep the token
 **names** identical across themes — only the values change.
 
+## Add a custom showcase layout (the hybrid model)
+
+Themes are tokens-first, but a theme can earn its own page composition:
+
+1. Create `src/showcases/<Name>Showcase.tsx` accepting `{ theme: ThemeMeta }`.
+   It only *arranges* shared components — styling still comes from tokens.
+2. Register it in `src/showcases/index.ts` under the theme's slug.
+
+`/theme/:slug` renders the custom showcase when one is registered, else the
+shared `ThemeShowcase`. Include `TokenPanel` so every theme page keeps doubling
+as token documentation. Examples: `bento`, `linear`.
+
 ## Add a component
 
 - Primitives go in `src/components/primitives`, page sections in `src/components/sections`.
