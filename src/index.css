@@ -1,0 +1,454 @@
+@import "tailwindcss";
+
+/* =============================================================
+   THEME LAB — token architecture
+   -------------------------------------------------------------
+   1. Each theme is a set of semantic CSS variables, scoped by a
+      [data-theme="..."] block below.
+   2. @theme inline maps those variables into Tailwind's design
+      system, so utilities like `bg-bg`, `text-fg`, `bg-primary`,
+      `border-border`, `rounded-lg`, and `font-display` resolve to
+      whatever theme is currently active.
+   3. Switching a theme = changing the data-theme attribute on a
+      wrapper element. Nothing else re-renders — only the vars.
+   ============================================================= */
+
+@theme inline {
+  /* color */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+  --color-primary: var(--primary);
+  --color-primary-fg: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+
+  /* shape — tracks each theme's base --radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  /* type */
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+  --font-mono: var(--font-mono);
+  --font-display: var(--font-display);
+}
+
+/* =========================== THEMES =========================== */
+
+/* Clean / Minimal — neutral, tight, subtle (also the app default) */
+:root,
+[data-theme="minimal"] {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f6f7f9;
+  --fg: #0b0b0c;
+  --muted: #6b7280;
+  --border: #e6e8eb;
+  --ring: #2563eb;
+  --primary: #2563eb;
+  --primary-fg: #ffffff;
+  --accent: #0ea5e9;
+  --accent-fg: #ffffff;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+
+  --radius: 10px;
+
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Inter", system-ui, sans-serif;
+
+  --elev-1: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.1);
+  --elev-2: 0 4px 12px rgba(16, 24, 40, 0.08), 0 2px 6px rgba(16, 24, 40, 0.05);
+  --elev-glow: none;
+}
+
+/* Dark / Neon — dark canvas, cyan + magenta glow, techy mono display */
+[data-theme="neon"] {
+  --bg: #07070c;
+  --surface: #0d0d16;
+  --surface-2: #15151f;
+  --fg: #e8e9f3;
+  --muted: #9aa0b5;
+  --border: #24243a;
+  --ring: #22d3ee;
+  --primary: #22d3ee;
+  --primary-fg: #04121a;
+  --accent: #d946ef;
+  --accent-fg: #17061c;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #fb7185;
+
+  --radius: 8px;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "JetBrains Mono", ui-monospace, monospace;
+
+  --elev-1: 0 0 0 1px rgba(34, 211, 238, 0.06), 0 2px 8px rgba(0, 0, 0, 0.5);
+  --elev-2: 0 0 0 1px rgba(34, 211, 238, 0.1), 0 8px 30px rgba(0, 0, 0, 0.6);
+  --elev-glow: 0 0 22px rgba(34, 211, 238, 0.35);
+}
+
+/* Editorial / Warm — paper tones, warm ink, serif display */
+[data-theme="editorial"] {
+  --bg: #faf6f0;
+  --surface: #fffdf9;
+  --surface-2: #f2ebe0;
+  --fg: #24201b;
+  --muted: #7a7266;
+  --border: #e6dccd;
+  --ring: #a8451f;
+  --primary: #a8451f;
+  --primary-fg: #fdf6ee;
+  --accent: #4f6b4a;
+  --accent-fg: #f4f7f0;
+  --success: #4f6b4a;
+  --warning: #b7791f;
+  --danger: #a3341f;
+
+  --radius: 4px;
+
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Fraunces", Georgia, serif;
+
+  --elev-1: 0 1px 2px rgba(60, 40, 20, 0.08);
+  --elev-2: 0 10px 30px rgba(60, 40, 20, 0.1);
+  --elev-glow: none;
+}
+
+/* Bold / Brutalist — raw paper, pure black ink, zero radius, hard offset shadows */
+[data-theme="brutalist"] {
+  --bg: #f2efe6;
+  --surface: #ffffff;
+  --surface-2: #e6e2d6;
+  --fg: #000000;
+  --muted: #52504a;
+  --border: #000000;
+  --ring: #ff3b00;
+  --primary: #000000;
+  --primary-fg: #f2efe6;
+  --accent: #ff3b00;
+  --accent-fg: #000000;
+  --success: #007a3d;
+  --warning: #d97b00;
+  --danger: #d40000;
+
+  --radius: 0px;
+
+  --font-sans: "Archivo", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-display: "Archivo Black", "Archivo", system-ui, sans-serif;
+
+  --elev-1: 3px 3px 0 #000000;
+  --elev-2: 6px 6px 0 #000000;
+  --elev-glow: none;
+}
+
+/* Retro / Terminal — phosphor green on near-black, amber accent, all-mono */
+[data-theme="terminal"] {
+  --bg: #050a06;
+  --surface: #0a120c;
+  --surface-2: #101c13;
+  --fg: #baf5c4;
+  --muted: #5f8f6a;
+  --border: #1d3a24;
+  --ring: #34ff6d;
+  --primary: #34ff6d;
+  --primary-fg: #04180a;
+  --accent: #ffb000;
+  --accent-fg: #1a1000;
+  --success: #34ff6d;
+  --warning: #ffb000;
+  --danger: #ff5f56;
+
+  --radius: 2px;
+
+  --font-sans: "IBM Plex Mono", ui-monospace, monospace;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "IBM Plex Mono", ui-monospace, monospace;
+
+  --elev-1: 0 0 0 1px rgba(52, 255, 109, 0.08), 0 2px 8px rgba(0, 0, 0, 0.6);
+  --elev-2: 0 0 0 1px rgba(52, 255, 109, 0.14), 0 8px 30px rgba(0, 0, 0, 0.7);
+  --elev-glow: 0 0 24px rgba(52, 255, 109, 0.28);
+}
+
+/* Luxe / Noir — near-black, champagne gold, garamond display. Quiet luxury. */
+[data-theme="luxe"] {
+  --bg: #0e0d0b;
+  --surface: #171512;
+  --surface-2: #211e19;
+  --fg: #ece5d8;
+  --muted: #a09681;
+  --border: #322d24;
+  --ring: #c9a961;
+  --primary: #c9a961;
+  --primary-fg: #16130c;
+  --accent: #9c4a3c;
+  --accent-fg: #f8ece7;
+  --success: #7fa781;
+  --warning: #e0a83f;
+  --danger: #c65b4e;
+
+  --radius: 2px;
+
+  --font-sans: "Jost", system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+
+  --elev-1: 0 1px 3px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 169, 97, 0.06);
+  --elev-2: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(201, 169, 97, 0.1);
+  --elev-glow: 0 0 30px rgba(201, 169, 97, 0.16);
+}
+
+/* Soft / Candy — cream + bubblegum + mint, huge radius, rounded type */
+[data-theme="candy"] {
+  --bg: #fdf6f1;
+  --surface: #ffffff;
+  --surface-2: #ffe9ef;
+  --fg: #4a3247;
+  --muted: #9a7f92;
+  --border: #f3d7e0;
+  --ring: #f973b2;
+  --primary: #f973b2;
+  --primary-fg: #4d1032;
+  --accent: #4fd6b8;
+  --accent-fg: #0b3f34;
+  --success: #3fbf7f;
+  --warning: #f5a524;
+  --danger: #ef5d78;
+
+  --radius: 20px;
+
+  --font-sans: "Nunito", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Fredoka", "Nunito", system-ui, sans-serif;
+
+  --elev-1: 0 2px 8px rgba(233, 120, 167, 0.16);
+  --elev-2: 0 10px 30px rgba(233, 120, 167, 0.22);
+  --elev-glow: none;
+}
+
+/* Organic / Botanical — sage paper, forest green, terracotta, bookish serif */
+[data-theme="botanical"] {
+  --bg: #f3f1e9;
+  --surface: #faf9f3;
+  --surface-2: #e9e6d8;
+  --fg: #29321f;
+  --muted: #71785f;
+  --border: #d8d5c2;
+  --ring: #3d5a3a;
+  --primary: #3d5a3a;
+  --primary-fg: #f2f5ec;
+  --accent: #b45f3c;
+  --accent-fg: #f9efe8;
+  --success: #4c7a45;
+  --warning: #b98a2e;
+  --danger: #a84632;
+
+  --radius: 12px;
+
+  --font-sans: "Karla", system-ui, sans-serif;
+  --font-serif: "Alegreya", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Alegreya", Georgia, serif;
+
+  --elev-1: 0 1px 3px rgba(41, 50, 31, 0.08);
+  --elev-2: 0 10px 30px rgba(41, 50, 31, 0.12);
+  --elev-glow: none;
+}
+
+/* Industrial / Utility — graphite, safety orange, condensed display. Built, not decorated. */
+[data-theme="industrial"] {
+  --bg: #16181b;
+  --surface: #1e2126;
+  --surface-2: #262a31;
+  --fg: #e6e8ea;
+  --muted: #8b929c;
+  --border: #333941;
+  --ring: #ff7a1a;
+  --primary: #ff7a1a;
+  --primary-fg: #1a0e02;
+  --accent: #5b9dd9;
+  --accent-fg: #08131e;
+  --success: #45b36b;
+  --warning: #f2b202;
+  --danger: #e5484d;
+
+  --radius: 4px;
+
+  --font-sans: "Barlow", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+
+  --elev-1: 0 1px 0 rgba(255, 255, 255, 0.04), 0 2px 6px rgba(0, 0, 0, 0.5);
+  --elev-2: 0 1px 0 rgba(255, 255, 255, 0.05), 0 10px 30px rgba(0, 0, 0, 0.6);
+  --elev-glow: 0 0 20px rgba(255, 122, 26, 0.22);
+}
+
+/* Deco / Emerald — ivory, deep emerald, antique gold, Cinzel display */
+[data-theme="deco"] {
+  --bg: #f6f1e5;
+  --surface: #fcf9f0;
+  --surface-2: #ede5d2;
+  --fg: #1f2a24;
+  --muted: #74796c;
+  --border: #dccfa8;
+  --ring: #0f5c46;
+  --primary: #0f5c46;
+  --primary-fg: #f3ecd9;
+  --accent: #b3893a;
+  --accent-fg: #241a05;
+  --success: #2e7d5b;
+  --warning: #c07d16;
+  --danger: #9e3b2f;
+
+  --radius: 2px;
+
+  --font-sans: "Josefin Sans", system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Cinzel", Georgia, serif;
+
+  --elev-1: 0 1px 2px rgba(31, 42, 36, 0.08);
+  --elev-2: 0 10px 30px rgba(31, 42, 36, 0.12);
+  --elev-glow: none;
+}
+
+/* Kid Astro — the portfolio theme. Deep-space navy, Bricolage Grotesque,
+   and the arcade palette: teal primary, yellow accent, mint/gold/pink status.
+   Matches github.com/davekeller's kidastro site; also the app's own chrome. */
+[data-theme="kidastro"] {
+  --bg: #05070f;
+  --surface: #0d1220;
+  --surface-2: #151b2e;
+  --fg: #ffffff;
+  --muted: #a8b0c2;
+  --border: #262d40;
+  --ring: #39d5cb;
+  --primary: #39d5cb;
+  --primary-fg: #042f2b;
+  --accent: #f4fd7b;
+  --accent-fg: #2b2c05;
+  --success: #6ee7b7;
+  --warning: #fcd34d;
+  --danger: #e4416f;
+
+  --radius: 12px;
+
+  --font-sans: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+
+  --elev-1: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --elev-2: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 50px rgba(0, 0, 0, 0.45);
+  --elev-glow: 0 0 26px rgba(57, 213, 203, 0.2), 0 0 90px rgba(57, 213, 203, 0.1);
+}
+
+/* ======================== BASE STYLES ======================== */
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+  }
+}
+
+/* Elevation helpers — resolve to the active theme's shadow tokens */
+.elev-1 {
+  box-shadow: var(--elev-1);
+}
+.elev-2 {
+  box-shadow: var(--elev-2);
+}
+.glow {
+  box-shadow: var(--elev-glow);
+}
+
+/* ==================== KID ASTRO CHROME HELPERS ====================
+   The portfolio's signature ambient layers, rebuilt on theme tokens.
+   Used by the gallery (app chrome); any theme could opt in. */
+
+/* Drifting gradient bar — one continuous loop through the palette tokens.
+   Starts and ends on --accent at 400% width so a full slide loops seamlessly. */
+@keyframes color-bar-drift {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: 400% 0;
+  }
+}
+
+.color-bar {
+  background-image: linear-gradient(
+    90deg,
+    var(--accent),
+    var(--primary),
+    var(--danger),
+    var(--warning),
+    var(--success),
+    var(--accent)
+  );
+  background-size: 400% 100%;
+  opacity: 0.5;
+  animation: color-bar-drift 100s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .color-bar {
+    animation: none;
+  }
+}
+
+/* Deep-space backdrop — part of the kidastro theme's CSS, hence the literals. */
+[data-theme="kidastro"].space-bg,
+[data-theme="kidastro"] .space-bg {
+  background: linear-gradient(
+      180deg,
+      #000000 0%,
+      #0a0e1b 25%,
+      #0d1220 50%,
+      #0a0e1b 75%,
+      #000000 100%
+    )
+    fixed center 0 / 100% 100%;
+}

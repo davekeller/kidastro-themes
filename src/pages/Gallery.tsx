@@ -1,0 +1,114 @@
+import { Link } from "react-router-dom";
+import { themes } from "../themes";
+import type { ThemeMeta } from "../themes/types";
+import { AstroHedron } from "../components/AstroHedron";
+import { AstroHelmet } from "../components/AstroHelmet";
+import { Starfield } from "../components/Starfield";
+import { NorthernLights } from "../components/NorthernLights";
+
+export default function Gallery() {
+  return (
+    <div
+      data-theme="kidastro"
+      className="space-bg relative min-h-screen font-sans text-fg"
+    >
+      {/* Ambient chrome from the portfolio: aurora, stars, drifting color bar */}
+      <NorthernLights />
+      <Starfield />
+      <div aria-hidden className="color-bar fixed top-0 z-50 h-[3px] w-full" />
+
+      <div className="relative z-10">
+        {/* Portfolio-style intro: floating graphic overlapping a big display title */}
+        <header className="relative overflow-hidden text-center">
+          <div className="h-[340px] sm:h-[400px]">
+            <AstroHedron />
+          </div>
+          <div className="pointer-events-none relative z-10 mx-auto -mt-24 max-w-3xl px-6 pb-14 sm:-mt-28">
+            <h1 className="font-display text-5xl font-extrabold tracking-tight sm:text-7xl">
+              kidastro-themes
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-loose text-muted">
+              A personal library of {themes.length} hand-tuned UI themes. Click one
+              to open its full component showcase, or point your AI tools at any
+              theme to bootstrap a prototype with the styling already in place.
+            </p>
+          </div>
+        </header>
+
+        <main className="mx-auto max-w-6xl px-6 pb-8">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {themes.map((t) => (
+              <ThemeCard key={t.slug} theme={t} />
+            ))}
+          </div>
+        </main>
+
+        {/* Sign-off: the astro helmet from the portfolio's /games page */}
+        <footer className="pb-16 pt-10 text-center">
+          <div className="mx-auto h-[300px] w-full max-w-[420px]">
+            <AstroHelmet />
+          </div>
+          <p className="mt-2 text-sm text-muted">
+            an extension of{" "}
+            <a
+              href="https://kidastro.com"
+              className="underline decoration-border underline-offset-4 transition-colors hover:text-fg"
+            >
+              kidastro.com
+            </a>
+          </p>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+function ThemeCard({ theme }: { theme: ThemeMeta }) {
+  return (
+    <Link
+      to={`/theme/${theme.slug}`}
+      className="group block overflow-hidden rounded-2xl border border-border bg-surface elev-1 transition-transform duration-200 hover:-translate-y-1"
+    >
+      {/* Live preview rendered in the theme's own tokens */}
+      <div data-theme={theme.slug} className="bg-bg p-5">
+        <div className="rounded-xl border border-border bg-surface p-4 elev-1">
+          <div className="flex items-center justify-between">
+            <span className="font-display text-lg font-bold text-fg">Aa</span>
+            <span className="flex gap-1">
+              <span className="h-4 w-4 rounded-full bg-primary" />
+              <span className="h-4 w-4 rounded-full bg-accent" />
+            </span>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            <span className="rounded-full bg-primary px-2 py-0.5 text-xs text-primary-fg">
+              Primary
+            </span>
+            <span className="rounded-full border border-border px-2 py-0.5 text-xs text-fg">
+              Outline
+            </span>
+          </div>
+          <div className="mt-3 flex items-center gap-1.5">
+            <span className="h-2 flex-1 rounded bg-surface-2" />
+            <span className="h-2 w-8 rounded bg-primary" />
+          </div>
+        </div>
+      </div>
+
+      {/* Meta (rendered in the gallery's own neutral theme) */}
+      <div className="border-t border-border p-5">
+        <h3 className="font-semibold text-fg">{theme.name}</h3>
+        <p className="mt-1 text-sm text-muted">{theme.description}</p>
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {theme.tags.map((tag) => (
+            <span
+              key={tag}
+              className="rounded-full bg-surface-2 px-2 py-0.5 text-xs text-muted"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+    </Link>
+  );
+}
