@@ -18,10 +18,10 @@ export default function Gallery() {
       <div aria-hidden className="color-bar fixed top-0 z-50 h-[3px] w-full" />
 
       <div className="relative z-10">
-        {/* Portfolio-style intro: floating graphic overlapping a big display title */}
+        {/* Portfolio-style intro: the /games astro helmet floating over the title */}
         <header className="relative overflow-hidden text-center">
           <div className="h-[340px] sm:h-[400px]">
-            <AstroHedron />
+            <AstroHelmet />
           </div>
           <div className="pointer-events-none relative z-10 mx-auto -mt-24 max-w-3xl px-6 pb-14 sm:-mt-28">
             <h1 className="font-display text-5xl font-extrabold tracking-tight sm:text-7xl">
@@ -43,10 +43,10 @@ export default function Gallery() {
           </div>
         </main>
 
-        {/* Sign-off: the astro helmet from the portfolio's /games page */}
+        {/* Sign-off: the homepage icosahedron */}
         <footer className="pb-16 pt-10 text-center">
           <div className="mx-auto h-[300px] w-full max-w-[420px]">
-            <AstroHelmet />
+            <AstroHedron />
           </div>
           <p className="mt-2 text-sm text-muted">
             an extension of{" "}
