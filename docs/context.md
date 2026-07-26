@@ -17,9 +17,15 @@ themes, the v2 interactive component set (Tabs, Accordion, Modal, Toast, Tooltip
 Dropdown, Table, Alert, Progress, Skeleton, Breadcrumb, Pagination) demoed in a
 "Component lab" section, and a polished shell (theme-switcher dropdown, ←/→
 keyboard nav, Copy-tokens button). The app chrome (gallery) uses the `kidastro`
-theme, matched to the owner's portfolio site (`/Users/dk/Git/kidastro`). Not yet
-on GitHub (target: `github.com/davekeller/theme-lab`) and not yet deployed
-(target: Vercel — `vercel.json` already handles SPA routing).
+theme, matched to the owner's portfolio site (`/Users/dk/Git/kidastro`).
+
+**Repo & deploy:** `github.com/davekeller/kidastro-themes`, deployed to GitHub
+Pages via Actions (`.github/workflows/deploy.yml`): every push to `main`
+typechecks, builds, and deploys. `scripts/spa-fallback.mjs` (postbuild) copies
+index.html to 404.html + `theme/<slug>/index.html` so deep links work without
+rewrites. Custom domain `ui.kidastro.com` (public/CNAME + Pages setting); DNS
+is a CNAME record `ui → davekeller.github.io` at Hover. Enable Enforce-HTTPS
+in Pages settings once the cert is issued after DNS propagates.
 
 **Stack:** Vite + React 19 + TypeScript + Tailwind CSS v4 + React Router 7.
 
