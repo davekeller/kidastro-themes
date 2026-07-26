@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { getTheme, themes } from "../themes";
 import { ThemeShowcase } from "../components/ThemeShowcase";
 import { customShowcases } from "../showcases";
-import { ArrowLeft, Check, ChevronDown, Copy } from "../components/icons";
+import { Check, ChevronDown, Copy } from "../components/icons";
 import { themeTokensToCss } from "../lib/tokens";
 import { cn } from "../lib/cn";
 
@@ -60,13 +60,48 @@ export default function ThemePage() {
       {/* Minimal top bar — the only chrome over the full themed page */}
       <div className="sticky top-0 z-40 border-b border-border bg-bg/85 backdrop-blur">
         <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-6">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-muted transition-colors hover:text-fg"
-          >
-            <ArrowLeft size={16} />
-            <span className="hidden sm:inline">All themes</span>
-          </Link>
+          {/* Top-left breadcrumb cluster, same pattern as the portfolio's
+              sub-pages: site icon + `kidastro / themes / <page>` trail. */}
+          <div className="flex min-w-0 items-center gap-2.5">
+            <Link
+              to="/"
+              aria-label="Back to all themes"
+              className="shrink-0 opacity-80 transition-opacity hover:opacity-100"
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}icon.svg`}
+                alt=""
+                width={28}
+                height={28}
+              />
+            </Link>
+            <nav aria-label="Breadcrumb" className="hidden text-sm font-medium md:block">
+              <ol className="flex items-center gap-2">
+                <li>
+                  <a
+                    href="https://kidastro.com"
+                    className="text-muted transition-colors hover:text-fg"
+                  >
+                    kidastro
+                  </a>
+                </li>
+                <li aria-hidden="true" className="text-muted/40">
+                  /
+                </li>
+                <li>
+                  <Link to="/" className="text-muted transition-colors hover:text-fg">
+                    themes
+                  </Link>
+                </li>
+                <li aria-hidden="true" className="text-muted/40">
+                  /
+                </li>
+                <li aria-current="page" className="truncate text-fg">
+                  {theme.name}
+                </li>
+              </ol>
+            </nav>
+          </div>
 
           <ThemeSwitcher current={theme.slug} />
 

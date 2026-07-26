@@ -198,7 +198,9 @@ export function AstroHedron({ className }: { className?: string }) {
 
       if (!reducedMotion) raf = requestAnimationFrame(draw);
     };
-    raf = requestAnimationFrame(draw);
+    // Paint the first frame synchronously — a hidden tab/pane never fires
+    // requestAnimationFrame, which would leave the canvas blank until focus.
+    draw(performance.now());
 
     return () => {
       cancelAnimationFrame(raf);
