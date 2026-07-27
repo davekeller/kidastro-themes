@@ -68,7 +68,10 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
         </div>
 
         {/* Scroll-pinned scene: the left column holds while rows pass */}
-        <section className="mx-auto grid max-w-7xl gap-10 px-6 py-20 lg:grid-cols-2">
+        {/* grid-cols-1 is explicit: an implicit `auto` track sizes to its
+            widest child's min-content, which pushed the page sideways on
+            phones. minmax(0,1fr) lets the display type wrap instead. */}
+        <section className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-20 lg:grid-cols-2">
           <div className="lg:sticky lg:top-32 lg:self-start">
             <p className="text-sm uppercase tracking-widest text-primary">Approach</p>
             <h2 className="mt-3 font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight">
