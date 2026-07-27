@@ -68,13 +68,14 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
         </div>
 
         {/* Scroll-pinned scene: the left column holds while rows pass */}
-        {/* grid-cols-1 is explicit: an implicit `auto` track sizes to its
-            widest child's min-content, which pushed the page sideways on
-            phones. minmax(0,1fr) lets the display type wrap instead. */}
+        {/* Two safeguards against sideways page scroll on phones: an explicit
+            grid-cols-1 (an implicit `auto` track sizes to min-content), and
+            min-w-0 on the items (grid items default to min-width:auto, so they
+            would otherwise refuse to shrink below the display type's width). */}
         <section className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-20 lg:grid-cols-2">
-          <div className="lg:sticky lg:top-32 lg:self-start">
+          <div className="min-w-0 lg:sticky lg:top-32 lg:self-start">
             <p className="text-sm uppercase tracking-widest text-primary">Approach</p>
-            <h2 className="mt-3 font-display text-5xl font-extrabold uppercase leading-[0.9] tracking-tight">
+            <h2 className="mt-3 font-display text-4xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-5xl">
               Strategy
               <br />
               first,
@@ -86,7 +87,7 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
               a section. Pure CSS, no scroll library.
             </p>
           </div>
-          <div>
+          <div className="min-w-0">
             {[
               ["Positioning", "Where you sit, who you're for, and what you refuse to be."],
               ["Identity", "A system, not a logo. Type, color, motion, and voice as one kit."],
@@ -98,7 +99,7 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
                   <span className="font-display text-sm tabular-nums text-muted">
                     0{i + 1}
                   </span>
-                  <h3 className="font-display text-3xl font-bold uppercase tracking-tight">
+                  <h3 className="font-display text-2xl font-bold uppercase tracking-tight sm:text-3xl">
                     {title}
                   </h3>
                 </div>
