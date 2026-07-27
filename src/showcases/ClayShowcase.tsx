@@ -12,13 +12,15 @@ import { ArrowRight, Bolt, Check, Star } from "../components/icons";
  * (inner bottom shadow + outer drop), so `elev-1` alone reads as extruded.
  */
 
+// The path snakes left and right. Offsets only kick in from `sm` up: on a
+// phone they would push rows past the viewport and scroll the whole page.
 const PATH_STEPS = [
-  { label: "Basics", done: true, offset: "translate-x-0" },
-  { label: "Phrases", done: true, offset: "translate-x-16" },
-  { label: "Travel", done: true, offset: "translate-x-24" },
-  { label: "Food", done: false, current: true, offset: "translate-x-12" },
-  { label: "Family", done: false, offset: "-translate-x-4" },
-  { label: "Work", done: false, offset: "-translate-x-16" },
+  { label: "Basics", done: true, offset: "sm:translate-x-0" },
+  { label: "Phrases", done: true, offset: "sm:translate-x-16" },
+  { label: "Travel", done: true, offset: "sm:translate-x-24" },
+  { label: "Food", done: false, current: true, offset: "sm:translate-x-12" },
+  { label: "Family", done: false, offset: "sm:-translate-x-4" },
+  { label: "Work", done: false, offset: "sm:-translate-x-16" },
 ];
 
 export function ClayShowcase({ theme }: { theme: ThemeMeta }) {
