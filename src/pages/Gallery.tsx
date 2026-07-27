@@ -23,7 +23,7 @@ export default function Gallery() {
           <div className="h-[340px] sm:h-[400px]">
             <AstroHelmet />
           </div>
-          <div className="pointer-events-none relative z-10 mx-auto -mt-24 max-w-3xl px-6 pb-14 sm:-mt-28">
+          <div className="pointer-events-none relative z-10 mx-auto -mt-14 max-w-3xl px-6 pb-14 sm:-mt-16">
             <h1 className="font-display text-5xl font-extrabold tracking-tight sm:text-7xl">
               kidastro-themes
             </h1>

@@ -17,9 +17,13 @@ export function NorthernLights() {
 
     const palette = readPalette(canvas);
 
+    // Resizing clears the bitmap, so a static (reduced-motion) canvas has to be
+    // repainted afterwards or it would stay blank for the rest of the session.
+    let afterResize = () => {};
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = 600;
+      afterResize();
     };
     resize();
     window.addEventListener("resize", resize);
@@ -159,6 +163,7 @@ export function NorthernLights() {
       if (!reducedMotion) raf = requestAnimationFrame(draw);
     };
     draw();
+    if (reducedMotion) afterResize = draw;
 
     return () => {
       window.removeEventListener("resize", resize);

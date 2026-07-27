@@ -53,18 +53,21 @@ export function AstroHedron({ className }: { className?: string }) {
 
     const palette = readPalette(canvas);
 
+    // Measure from the element's own box. Setting canvas.width clears the
+    // bitmap, so every resize must be followed by a render — otherwise a
+    // static (reduced-motion) canvas would stay blank after a window resize.
     let width = 0;
     let height = 0;
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       width = canvas.clientWidth;
       height = canvas.clientHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      if (!width || !height) return false;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return true;
     };
-    resize();
-    window.addEventListener("resize", resize);
 
     const particles: Particle[] = Array.from({ length: 36 }, () => ({
       x: Math.random(),
@@ -117,7 +120,8 @@ export function AstroHedron({ className }: { className?: string }) {
     let raf = 0;
     const start = performance.now();
 
-    const draw = (now: number) => {
+    const render = (now: number) => {
+      if (!width || !height) return;
       const t = (now - start) / 1000;
       ctx.clearRect(0, 0, width, height);
 
@@ -149,7 +153,9 @@ export function AstroHedron({ className }: { className?: string }) {
 
       const cx = width / 2 + parallax.x;
       const cy = height / 2 + parallax.y + bob;
-      const radius = Math.min(width, height) * 0.36;
+      // Vertices are unit-length; near-side points magnify by up to 1.5 under
+      // the perspective divide, so keep the base radius well inside the box.
+      const radius = Math.min(width, height) * 0.28;
 
       const cosX = Math.cos(rx), sinX = Math.sin(rx);
       const cosY = Math.cos(ry), sinY = Math.sin(ry);
@@ -195,16 +201,41 @@ export function AstroHedron({ className }: { className?: string }) {
         ctx.stroke();
       }
       ctx.globalAlpha = 1;
-
-      if (!reducedMotion) raf = requestAnimationFrame(draw);
     };
-    // Paint the first frame synchronously — a hidden tab/pane never fires
-    // requestAnimationFrame, which would leave the canvas blank until focus.
-    draw(performance.now());
+
+    const loop = (now: number) => {
+      render(now);
+      raf = requestAnimationFrame(loop);
+    };
+
+    const startLoop = () => {
+      if (raf || reducedMotion) return;
+      raf = requestAnimationFrame(loop);
+    };
+
+    // Paint the first frame synchronously: a hidden tab never fires
+    // requestAnimationFrame, which would otherwise leave the canvas blank.
+    if (resize()) render(performance.now());
+    startLoop();
+
+    // Re-measure and repaint whenever the element's box changes — covers the
+    // initial 0×0 layout pass, window resizes, and reduced-motion clears.
+    const observer = new ResizeObserver(() => {
+      if (resize()) render(performance.now());
+    });
+    observer.observe(canvas);
+
+    // Browsers throttle rAF in background tabs; resume on return.
+    const onVisibility = () => {
+      if (!document.hidden) startLoop();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
 
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
+      raf = 0;
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
       window.removeEventListener("pointerup", onPointerUp);
       canvas.removeEventListener("pointerdown", onPointerDown);
       canvas.removeEventListener("pointermove", onPointerMove);
