@@ -41,9 +41,13 @@ export function Starfield() {
     const palette = readPalette(canvas);
     const pick = () => palette[Math.floor(Math.random() * palette.length)];
 
+    // Resizing clears the bitmap, so a static (reduced-motion) canvas has to be
+    // repainted afterwards or it would stay blank for the rest of the session.
+    let afterResize = () => {};
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
+      afterResize();
     };
     resize();
     window.addEventListener("resize", resize);
@@ -156,6 +160,7 @@ export function Starfield() {
       if (!reducedMotion) raf = requestAnimationFrame(animate);
     };
     animate();
+    if (reducedMotion) afterResize = animate;
 
     return () => {
       clearTimeout(spawnTimer);
