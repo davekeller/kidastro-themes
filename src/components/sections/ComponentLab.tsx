@@ -84,7 +84,11 @@ export function ComponentLab() {
           </p>
         </div>
 
-        <div className="mt-12 grid items-start gap-5 lg:grid-cols-2">
+        {/* grid-cols-1 is explicit on purpose: an implicit `auto` track sizes to
+            its widest child's min-content (the invoice table), which pushed the
+            whole page past the viewport on narrow screens. minmax(0,1fr) lets
+            the track shrink so the table scrolls inside its own container. */}
+        <div className="mt-12 grid grid-cols-1 items-start gap-5 lg:grid-cols-2">
           {/* Tabs + Accordion */}
           <Card>
             <CardHeader>
