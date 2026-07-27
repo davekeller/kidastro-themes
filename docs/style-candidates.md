@@ -21,8 +21,9 @@ Pick any — they're ordered roughly by how popular/recognizable they are right 
 | 9. Y2K / retro-futurism | Poolsuite FM (iOS) | https://mobbin.com/apps/poolsuite-fm-ios-e0d2288d-bd38-4c67-9ab1-0d79b76c0a44/5ff57f7c-1abb-4a86-b70c-085cd698044d/screens |
 | 11. Organic hand-drawn | Notion (Web) | https://mobbin.com/apps/notion-web-33c9cc81-4dd5-46cd-8a0b-15d46b137668/17ff231d-68df-43ef-9952-f2a4d677318d/screens |
 
-Not on Mobbin (browse directly): Swiss typographic → readymag.com/explore + swissted.com;
-Spec-sheet mono → teenage.engineering; Kinetic type / agency → awwwards.com.
+Not on Mobbin — referenced from the open web instead: Swiss typographic →
+readymag.com/explore + swissted.com; Spec-sheet mono → teenage.engineering;
+Kinetic type / agency → awwwards.com. All three are now built.
 Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
 
 ---
@@ -56,7 +57,7 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   zig-zag section seams.
 - **References:** Gumroad, Figma marketing, Poolsuite-adjacent indie tools.
 
-## 5. Swiss / International typographic
+## 5. Swiss / International typographic ✅ *built — theme `swiss`*
 - **Vibe:** Museum poster. Rigorous, intellectual, timeless.
 - **Layout signature:** Exposed 12-column grid with visible rules, numbered
   sections (01–06), huge flush-left headlines, almost **no cards or shadows**
@@ -92,7 +93,7 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   marquee tickers, bevel borders. Sections framed as OS windows.
 - **References:** Poolsuite, indie music sites, fashion drops.
 
-## 10. Brutalist utility / mono spec-sheet
+## 10. Brutalist utility / mono spec-sheet ✅ *built — theme `specsheet`*
 - **Vibe:** Technical datasheet. Raw information design, zero decoration.
 - **Layout signature:** Full-width data tables as the primary layout element,
   monospace everything, visible section IDs (A.1, A.2), dotted leader lines,
@@ -106,7 +107,7 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   that feel pasted-up rather than gridded.
 - **References:** Notion marketing, Tally, indie newsletters.
 
-## 12. Kinetic type / agency
+## 12. Kinetic type / agency ✅ *built — theme `kinetic`*
 - **Vibe:** Awwwards portfolio. Confident, showy, motion-first.
 - **Layout signature:** Oversized display type as the primary visual (words
   fill the viewport), horizontal marquee strips, hover-reveal media, sticky

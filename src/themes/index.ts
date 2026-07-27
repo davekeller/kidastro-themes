@@ -147,6 +147,27 @@ export const themes: ThemeMeta[] = [
       "Notion-meets-zine: warm paper, squiggle underlines, tilted polaroid cards, pasted-up margins.",
     tags: ["Warm", "Hand-drawn", "Custom layout"],
   },
+  {
+    slug: "swiss",
+    name: "Swiss / Grid",
+    description:
+      "International Typographic Style — exposed 12-column grid, numbered sections, rules instead of cards.",
+    tags: ["Grid", "Typographic", "Custom layout"],
+  },
+  {
+    slug: "specsheet",
+    name: "Spec-sheet / Mono",
+    description:
+      "Technical datasheet: monospace throughout, dotted leader lines, section IDs, tables as layout.",
+    tags: ["Mono", "Technical", "Custom layout"],
+  },
+  {
+    slug: "kinetic",
+    name: "Kinetic / Agency",
+    description:
+      "Awwwards energy — viewport-filling display type, marquees, scroll-pinned scenes, acid lime on black.",
+    tags: ["Dark", "Editorial", "Custom layout"],
+  },
 ];
 
 export function getTheme(slug?: string): ThemeMeta | undefined {

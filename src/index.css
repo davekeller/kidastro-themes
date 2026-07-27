@@ -644,6 +644,101 @@
   --elev-glow: none;
 }
 
+/* ---------------------------------------------------------------
+   The three candidates with no Mobbin entry — referenced from the
+   open web instead (Readymag/Swissted, Teenage Engineering, Awwwards).
+   --------------------------------------------------------------- */
+
+/* Swiss / Grid — International Typographic Style: paper white, black ink,
+   one red signal color, and rules instead of cards. */
+[data-theme="swiss"] {
+  --bg: #f5f5f3;
+  --surface: #ffffff;
+  --surface-2: #e9e9e6;
+  --fg: #111111;
+  --muted: #6a6a68;
+  --border: #111111;
+  --ring: #e2231a;
+  --primary: #e2231a;
+  --primary-fg: #ffffff;
+  --accent: #111111;
+  --accent-fg: #f5f5f3;
+  --success: #1c7a45;
+  --warning: #b8860b;
+  --danger: #e2231a;
+
+  --radius: 0px;
+
+  --font-sans: "Familjen Grotesk", Helvetica, Arial, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Familjen Grotesk", Helvetica, Arial, sans-serif;
+
+  --elev-1: none;
+  --elev-2: none;
+  --elev-glow: none;
+}
+
+/* Spec-sheet / Mono — Teenage Engineering datasheet: light grey stock, black
+   ink, electric blue signal. Monospace everywhere, tables as layout. */
+[data-theme="specsheet"] {
+  --bg: #e8e8e6;
+  --surface: #f7f7f6;
+  --surface-2: #dcdcda;
+  --fg: #0d0d0d;
+  --muted: #6e6e6c;
+  --border: #b4b4b1;
+  --ring: #0037ff;
+  --primary: #0037ff;
+  --primary-fg: #ffffff;
+  --accent: #ff5c00;
+  --accent-fg: #1a0800;
+  --success: #007a52;
+  --warning: #a86b00;
+  --danger: #c31212;
+
+  --radius: 1px;
+
+  --font-sans: "IBM Plex Mono", ui-monospace, monospace;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Martian Mono", ui-monospace, monospace;
+
+  --elev-1: 0 0 0 1px rgba(13, 13, 13, 0.08);
+  --elev-2: 0 0 0 1px rgba(13, 13, 13, 0.12);
+  --elev-glow: none;
+}
+
+/* Kinetic / Agency — Awwwards portfolio: near-black canvas, acid lime, and
+   display type big enough to be the layout. */
+[data-theme="kinetic"] {
+  --bg: #0c0c0a;
+  --surface: #151513;
+  --surface-2: #1f1f1c;
+  --fg: #f4f4ef;
+  --muted: #8d8d85;
+  --border: #2c2c28;
+  --ring: #ccff00;
+  --primary: #ccff00;
+  --primary-fg: #161a00;
+  --accent: #ff5ca8;
+  --accent-fg: #2b0416;
+  --success: #7ee787;
+  --warning: #ffd166;
+  --danger: #ff6b6b;
+
+  --radius: 6px;
+
+  --font-sans: "Familjen Grotesk", system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Syne", system-ui, sans-serif;
+
+  --elev-1: 0 1px 0 rgba(255, 255, 255, 0.05);
+  --elev-2: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --elev-glow: 0 0 50px rgba(204, 255, 0, 0.22);
+}
+
 /* ======================== BASE STYLES ======================== */
 
 @layer base {

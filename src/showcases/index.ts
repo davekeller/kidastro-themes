@@ -9,6 +9,9 @@ import { ClayShowcase } from "./ClayShowcase";
 import { BroadsheetShowcase } from "./BroadsheetShowcase";
 import { Y2KShowcase } from "./Y2KShowcase";
 import { OrganicShowcase } from "./OrganicShowcase";
+import { SwissShowcase } from "./SwissShowcase";
+import { SpecSheetShowcase } from "./SpecSheetShowcase";
+import { KineticShowcase } from "./KineticShowcase";
 
 /**
  * The hybrid model: themes are tokens-first, but a theme can earn its own
@@ -26,4 +29,7 @@ export const customShowcases: Record<string, ComponentType<{ theme: ThemeMeta }>
   broadsheet: BroadsheetShowcase,
   y2k: Y2KShowcase,
   organic: OrganicShowcase,
+  swiss: SwissShowcase,
+  specsheet: SpecSheetShowcase,
+  kinetic: KineticShowcase,
 };
