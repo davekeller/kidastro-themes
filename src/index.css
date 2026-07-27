@@ -428,6 +428,222 @@
   --elev-glow: 0 0 50px rgba(94, 106, 210, 0.28);
 }
 
+/* ---------------------------------------------------------------
+   Mobbin-referenced themes. Each pairs a token block with a custom
+   showcase layout in src/showcases/ — see docs/style-candidates.md
+   for the reference app each one is modeled on.
+   --------------------------------------------------------------- */
+
+/* Aurora / Mesh — Stripe-era optimism: bright canvas, indigo→cyan mesh. */
+[data-theme="aurora"] {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f4f5fb;
+  --fg: #0a1130;
+  --muted: #5b658a;
+  --border: #e4e7f4;
+  --ring: #635bff;
+  --primary: #635bff;
+  --primary-fg: #ffffff;
+  --accent: #00d4ff;
+  --accent-fg: #032b33;
+  --success: #0ea86b;
+  --warning: #ff8f0d;
+  --danger: #e5484d;
+
+  --radius: 10px;
+
+  --font-sans: "Instrument Sans", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+
+  --elev-1: 0 1px 2px rgba(10, 17, 48, 0.04), 0 4px 12px rgba(10, 17, 48, 0.06);
+  --elev-2: 0 2px 6px rgba(10, 17, 48, 0.06), 0 24px 60px rgba(10, 17, 48, 0.12);
+  --elev-glow: 0 0 60px rgba(99, 91, 255, 0.25);
+}
+
+/* Neubrutalist / Candy — Gumroad energy: hot pink, thick ink outlines,
+   hard offset shadows. Louder and sweeter than the stark `brutalist`. */
+[data-theme="neubrutalist"] {
+  --bg: #f7f2ea;
+  --surface: #ffffff;
+  --surface-2: #ffe8f7;
+  --fg: #0a0a0a;
+  --muted: #57534e;
+  --border: #0a0a0a;
+  --ring: #ff90e8;
+  --primary: #ff90e8;
+  --primary-fg: #0a0a0a;
+  --accent: #90e8ff;
+  --accent-fg: #0a0a0a;
+  --success: #23a094;
+  --warning: #ffc900;
+  --danger: #ff5a5a;
+
+  --radius: 4px;
+
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-display: "Outfit", system-ui, sans-serif;
+
+  --elev-1: 4px 4px 0 #0a0a0a;
+  --elev-2: 8px 8px 0 #0a0a0a;
+  --elev-glow: none;
+}
+
+/* Glass / Spatial — visionOS depth: translucent panels over an ambient
+   aurora. Surfaces are deliberately semi-transparent. */
+[data-theme="glass"] {
+  --bg: #0b1020;
+  --surface: rgba(255, 255, 255, 0.07);
+  --surface-2: rgba(255, 255, 255, 0.12);
+  --fg: #f6f7ff;
+  --muted: #aab3d4;
+  --border: rgba(255, 255, 255, 0.16);
+  --ring: #8ab4ff;
+  --primary: #8ab4ff;
+  --primary-fg: #06122b;
+  --accent: #ff9ecd;
+  --accent-fg: #2b0a1c;
+  --success: #7ee7b8;
+  --warning: #ffd479;
+  --danger: #ff8b8b;
+
+  --radius: 20px;
+
+  --font-sans: "Urbanist", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Urbanist", system-ui, sans-serif;
+
+  --elev-1: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 8px 32px rgba(0, 0, 0, 0.36);
+  --elev-2: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 24px 70px rgba(0, 0, 0, 0.5);
+  --elev-glow: 0 0 60px rgba(138, 180, 255, 0.3);
+}
+
+/* Clay / Soft 3D — Duolingo-grade friendliness: puffy extruded surfaces
+   (inner highlight + outer drop), chunky type. */
+[data-theme="clay"] {
+  --bg: #eef2f9;
+  --surface: #ffffff;
+  --surface-2: #e3ebf7;
+  --fg: #2b3550;
+  --muted: #78849f;
+  --border: #d3ddee;
+  --ring: #58cc02;
+  --primary: #58cc02;
+  --primary-fg: #ffffff;
+  --accent: #1cb0f6;
+  --accent-fg: #04283a;
+  --success: #58cc02;
+  --warning: #ffc800;
+  --danger: #ff4b4b;
+
+  --radius: 18px;
+
+  --font-sans: "Baloo 2", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Baloo 2", system-ui, sans-serif;
+
+  --elev-1: inset 0 -4px 0 rgba(43, 53, 80, 0.13), 0 4px 10px rgba(43, 53, 80, 0.1);
+  --elev-2: inset 0 -6px 0 rgba(43, 53, 80, 0.15), 0 14px 28px rgba(43, 53, 80, 0.16);
+  --elev-glow: none;
+}
+
+/* Broadsheet — Substack/NYT print logic: newsprint, red masthead accent,
+   Newsreader throughout. Rules do the work that cards usually do. */
+[data-theme="broadsheet"] {
+  --bg: #fbfaf7;
+  --surface: #ffffff;
+  --surface-2: #f1efe9;
+  --fg: #14130f;
+  --muted: #6a675e;
+  --border: #ddd9cf;
+  --ring: #c1372b;
+  --primary: #c1372b;
+  --primary-fg: #fff8f2;
+  --accent: #1c4f8b;
+  --accent-fg: #f2f7ff;
+  --success: #2f6b46;
+  --warning: #a9741a;
+  --danger: #c1372b;
+
+  --radius: 0px;
+
+  --font-sans: "Karla", system-ui, sans-serif;
+  --font-serif: "Newsreader", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Newsreader", Georgia, serif;
+
+  --elev-1: 0 1px 0 rgba(20, 19, 15, 0.08);
+  --elev-2: 0 1px 0 rgba(20, 19, 15, 0.1), 0 8px 24px rgba(20, 19, 15, 0.06);
+  --elev-glow: none;
+}
+
+/* Y2K / Retro-futurism — Poolsuite nostalgia: sun-bleached cream, chrome
+   bevels, pixel meta type. Panels read as little OS windows. */
+[data-theme="y2k"] {
+  --bg: #ded4c0;
+  --surface: #f6efe1;
+  --surface-2: #cfc3ab;
+  --fg: #241d14;
+  --muted: #6b5f4c;
+  --border: #8c7f68;
+  --ring: #e2725b;
+  --primary: #e2725b;
+  --primary-fg: #fff6ef;
+  --accent: #3d7ea6;
+  --accent-fg: #f0f8ff;
+  --success: #4f8a5b;
+  --warning: #e0a02e;
+  --danger: #c2452f;
+
+  --radius: 2px;
+
+  --font-sans: "Chivo", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "Silkscreen", ui-monospace, monospace;
+  --font-display: "Chivo", system-ui, sans-serif;
+
+  --elev-1: inset -1px -1px 0 rgba(36, 29, 20, 0.35), inset 1px 1px 0 rgba(255, 255, 255, 0.7);
+  --elev-2: inset -2px -2px 0 rgba(36, 29, 20, 0.35), inset 2px 2px 0 rgba(255, 255, 255, 0.8),
+    3px 3px 8px rgba(36, 29, 20, 0.25);
+  --elev-glow: none;
+}
+
+/* Organic / Hand-drawn — Notion-meets-zine: warm paper, ink line, pasted-up
+   layout with squiggles and tilted cards. */
+[data-theme="organic"] {
+  --bg: #fdfbf6;
+  --surface: #ffffff;
+  --surface-2: #f4efe4;
+  --fg: #322c24;
+  --muted: #7d7367;
+  --border: #e2d9c8;
+  --ring: #d97757;
+  --primary: #d97757;
+  --primary-fg: #fff8f4;
+  --accent: #6b8f71;
+  --accent-fg: #f3f8f3;
+  --success: #6b8f71;
+  --warning: #d8a13a;
+  --danger: #c25b45;
+
+  --radius: 14px;
+
+  --font-sans: "Lora", Georgia, serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Caveat", "Lora", cursive;
+
+  --elev-1: 0 2px 4px rgba(50, 44, 36, 0.06);
+  --elev-2: 0 12px 30px rgba(50, 44, 36, 0.12);
+  --elev-glow: none;
+}
+
 /* ======================== BASE STYLES ======================== */
 
 @layer base {
@@ -497,6 +713,41 @@
   .color-bar {
     animation: none;
   }
+}
+
+/* ==================== SHOWCASE MOTION HELPERS ====================
+   Layout/motion only — all color still comes from tokens. */
+
+/* Edge-to-edge scrolling strip (neubrutalist + y2k tickers). The track holds
+   two identical copies, so a -50% slide loops seamlessly. */
+@keyframes marquee-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  display: inline-flex;
+  min-width: 200%;
+  animation: marquee-slide 30s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+/* Ambient blurred blobs behind glass panels. Sized/positioned per instance. */
+.ambient-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 /* Deep-space backdrop — part of the kidastro theme's CSS, hence the literals. */

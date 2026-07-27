@@ -78,15 +78,17 @@ across themes — only the values change.
 
 **Hybrid model (live):** themes are tokens-first, but a theme can register its
 own page composition in `src/showcases/index.ts` — `/theme/:slug` renders it
-instead of the shared `ThemeShowcase`. Built exemplars: `bento` (the page is
-one asymmetric tile grid) and `linear` (dense dark product column with feature
-rows and keyboard chips).
+instead of the shared `ThemeShowcase`. Nine themes now ship custom layouts:
+`bento`, `linear`, `aurora`, `neubrutalist`, `glass`, `clay`, `broadsheet`,
+`y2k`, `organic` — each modeled on a Mobbin reference recorded in
+`docs/style-candidates.md`.
 
 **Roadmap / what's next:**
-1. More Mobbin-informed themes with structural variety — remaining style
-   candidates are in `docs/style-candidates.md` (bento + linear are built).
-   The Mobbin MCP is registered (`claude mcp add mobbin` → https://api.mobbin.com/mcp);
-   needs a one-time OAuth by the owner before pulling references.
+1. Remaining style candidates in `docs/style-candidates.md`: Swiss typographic
+   (#5), brutalist spec-sheet (#10), kinetic type (#12) — the three with no
+   Mobbin entry. The Mobbin MCP is registered
+   (`claude mcp add mobbin` → https://api.mobbin.com/mcp) but still needs a
+   one-time OAuth by the owner before screens can be pulled programmatically.
 2. Refine the `neon` and `editorial` tokens against real UI references.
 
 **Start here:** Read `CLAUDE.md` and `README.md`, confirm you understand the token

@@ -41,14 +41,14 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   glowing keylines, keyboard-shortcut chips. Everything feels 1px-perfect.
 - **References:** Linear, Resend, Planetscale, Warp.
 
-## 3. Aurora / gradient-mesh SaaS
+## 3. Aurora / gradient-mesh SaaS ✅ *built — theme `aurora`*
 - **Vibe:** Stripe-era optimism. Light, airy, trustworthy but colorful.
 - **Layout signature:** Diagonal mesh-gradient hero bleeding behind floating
   UI screenshots, sections separated by soft color washes rather than borders,
   generous whitespace, angled section dividers.
 - **References:** Stripe, Mercury, Ramp, Retool.
 
-## 4. Neubrutalism (playful flavor)
+## 4. Neubrutalism (playful flavor) ✅ *built — theme `neubrutalist`*
 - **Vibe:** Gumroad/Figma-community energy. Loud, sticker-like, fun.
   (Different from our stark `brutalist`: this one is *candy-colored* chaos.)
 - **Layout signature:** Overlapping elements, rotated stickers/badges, thick
@@ -63,21 +63,21 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   — hierarchy comes purely from type scale and rule lines. Footnote-style meta.
 - **References:** Studio/agency portfolios, ETH-style sites, Readymag showcases.
 
-## 6. Glassmorphism / spatial
+## 6. Glassmorphism / spatial ✅ *built — theme `glass`*
 - **Vibe:** visionOS depth. Futuristic, layered, luminous.
 - **Layout signature:** Frosted translucent panels floating at different
   depths over a vivid ambient background, overlapping z-layers, soft big-radius
   cards, glow accents. Nav floats as a glass pill.
 - **References:** visionOS apps, macOS widgets, music/creative apps on Mobbin.
 
-## 7. Claymorphism / soft 3D
+## 7. Claymorphism / soft 3D ✅ *built — theme `clay`*
 - **Vibe:** Toy-like, friendly, bouncy. Duolingo-grade approachability.
 - **Layout signature:** Puffy extruded surfaces (inner + outer shadows),
   chunky full-width buttons, mascot-scale illustration slots, stacked rounded
   sections like plush layers. Everything feels squeezable.
 - **References:** Duolingo, Headspace, kids/fintech-lite apps.
 
-## 8. Editorial broadsheet
+## 8. Editorial broadsheet ✅ *built — theme `broadsheet`*
 - **Vibe:** NYT-meets-Substack. Literary, dense, human.
   (Deeper than our `editorial` theme: this changes the *layout*, not just serif tokens.)
 - **Layout signature:** Multi-column article grid, drop caps, pull quotes
@@ -85,7 +85,7 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   as a newspaper colophon. Hero is a headline stack, not a marketing hero.
 - **References:** NYT apps, The Browser, Substack reader, Are.na.
 
-## 9. Y2K / retro-futurism
+## 9. Y2K / retro-futurism ✅ *built — theme `y2k`*
 - **Vibe:** Chrome, glitter, dial-up nostalgia — back in fashion.
 - **Layout signature:** Center-stacked "desktop" with window-chrome panels
   (title bars, close buttons), pixel fonts for meta text, starburst badges,
@@ -99,7 +99,7 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   index/table-of-contents navigation, no imagery at all.
 - **References:** Teenage Engineering, SSENSE, spec-style portfolios.
 
-## 11. Organic hand-drawn
+## 11. Organic hand-drawn ✅ *built — theme `organic`*
 - **Vibe:** Notion-meets-zine. Warm, personal, imperfect.
 - **Layout signature:** Squiggly underlines and hand-drawn arrows connecting
   sections, tilted polaroid-style cards, doodle dividers, asymmetric margins
