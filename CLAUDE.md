@@ -54,6 +54,16 @@ To bootstrap a new app from a theme: copy that theme's `[data-theme]` block, the
 `@theme inline` mapping from `index.css`, and the components you need. Set
 `data-theme="<slug>"` on the root element.
 
+## Shipping changes
+
+Work on a branch and open a PR — don't push to `main` directly. After a PR
+merges, the live site at kidastro.com/themes only refreshes when the portfolio
+repo redeploys:
+
+```bash
+gh workflow run deploy.yml --repo davekeller/kidastro
+```
+
 ## Commands
 
 ```bash

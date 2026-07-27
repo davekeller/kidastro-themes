@@ -98,6 +98,55 @@ export const themes: ThemeMeta[] = [
       "Dev-tool precision — dense centered column, feature rows, hairline glows, keyboard chips. Custom layout.",
     tags: ["Dark", "Dev-tool", "Custom layout"],
   },
+  {
+    slug: "aurora",
+    name: "Aurora / Mesh",
+    description:
+      "Stripe-era optimism: indigo-to-cyan gradient mesh, angled section seams, floating product cards.",
+    tags: ["Light", "SaaS", "Custom layout"],
+  },
+  {
+    slug: "neubrutalist",
+    name: "Neubrutalist / Candy",
+    description:
+      "Gumroad energy — hot pink, thick ink outlines, hard offset shadows, rotated stickers, marquee.",
+    tags: ["Loud", "Playful", "Custom layout"],
+  },
+  {
+    slug: "glass",
+    name: "Glass / Spatial",
+    description:
+      "visionOS depth: frosted translucent panels floating at different depths over an ambient aurora.",
+    tags: ["Dark", "Frosted", "Custom layout"],
+  },
+  {
+    slug: "clay",
+    name: "Clay / Soft 3D",
+    description:
+      "Duolingo-grade friendliness — puffy extruded surfaces, chunky buttons, a stepped lesson path.",
+    tags: ["Playful", "3D", "Custom layout"],
+  },
+  {
+    slug: "broadsheet",
+    name: "Editorial / Broadsheet",
+    description:
+      "Substack meets newsprint: masthead rules, multi-column article grid, drop caps, pull quotes.",
+    tags: ["Serif", "Print", "Custom layout"],
+  },
+  {
+    slug: "y2k",
+    name: "Y2K / Retro-future",
+    description:
+      "Poolsuite nostalgia — sun-bleached cream, chrome bevels, OS-window panels, pixel meta type.",
+    tags: ["Retro", "Bevel", "Custom layout"],
+  },
+  {
+    slug: "organic",
+    name: "Organic / Hand-drawn",
+    description:
+      "Notion-meets-zine: warm paper, squiggle underlines, tilted polaroid cards, pasted-up margins.",
+    tags: ["Warm", "Hand-drawn", "Custom layout"],
+  },
 ];
 
 export function getTheme(slug?: string): ThemeMeta | undefined {
