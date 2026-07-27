@@ -119,12 +119,14 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
                 <a
                   key={p.n}
                   href="#"
-                  className="group flex items-baseline gap-6 border-t border-border py-6 transition-colors hover:bg-surface"
+                  className="group flex items-baseline gap-3 border-t border-border py-6 transition-colors hover:bg-surface sm:gap-6"
                 >
                   <span className="font-display text-sm tabular-nums text-muted">
                     {p.n}
                   </span>
-                  <span className="flex-1 font-display text-4xl font-extrabold uppercase tracking-tight transition-transform duration-300 group-hover:translate-x-3 sm:text-5xl">
+                  {/* min-w-0 + a smaller mobile step: at 375px the display size
+                      plus the year and arrow otherwise exceed the viewport. */}
+                  <span className="min-w-0 flex-1 font-display text-2xl font-extrabold uppercase tracking-tight transition-transform duration-300 group-hover:translate-x-3 sm:text-4xl md:text-5xl">
                     {p.name}
                   </span>
                   {/* Revealed on hover */}
