@@ -6,9 +6,13 @@ reusable.
 
 ## The golden rule
 
-Style with **tokens only**. Never hardcode a hex color, font family, radius, or
-shadow in a component. If you reach for `#fff`, `text-gray-500`, `rounded-[6px]`,
-or a literal font — stop and use a token instead.
+Style with **tokens only**. Never hardcode a hex color, font family, radius,
+shadow, **or timing** in a component. If you reach for `#fff`, `text-gray-500`,
+`rounded-[6px]`, `duration-300`, `ease-out`, `hover:-translate-y-1`, or a literal
+font — stop and use a token instead.
+
+There are **two axes**: `data-theme` controls how things look, `data-motion`
+controls how they move. Both sit on the same wrapper and compose freely.
 
 ## Token utilities (all track the active theme)
 
@@ -22,6 +26,28 @@ or a literal font — stop and use a token instead.
 - **Elevation:** `elev-1`, `elev-2`, `glow` (helper classes in `index.css`)
 - **Opacity mixes are fine:** e.g. `bg-primary/12`, `bg-surface-2/40`.
 
+## Motion utilities (all track the active motion style)
+
+- **Duration:** `dur-1` … `dur-5` — micro / control / surface / overlay / scene.
+  Helper classes, because Tailwind v4 has no `--duration-*` theme namespace.
+- **Easing:** `ease-standard`, `ease-entrance`, `ease-exit`, `ease-emphasis`.
+  Real Tailwind utilities — `--ease-*` *is* a v4 namespace.
+- **Interaction:** `hover-lift` (rises by the style's `--lift`), `press-scale`
+  (compresses to `--press`).
+- **Raw vars** when you need a value rather than a class: `--dur-1…5`,
+  `--curve-standard|entrance|exit|emphasis`, `--travel-sm|md|lg`, `--lift`,
+  `--press`, `--stagger`.
+
+**You usually don't need any of these.** Every Tailwind `transition-*` utility
+resolves through `--default-transition-duration` and
+`--default-transition-timing-function`, which `@theme inline` points at the motion
+tokens. So a plain `transition-colors` is already motion-aware. Reach for an
+explicit `dur-*` or `ease-*` only when the semantics differ from the default —
+a tooltip that should feel instant, an overlay that should feel slow.
+
+Conversely: **writing `duration-300` opts that element out of the system**, since
+it overrides the default. That's the one thing to avoid.
+
 ## Add a theme
 
 1. Copy an existing `[data-theme="..."]` block in `src/index.css` and retune the tokens.
@@ -29,6 +55,19 @@ or a literal font — stop and use a token instead.
 
 The gallery and `/theme/:slug` route pick it up automatically. Keep the token
 **names** identical across themes — only the values change.
+
+## Add a motion style
+
+1. Copy an existing `[data-motion="..."]` block in `src/index.css` and retune the
+   curves, durations, and interaction values.
+2. Add a matching entry to `src/motion/index.ts` — including `curves`, `durations`,
+   and `spring`, which the instruments on `/motion` need in JS form.
+
+Same rule as themes: keep the token **names** identical, change only the values.
+
+**`src/index.css` is the source of truth.** The numbers in `src/motion/index.ts`
+are duplicated so the curve plots and spring bench have something to draw with; if
+the two ever disagree, the CSS is right.
 
 ## Add a custom showcase layout (the hybrid model)
 

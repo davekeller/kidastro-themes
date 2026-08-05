@@ -42,6 +42,32 @@
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
   --font-display: var(--font-display);
+
+  /* motion — the second axis. Raw values live in the [data-motion] blocks
+     below as --curve-*; --ease-* is Tailwind's namespace, so mapping them here
+     is what mints the `ease-standard` / `ease-emphasis` utilities. The two
+     names have to differ or the var() reference would be circular.
+
+     Verified against Tailwind 4.3: --ease-* IS a theme namespace and generates
+     utilities; --duration-* is NOT, which is why durations are helper classes
+     (.dur-1 … .dur-5) further down rather than theme entries. */
+  --ease-standard: var(--curve-standard);
+  --ease-entrance: var(--curve-entrance);
+  --ease-exit: var(--curve-exit);
+  --ease-emphasis: var(--curve-emphasis);
+
+  /* This is the load-bearing pair. Every Tailwind transition utility compiles
+     to `var(--tw-duration, var(--default-transition-duration))` and the same
+     shape for timing-function, so pointing those defaults at motion tokens
+     makes all ~56 existing `transition-*` call sites motion-aware without
+     touching a single component.
+
+     `inline` matters here: it emits the var() reference rather than resolving
+     it at build time, so --dur-2 is looked up from the nearest [data-motion]
+     ancestor at use time. Resolve it early and every theme would freeze on
+     whatever the default style was. */
+  --default-transition-duration: var(--dur-2);
+  --default-transition-timing-function: var(--curve-standard);
 }
 
 /* =========================== THEMES =========================== */
@@ -868,6 +894,149 @@
   --elev-glow: 0 0 30px rgba(0, 122, 255, 0.18);
 }
 
+/* ======================== MOTION ========================
+   The second axis. `data-motion` sits beside `data-theme` on the same wrapper:
+   one controls how it looks, the other how it moves. Nothing re-renders when
+   either changes — only the variables.
+
+   Five styles, each the motion counterpart of an aesthetic already in the
+   library. Every block defines the same names; only the values change, exactly
+   like the theme blocks above.
+
+   Deliberately CSS-only. This repo's whole value is that its output is
+   portable — copy a token block and some components into a fresh project and
+   go. A motion system expressed as variables and transitions travels; one
+   expressed as a JS animation library drags a runtime and an API along with it.
+   Springs still need JS, so src/motion exports the same numbers for the spring
+   bench; nothing in the component library depends on it.
+
+   Token groups:
+     --curve-*   easing (mapped to --ease-* utilities in @theme inline)
+     --dur-1..5  micro / control / surface / overlay / scene
+     --travel-*  how far things move
+     --lift      hover displacement
+     --press     active scale
+     --stagger   list-item offset
+   ========================================================= */
+
+/* Precise — Linear and Apple. Short, tight, barely any overshoot.
+   Pairs with: linear, minimal, console, docs. Also the default. */
+:root,
+[data-motion="precise"] {
+  --curve-standard: cubic-bezier(0.2, 0, 0, 1);
+  --curve-entrance: cubic-bezier(0, 0, 0, 1);
+  --curve-exit: cubic-bezier(0.4, 0, 1, 1);
+  --curve-emphasis: cubic-bezier(0.3, 1.3, 0.4, 1);
+
+  --dur-1: 90ms;
+  --dur-2: 150ms;
+  --dur-3: 240ms;
+  --dur-4: 380ms;
+  --dur-5: 620ms;
+
+  --travel-sm: 4px;
+  --travel-md: 10px;
+  --travel-lg: 24px;
+
+  --lift: -2px;
+  --press: 0.985;
+  --stagger: 35ms;
+}
+
+/* Springy — Duolingo and clay. Overshoots and settles; everything is bouncy.
+   Pairs with: clay, candy, neubrutalist, native. */
+[data-motion="springy"] {
+  --curve-standard: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --curve-entrance: cubic-bezier(0.22, 1.7, 0.36, 1);
+  --curve-exit: cubic-bezier(0.5, -0.4, 0.8, 0.5);
+  --curve-emphasis: cubic-bezier(0.28, 2, 0.4, 1);
+
+  --dur-1: 120ms;
+  --dur-2: 220ms;
+  --dur-3: 340ms;
+  --dur-4: 520ms;
+  --dur-5: 820ms;
+
+  --travel-sm: 6px;
+  --travel-md: 16px;
+  --travel-lg: 36px;
+
+  --lift: -4px;
+  --press: 0.94;
+  --stagger: 60ms;
+}
+
+/* Floaty — spatial. Slow, long travel, soft eases; nothing arrives abruptly.
+   Pairs with: glass, liquid, aurora, kidastro. */
+[data-motion="floaty"] {
+  --curve-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --curve-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --curve-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --curve-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --dur-1: 160ms;
+  --dur-2: 300ms;
+  --dur-3: 480ms;
+  --dur-4: 720ms;
+  --dur-5: 1100ms;
+
+  --travel-sm: 8px;
+  --travel-md: 20px;
+  --travel-lg: 48px;
+
+  --lift: -6px;
+  --press: 0.99;
+  --stagger: 80ms;
+}
+
+/* Mechanical — datasheet and terminal. Linear and stepped, zero overshoot,
+   near-instant. --dur-1 is 0ms on purpose: micro-interactions don't animate at
+   all here, they just change. That's the design statement, not an oversight.
+   Pairs with: specsheet, terminal, brutalist, swiss. */
+[data-motion="mechanical"] {
+  --curve-standard: linear;
+  --curve-entrance: steps(4, end);
+  --curve-exit: steps(3, end);
+  --curve-emphasis: linear;
+
+  --dur-1: 0ms;
+  --dur-2: 70ms;
+  --dur-3: 110ms;
+  --dur-4: 160ms;
+  --dur-5: 240ms;
+
+  --travel-sm: 0px;
+  --travel-md: 4px;
+  --travel-lg: 8px;
+
+  --lift: 0px;
+  --press: 1;
+  --stagger: 20ms;
+}
+
+/* Cinematic — agency reel. Long, heavy ease-in-out, big travel. Everything is
+   a camera move. Pairs with: kinetic, broadsheet, luxe, deco. */
+[data-motion="cinematic"] {
+  --curve-standard: cubic-bezier(0.65, 0, 0.35, 1);
+  --curve-entrance: cubic-bezier(0.22, 1, 0.36, 1);
+  --curve-exit: cubic-bezier(0.64, 0, 0.78, 0);
+  --curve-emphasis: cubic-bezier(0.83, 0, 0.17, 1);
+
+  --dur-1: 200ms;
+  --dur-2: 400ms;
+  --dur-3: 650ms;
+  --dur-4: 950ms;
+  --dur-5: 1500ms;
+
+  --travel-sm: 10px;
+  --travel-md: 28px;
+  --travel-lg: 64px;
+
+  --lift: -8px;
+  --press: 0.97;
+  --stagger: 110ms;
+}
+
 /* ======================== BASE STYLES ======================== */
 
 @layer base {
@@ -901,6 +1070,62 @@
 }
 .glow {
   box-shadow: var(--elev-glow);
+}
+
+/* Duration helpers — resolve to the active motion style's timing tokens.
+   Tailwind v4 has no --duration-* theme namespace (verified against 4.3), so
+   these stand in for what would otherwise be `duration-[var(--dur-2)]` at every
+   call site. Same shape as the elevation helpers above.
+
+   Plain classes rather than @layer utilities, deliberately: unlayered rules win
+   over Tailwind's layered ones, so `dur-2` overrides a stray `duration-200`
+   instead of losing to it. */
+.dur-1 {
+  transition-duration: var(--dur-1);
+}
+.dur-2 {
+  transition-duration: var(--dur-2);
+}
+.dur-3 {
+  transition-duration: var(--dur-3);
+}
+.dur-4 {
+  transition-duration: var(--dur-4);
+}
+.dur-5 {
+  transition-duration: var(--dur-5);
+}
+
+/* Interaction helpers — the behavioral half of a motion style. `hover-lift`
+   covers the overwhelmingly common "card rises on hover" case, so a component
+   doesn't hardcode a distance the motion style should own. */
+.hover-lift {
+  transition-property: transform, box-shadow;
+  transition-duration: var(--dur-2);
+  transition-timing-function: var(--curve-standard);
+}
+.hover-lift:hover {
+  transform: translateY(var(--lift));
+}
+.press-scale:active {
+  transform: scale(var(--press));
+}
+
+/* Motion styles are a design choice; a reduced-motion preference is not.
+   This wins over everything above because it comes last and matches harder. */
+@media (prefers-reduced-motion: reduce) {
+  .dur-1,
+  .dur-2,
+  .dur-3,
+  .dur-4,
+  .dur-5,
+  .hover-lift {
+    transition-duration: 1ms;
+  }
+  .hover-lift:hover,
+  .press-scale:active {
+    transform: none;
+  }
 }
 
 /* ==================== KID ASTRO CHROME HELPERS ====================
