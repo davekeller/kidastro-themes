@@ -80,7 +80,14 @@ export default function Gallery() {
               >
                 motion styles
               </Link>{" "}
-              decide how it all moves.
+              decide how it all moves, and{" "}
+              <Link
+                to="/interaction"
+                className="font-medium text-primary underline decoration-border underline-offset-4 transition-colors hover:decoration-current"
+              >
+                interaction styles
+              </Link>{" "}
+              decide how it&rsquo;s built.
             </p>
           </div>
         </header>

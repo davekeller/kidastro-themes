@@ -24,16 +24,20 @@ const write = (segments) => {
 
 const themes = slugsFrom("src/themes/index.ts", "theme");
 const motions = slugsFrom("src/motion/index.ts", "motion");
+const interactions = slugsFrom("src/interaction/index.tsx", "interaction");
 
 copyFileSync(index, join(dist, "404.html"));
 for (const slug of themes) write(["theme", slug]);
 // Bare routes need their own files too — they're routes, not just prefixes.
 write(["motion"]);
 write(["start"]);
+write(["interaction"]);
+for (const slug of interactions) write(["interaction", slug]);
 for (const slug of motions) write(["motion", slug]);
 
 console.log(
   `spa-fallback: 404.html + ${themes.length} theme routes (${themes.join(", ")})\n` +
     `              + /motion + ${motions.length} motion routes (${motions.join(", ")})\n` +
-    `              + /start`
+    `              + /start\n` +
+    `              + /interaction + ${interactions.length} interaction routes (${interactions.join(", ")})`
 );
