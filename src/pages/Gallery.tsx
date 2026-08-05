@@ -62,6 +62,16 @@ export default function Gallery() {
               to open its full component showcase, or point your AI tools at any
               theme to bootstrap a prototype with the styling already in place.
             </p>
+            <p className="pointer-events-auto mx-auto mt-5 max-w-2xl text-base text-muted">
+              There&rsquo;s a second axis too —{" "}
+              <Link
+                to="/motion"
+                className="font-medium text-primary underline decoration-border underline-offset-4 transition-colors hover:decoration-current"
+              >
+                motion styles
+              </Link>{" "}
+              decide how it all moves.
+            </p>
           </div>
         </header>
 
