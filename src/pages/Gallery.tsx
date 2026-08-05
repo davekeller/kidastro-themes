@@ -63,6 +63,16 @@ export default function Gallery() {
               theme to bootstrap a prototype with the styling already in place.
             </p>
             <p className="pointer-events-auto mx-auto mt-5 max-w-2xl text-base text-muted">
+              Ready to build?{" "}
+              <Link
+                to="/start"
+                className="font-medium text-primary underline decoration-border underline-offset-4 transition-colors hover:decoration-current"
+              >
+                Start a project
+              </Link>{" "}
+              and leave with a theme, a motion style, and a prompt.
+            </p>
+            <p className="pointer-events-auto mx-auto mt-3 max-w-2xl text-base text-muted">
               There&rsquo;s a second axis too —{" "}
               <Link
                 to="/motion"
