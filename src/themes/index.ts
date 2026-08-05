@@ -168,6 +168,34 @@ export const themes: ThemeMeta[] = [
       "Awwwards energy — viewport-filling display type, marquees, scroll-pinned scenes, acid lime on black.",
     tags: ["Dark", "Editorial", "Custom layout"],
   },
+  {
+    slug: "console",
+    name: "Console / Dashboard",
+    description:
+      "The app behind the login — sidebar rail, KPI row, charts, and a data table. Dark and engineered.",
+    tags: ["Dark", "Dashboard", "App shell", "Custom layout"],
+  },
+  {
+    slug: "docs",
+    name: "Docs / Knowledge base",
+    description:
+      "Three-column documentation: nav tree, prose with anchors, and an on-this-page rail. Code everywhere.",
+    tags: ["Light", "Docs", "Mono", "Custom layout"],
+  },
+  {
+    slug: "liquid",
+    name: "Liquid / Chrome",
+    description:
+      "Specular translucency — wet edge highlights, concentric radii, iridescent violet over deep indigo.",
+    tags: ["Dark", "Frosted", "Spatial", "Custom layout"],
+  },
+  {
+    slug: "native",
+    name: "Native / Mobile",
+    description:
+      "A phone: grouped list rows, segmented controls, a bottom tab bar, and a sheet. iOS-flavored.",
+    tags: ["Light", "Mobile", "App shell", "Custom layout"],
+  },
 ];
 
 export function getTheme(slug?: string): ThemeMeta | undefined {

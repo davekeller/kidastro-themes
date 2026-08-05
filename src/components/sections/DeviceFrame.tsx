@@ -28,7 +28,10 @@ export function DeviceFrame({
   return (
     <div
       className={cn(
-        "relative mx-auto flex h-[600px] w-[300px] flex-col overflow-hidden rounded-[2rem] border-4 border-border bg-bg elev-2",
+        // shrink-0 matters: as a flex item the frame would otherwise squash
+        // below 300px on a narrow viewport, and a phone bezel that changes
+        // width reads as broken. With shrink off, rows wrap instead.
+        "relative mx-auto flex h-[600px] w-[300px] shrink-0 flex-col overflow-hidden rounded-[2rem] border-4 border-border bg-bg elev-2",
         className
       )}
       {...props}
