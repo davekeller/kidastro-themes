@@ -22,9 +22,12 @@ export default function MotionGallery() {
       <div aria-hidden className="color-bar fixed top-0 z-50 h-[3px] w-full" />
 
       <div className="relative z-10">
-        <header className="mx-auto max-w-3xl px-6 pb-12 pt-24 text-center">
-          <nav aria-label="Breadcrumb" className="mb-6 text-sm font-medium">
-            <ol className="flex items-center justify-center gap-2">
+        <header className="relative mx-auto max-w-3xl px-6 pb-12 pt-24 text-center">
+          <nav
+            aria-label="Breadcrumb"
+            className="absolute top-6 left-6 z-30 text-left text-sm font-medium"
+          >
+            <ol className="flex items-center gap-2">
               <li>
                 <a href="https://kidastro.com" className="text-muted transition-colors hover:text-fg">
                   kidastro
