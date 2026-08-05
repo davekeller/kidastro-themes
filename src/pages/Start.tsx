@@ -245,7 +245,10 @@ export default function Start() {
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
               Theme — how it looks
             </h2>
-            <div className="mt-4 grid max-h-72 grid-cols-2 gap-2 overflow-y-auto pr-1 sm:grid-cols-3">
+            {/* Two columns at most: the three-axis layout leaves this card about
+                a third of the page, and three columns truncated every theme name
+                to two characters. */}
+            <div className="mt-4 grid max-h-72 grid-cols-1 gap-2 overflow-y-auto pr-1 sm:grid-cols-2">
               {themes.map((t) => (
                 <button
                   key={t.slug}
