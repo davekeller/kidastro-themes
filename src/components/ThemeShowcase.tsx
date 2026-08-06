@@ -7,6 +7,7 @@ import { Pricing } from "./sections/Pricing";
 import { Testimonial } from "./sections/Testimonial";
 import { CTA } from "./sections/CTA";
 import { ComponentLab } from "./sections/ComponentLab";
+import { AppComponentLab } from "./sections/AppComponentLab";
 import { TokenPanel } from "./sections/TokenPanel";
 import { Footer } from "./sections/Footer";
 
@@ -25,6 +26,7 @@ export function ThemeShowcase({ theme }: { theme: ThemeMeta }) {
         <Pricing />
         <Testimonial />
         <ComponentLab />
+        <AppComponentLab />
         <CTA />
         <TokenPanel themeName={theme.name} />
       </main>

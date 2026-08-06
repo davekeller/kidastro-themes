@@ -1,3 +1,4 @@
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { themes } from "../themes";
 import type { ThemeMeta } from "../themes/types";
@@ -5,8 +6,37 @@ import { AstroHedron } from "../components/AstroHedron";
 import { AstroHelmet } from "../components/AstroHelmet";
 import { Starfield } from "../components/Starfield";
 import { NorthernLights } from "../components/NorthernLights";
+import { FilterChips, Input } from "../components/primitives";
 
 export default function Gallery() {
+  const [tags, setTags] = useState<string[]>([]);
+  const [query, setQuery] = useState("");
+
+  // Tag vocabulary comes from the registry itself, so a new theme's tags show
+  // up as filters with nothing else to wire.
+  const allTags = useMemo(
+    () => [...new Set(themes.flatMap((t) => t.tags))].sort((a, b) => a.localeCompare(b)),
+    []
+  );
+
+  const visible = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return themes.filter((t) => {
+      // Tags are OR'd — selecting "Dark" and "Serif" widens the results
+      // rather than demanding both, which at this count is what you want.
+      const tagMatch = tags.length === 0 || t.tags.some((tag) => tags.includes(tag));
+      const textMatch =
+        !q ||
+        t.name.toLowerCase().includes(q) ||
+        t.description.toLowerCase().includes(q) ||
+        t.tags.some((tag) => tag.toLowerCase().includes(q));
+      return tagMatch && textMatch;
+    });
+  }, [tags, query]);
+
+  const toggleTag = (tag: string) =>
+    setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+
   return (
     <div
       data-theme="kidastro"
@@ -36,11 +66,39 @@ export default function Gallery() {
         </header>
 
         <main className="mx-auto max-w-6xl px-6 pb-8">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {themes.map((t) => (
-              <ThemeCard key={t.slug} theme={t} />
-            ))}
+          <div className="mb-8 flex flex-col gap-4">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Input
+                type="search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Filter themes…"
+                aria-label="Filter themes"
+                className="max-w-xs"
+              />
+              <p aria-live="polite" className="text-sm text-muted">
+                {visible.length} of {themes.length}
+              </p>
+            </div>
+            <FilterChips
+              options={allTags}
+              selected={tags}
+              onToggle={toggleTag}
+              onClear={() => setTags([])}
+            />
           </div>
+
+          {visible.length > 0 ? (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {visible.map((t) => (
+                <ThemeCard key={t.slug} theme={t} />
+              ))}
+            </div>
+          ) : (
+            <p className="rounded-xl border border-border bg-surface p-8 text-center text-sm text-muted">
+              Nothing matches that. Try fewer tags.
+            </p>
+          )}
         </main>
 
         {/* Sign-off: the homepage icosahedron */}
