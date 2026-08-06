@@ -12,6 +12,10 @@ import { OrganicShowcase } from "./OrganicShowcase";
 import { SwissShowcase } from "./SwissShowcase";
 import { SpecSheetShowcase } from "./SpecSheetShowcase";
 import { KineticShowcase } from "./KineticShowcase";
+import { ConsoleShowcase } from "./ConsoleShowcase";
+import { DocsShowcase } from "./DocsShowcase";
+import { LiquidShowcase } from "./LiquidShowcase";
+import { NativeShowcase } from "./NativeShowcase";
 
 /**
  * The hybrid model: themes are tokens-first, but a theme can earn its own
@@ -32,4 +36,8 @@ export const customShowcases: Record<string, ComponentType<{ theme: ThemeMeta }>
   swiss: SwissShowcase,
   specsheet: SpecSheetShowcase,
   kinetic: KineticShowcase,
+  console: ConsoleShowcase,
+  docs: DocsShowcase,
+  liquid: LiquidShowcase,
+  native: NativeShowcase,
 };

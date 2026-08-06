@@ -116,6 +116,53 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
 
 ---
 
+# Wave three — the layouts the library was missing
+
+The twelve above all differ by *layout signature*, but every one of them is
+still a **marketing one-pager**. That was the real gap: the surfaces you
+actually start building most often weren't represented at all. These four fix
+that, and are weighted toward reuse rather than novelty.
+
+They also share a component floor — the fourteen shared sections added
+alongside them (Sidebar, AppTopBar, StatTile, ChartCard, FilterChips, DocsNav,
+TOC, CodeBlock, Callout, DeviceFrame, ListRow, SegmentedControl, TabBar,
+Sheet), all token-only and reusable by the earlier themes.
+
+## 13. Console / dashboard ✅ *built — theme `console`*
+- **Vibe:** The app behind the login. Dark, engineered, data-first.
+- **Layout signature:** A real application shell — fixed sidebar rail, top bar
+  with search and actions, a KPI row, charts, and a data table as the primary
+  surface. No hero, no pricing, no marketing flow.
+- **Distinct from `linear`:** that one is a dark *marketing* column; this is
+  the product itself.
+- **References:** Vercel, Linear's app, Grafana, Railway.
+
+## 14. Docs / knowledge base ✅ *built — theme `docs`*
+- **Vibe:** Calm, readable, authoritative. Warm-neutral paper, violet accent.
+- **Layout signature:** Three columns — nav tree, prose column with anchored
+  headings, and an on-this-page rail. Code blocks and callouts carry as much
+  weight as the prose.
+- **References:** Mintlify, Stripe docs, Vercel docs, Docusaurus sites.
+
+## 15. Liquid / chrome ✅ *built — theme `liquid`*
+- **Vibe:** Specular and wet. The current 2026 look.
+- **Layout signature:** Floating translucent panels with highlights on their
+  top *and* bottom edges, large concentric radii, overlapping panel stacks, and
+  a caustic wash built from token colors at low opacity.
+- **Distinct from `glass`:** that one is flat visionOS frost; this one has
+  thickness.
+- **References:** Apple's 2026 design language, Family, Arc.
+
+## 16. Native / mobile ✅ *built — theme `native`*
+- **Vibe:** iOS-flavored. Systemy, thumb-first.
+- **Layout signature:** Content lives inside phone viewports rather than on a
+  page — grouped list rows on the page-gray, large titles, segmented controls,
+  a bottom tab bar, and a sheet. Two frames side by side so a list screen and a
+  detail screen show at once.
+- **References:** iOS Settings, Things, Apple Music.
+
+---
+
 ## How these will be built (the hybrid model)
 
 Per `plan.md` §4, themes that earn it get **per-theme composition**: the
