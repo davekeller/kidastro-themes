@@ -1111,6 +1111,50 @@
   transform: scale(var(--press));
 }
 
+/* An entrance for things that mount rather than transition — a toast has no
+   previous state to interpolate from, so it needs an animation, not a
+   transition. Travel and timing both come from the motion style. */
+@keyframes motion-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--travel-md));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.motion-enter {
+  animation: motion-enter var(--dur-3) var(--curve-entrance) both;
+}
+
+/* Gallery card preview — a dot looping a lane so the card demonstrates its own
+   curve. Duration and timing come from the JSX per card.
+
+   Animates `left` rather than a transform on purpose: percentages in `left`
+   resolve against the lane, whereas in `translate` they resolve against the
+   dot's own width, which made the travel distance unrelated to the container.
+   It's one 14px dot, so the compositor cost is irrelevant.
+
+   The pause at 45–55% gives the eye a beat at the far end before it returns. */
+@keyframes motion-lane {
+  0% {
+    left: 0.375rem;
+  }
+  45%,
+  55% {
+    left: calc(100% - 1.25rem);
+  }
+  100% {
+    left: 0.375rem;
+  }
+}
+
+.motion-lane {
+  animation: motion-lane linear infinite;
+}
+
 /* Motion styles are a design choice; a reduced-motion preference is not.
    This wins over everything above because it comes last and matches harder. */
 @media (prefers-reduced-motion: reduce) {
@@ -1126,6 +1170,29 @@
   .press-scale:active {
     transform: none;
   }
+  .motion-enter {
+    animation-duration: 1ms;
+  }
+}
+
+/* The lab's reduced-motion preview. Setting data-reduce on the wrapper forces
+   the same collapse the media query would, so degradation is checkable without
+   digging through OS settings. Deliberately mirrors the block above rather than
+   sharing a selector list — the media query must keep working on its own. */
+[data-reduce="true"] .dur-1,
+[data-reduce="true"] .dur-2,
+[data-reduce="true"] .dur-3,
+[data-reduce="true"] .dur-4,
+[data-reduce="true"] .dur-5,
+[data-reduce="true"] .hover-lift,
+[data-reduce="true"] * {
+  transition-duration: 1ms !important;
+  animation-duration: 1ms !important;
+}
+
+[data-reduce="true"] .hover-lift:hover,
+[data-reduce="true"] .press-scale:active {
+  transform: none;
 }
 
 /* ==================== KID ASTRO CHROME HELPERS ====================
