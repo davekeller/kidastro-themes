@@ -125,7 +125,7 @@ function ThemeCard({ theme }: { theme: ThemeMeta }) {
   return (
     <Link
       to={`/theme/${theme.slug}`}
-      className="group block overflow-hidden rounded-2xl border border-border bg-surface elev-1 transition-transform duration-200 hover:-translate-y-1"
+      className="group block overflow-hidden rounded-2xl border border-border bg-surface elev-1 hover-lift"
     >
       {/* Live preview rendered in the theme's own tokens */}
       <div data-theme={theme.slug} className="bg-bg p-5">

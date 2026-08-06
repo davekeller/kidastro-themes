@@ -25,7 +25,7 @@ export function Progress({ value, label, className }: ProgressProps) {
         className="h-2 w-full overflow-hidden rounded-full bg-surface-2"
       >
         <div
-          className="h-full rounded-full bg-primary transition-[width] duration-500"
+          className="h-full rounded-full bg-primary transition-[width] dur-4"
           style={{ width: `${clamped}%` }}
         />
       </div>

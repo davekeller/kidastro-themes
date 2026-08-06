@@ -127,11 +127,11 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
                   </span>
                   {/* min-w-0 + a smaller mobile step: at 375px the display size
                       plus the year and arrow otherwise exceed the viewport. */}
-                  <span className="min-w-0 flex-1 font-display text-2xl font-extrabold uppercase tracking-tight transition-transform duration-300 group-hover:translate-x-3 sm:text-4xl md:text-5xl">
+                  <span className="min-w-0 flex-1 font-display text-2xl font-extrabold uppercase tracking-tight transition-transform dur-3 group-hover:translate-x-3 sm:text-4xl md:text-5xl">
                     {p.name}
                   </span>
                   {/* Revealed on hover */}
-                  <span className="hidden text-sm uppercase tracking-widest text-muted opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:block">
+                  <span className="hidden text-sm uppercase tracking-widest text-muted opacity-0 transition-opacity dur-3 group-hover:opacity-100 sm:block">
                     {p.disc}
                   </span>
                   <span className="font-mono text-sm tabular-nums text-muted">
@@ -139,7 +139,7 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
                   </span>
                   <ArrowRight
                     size={20}
-                    className="shrink-0 -translate-x-2 text-primary opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                    className="shrink-0 -translate-x-2 text-primary opacity-0 transition-all dur-3 group-hover:translate-x-0 group-hover:opacity-100"
                   />
                 </a>
               ))}
@@ -184,7 +184,7 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
             Say
             <br />
             hello
-            <span className="inline-block transition-transform duration-300 group-hover:translate-x-6">
+            <span className="inline-block transition-transform dur-3 group-hover:translate-x-6">
               →
             </span>
           </a>

@@ -16,6 +16,27 @@ npm run build    # production build to /dist
 npm run typecheck
 ```
 
+## Two axes
+
+**Themes** control how things look. **Motion styles** control how they move.
+`data-theme` and `data-motion` sit on the same wrapper and compose freely, so
+`clay` + `springy` and `specsheet` + `mechanical` are both one attribute apart:
+
+```html
+<div data-theme="clay" data-motion="springy"> … </div>
+```
+
+Five motion styles — `precise` (the default), `springy`, `floaty`, `mechanical`,
+`cinematic` — each a set of easing curves, a five-tier duration scale, and the
+interaction values (`--lift`, `--press`, `--stagger`) that give a style its feel.
+Values live in `[data-motion]` blocks in `src/index.css`; `src/motion/` holds the
+registry.
+
+Motion is **CSS-only and dependency-free**, on purpose. This library's value is
+that its output is portable — a motion system made of variables and transitions
+travels into a new project; one built on a JS animation library drags a runtime
+along with it.
+
 ## How theming works
 
 Two clean layers:
@@ -40,6 +61,13 @@ else re-renders — only the variables change.
 
 That's it — the gallery and routes pick it up automatically.
 
+## Add a motion style
+
+1. Add a `[data-motion="<slug>"]` block in `src/index.css` (copy an existing one).
+2. Add an entry to the array in `src/motion/index.ts`.
+
+Same deal. See [`CLAUDE.md`](CLAUDE.md) for which token names to keep identical.
+
 ## Project structure
 
 ```
@@ -50,6 +78,7 @@ src/
     ThemeShowcase.tsx   the shared one-pager composition
     icons.tsx
   themes/         token metadata + registry (values live in index.css)
+  motion/         motion metadata + registry (values live in index.css)
   pages/          Gallery (list view) + ThemePage (detail)
   lib/            helpers
   index.css       Tailwind entry + token architecture + all theme blocks
@@ -57,9 +86,14 @@ src/
 
 ## Reuse a theme in a new project
 
-Copy the theme's `[data-theme]` block from `src/index.css`, the `@theme inline`
-mapping, and whatever components you need. Set `data-theme="<slug>"` on your root
-element and the tokens take over. See [`CLAUDE.md`](CLAUDE.md) for the
+Copy the theme's `[data-theme]` block from `src/index.css`, the motion style's
+`[data-motion]` block, the `@theme inline` mapping, and whatever components you
+need. Set `data-theme="<slug>" data-motion="<slug>"` on your root element and the
+tokens take over.
+
+Don't skip the `@theme inline` block: the `--default-transition-*` entries in it
+are what make every `transition-*` utility resolve through the motion tokens. Leave
+them out and components fall back to Tailwind's stock 150ms. See [`CLAUDE.md`](CLAUDE.md) for the
 conventions AI tools should follow when building on top of a theme.
 
 ## Deploy
