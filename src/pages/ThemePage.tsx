@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getTheme, themes } from "../themes";
+import { DEFAULT_MOTION, getMotion, motionStyles } from "../motion";
 import { ThemeShowcase } from "../components/ThemeShowcase";
 import { customShowcases } from "../showcases";
 import { Check, ChevronDown, Copy } from "../components/icons";
-import { themeTokensToCss } from "../lib/tokens";
+import { motionTokensToCss, themeTokensToCss } from "../lib/tokens";
 import { cn } from "../lib/cn";
 
 export default function ThemePage() {
@@ -13,6 +14,26 @@ export default function ThemePage() {
   const navigate = useNavigate();
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState(false);
+
+  /* Motion rides in the query string rather than the path: the theme is what
+     this page is *about*, and the motion style is a lens over it. That also
+     makes a pairing a shareable URL — /theme/clay?motion=springy. */
+  const [params, setParams] = useSearchParams();
+  const motionSlug = getMotion(params.get("motion") ?? "")?.slug ?? DEFAULT_MOTION;
+
+  // Functional updater so a batched update can't clobber other query params.
+  const setMotion = (next: string) => {
+    setParams(
+      (prev) => {
+        const p = new URLSearchParams(prev);
+        // The default stays out of the URL so the common case has a clean link.
+        if (next === DEFAULT_MOTION) p.delete("motion");
+        else p.set("motion", next);
+        return p;
+      },
+      { replace: true }
+    );
+  };
 
   useEffect(() => {
     if (theme) document.title = `${theme.name} — kidastro-themes`;
@@ -45,7 +66,16 @@ export default function ThemePage() {
 
   const copyTokens = async () => {
     if (!wrapperRef.current) return;
-    const css = themeTokensToCss(theme.slug, wrapperRef.current);
+    // Include the motion block whenever a non-default style is showing.
+    // Copying only theme tokens off a page that's visibly running `springy`
+    // would hand over something that doesn't match what you were looking at.
+    const css =
+      motionSlug === DEFAULT_MOTION
+        ? themeTokensToCss(theme.slug, wrapperRef.current)
+        : `${themeTokensToCss(theme.slug, wrapperRef.current)}\n${motionTokensToCss(
+            motionSlug,
+            wrapperRef.current
+          )}`;
     await navigator.clipboard.writeText(css);
     setCopied(true);
     setTimeout(() => setCopied(false), 1600);
@@ -55,6 +85,7 @@ export default function ThemePage() {
     <div
       ref={wrapperRef}
       data-theme={theme.slug}
+      data-motion={motionSlug}
       className="min-h-screen bg-bg font-sans text-fg"
     >
       {/* Minimal top bar — the only chrome over the full themed page */}
@@ -106,6 +137,24 @@ export default function ThemePage() {
           <ThemeSwitcher current={theme.slug} />
 
           <div className="flex items-center gap-3">
+            {/* The second axis. Same components, same tokens — only the feel
+                changes, and the URL carries it. */}
+            <label className="hidden items-center gap-1.5 text-xs text-muted md:flex">
+              <span>motion</span>
+              <select
+                value={motionSlug}
+                onChange={(e) => setMotion(e.target.value)}
+                aria-label="Motion style"
+                className="rounded-md border border-border bg-surface px-2 py-1 text-xs text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {motionStyles.map((m) => (
+                  <option key={m.slug} value={m.slug}>
+                    {m.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
             <button
               onClick={copyTokens}
               className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"

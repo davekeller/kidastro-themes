@@ -27,11 +27,13 @@ const motions = slugsFrom("src/motion/index.ts", "motion");
 
 copyFileSync(index, join(dist, "404.html"));
 for (const slug of themes) write(["theme", slug]);
-// The bare /motion index needs its own file too — it's a route, not just a prefix.
+// Bare routes need their own files too — they're routes, not just prefixes.
 write(["motion"]);
+write(["start"]);
 for (const slug of motions) write(["motion", slug]);
 
 console.log(
   `spa-fallback: 404.html + ${themes.length} theme routes (${themes.join(", ")})\n` +
-    `              + /motion + ${motions.length} motion routes (${motions.join(", ")})`
+    `              + /motion + ${motions.length} motion routes (${motions.join(", ")})\n` +
+    `              + /start`
 );
