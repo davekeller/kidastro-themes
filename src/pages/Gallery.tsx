@@ -48,6 +48,23 @@ export default function Gallery() {
       <div aria-hidden className="color-bar fixed top-0 z-50 h-[3px] w-full" />
 
       <div className="relative z-10">
+        {/* Top-left breadcrumb, matching every other page on the site. Sits above
+            the header so it clears the helmet canvas. */}
+        <nav aria-label="Breadcrumb" className="absolute top-6 left-6 z-30 text-sm font-medium">
+          <ol className="flex items-center gap-2">
+            <li>
+              <a
+                href="https://kidastro.com"
+                className="text-muted transition-colors hover:text-fg"
+              >
+                kidastro
+              </a>
+            </li>
+            <li aria-hidden className="text-muted/40">/</li>
+            <li aria-current="page" className="text-fg">themes</li>
+          </ol>
+        </nav>
+
         {/* Portfolio-style intro: the /games astro helmet floating over the title */}
         <header className="relative overflow-hidden text-center">
           <div className="h-[340px] sm:h-[400px]">
@@ -80,7 +97,14 @@ export default function Gallery() {
               >
                 motion styles
               </Link>{" "}
-              decide how it all moves.
+              decide how it all moves, and{" "}
+              <Link
+                to="/interaction"
+                className="font-medium text-primary underline decoration-border underline-offset-4 transition-colors hover:decoration-current"
+              >
+                interaction styles
+              </Link>{" "}
+              decide how it&rsquo;s built.
             </p>
           </div>
         </header>

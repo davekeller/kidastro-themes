@@ -11,8 +11,10 @@ shadow, **or timing** in a component. If you reach for `#fff`, `text-gray-500`,
 `rounded-[6px]`, `duration-300`, `ease-out`, `hover:-translate-y-1`, or a literal
 font — stop and use a token instead.
 
-There are **two axes**: `data-theme` controls how things look, `data-motion`
-controls how they move. Both sit on the same wrapper and compose freely.
+There are **three axes**, all on the same wrapper, all composing freely:
+`data-theme` controls how things look, `data-motion` how they move, and
+`data-interaction` how they're structured. The first two are pure tokens; the
+third is structural and works differently — see below.
 
 ## Token utilities (all track the active theme)
 
@@ -55,6 +57,23 @@ it overrides the default. That's the one thing to avoid.
 
 The gallery and `/theme/:slug` route pick it up automatically. Keep the token
 **names** identical across themes — only the values change.
+
+## The third axis (proof of concept)
+
+`data-interaction` is a **structural** axis: it decides what a component renders,
+not how it's styled — disclosure shape, where nav lives, hover affordance, scroll
+reveal. That's why it ships as React context (`useInteraction()` from
+`src/interaction`) plus a `data-interaction` attribute for the CSS-shaped parts,
+rather than variables alone.
+
+**Scope today:** four demo components in `src/components/interaction/` branch on
+the flags. The wider library is *not* interaction-aware. Making it so is a much
+bigger job than motion was — motion could ride Tailwind's transition defaults,
+and structure has nothing equivalent to ride. Treat this axis as validated in
+principle, not finished.
+
+To add an interaction style: add an entry to `src/interaction/index.tsx`. If it
+needs a new facet, add it to `types.ts` and teach the demo components to branch.
 
 ## Add a motion style
 

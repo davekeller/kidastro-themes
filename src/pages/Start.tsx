@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { themes } from "../themes";
 import { DEFAULT_MOTION, getMotion, motionStyles } from "../motion";
+import { DEFAULT_INTERACTION, getInteraction, interactionStyles } from "../interaction";
 import { Badge, Button, Card, CardContent, CardDescription, CardTitle, Switch } from "../components/primitives";
 import { StatTile } from "../components/primitives";
 import { Starfield } from "../components/Starfield";
@@ -26,9 +27,12 @@ export default function Start() {
   const [params, setParams] = useSearchParams();
   const themeSlug = themes.find((t) => t.slug === params.get("theme"))?.slug ?? "minimal";
   const motionSlug = getMotion(params.get("motion") ?? "")?.slug ?? DEFAULT_MOTION;
+  const interactionSlug =
+    getInteraction(params.get("interaction") ?? "")?.slug ?? DEFAULT_INTERACTION;
 
   const theme = themes.find((t) => t.slug === themeSlug)!;
   const motion = getMotion(motionSlug)!;
+  const interaction = getInteraction(interactionSlug)!;
 
   const probeRef = useRef<HTMLDivElement>(null);
   const [copied, setCopied] = useState<"css" | "prompt" | null>(null);
@@ -38,7 +42,7 @@ export default function Start() {
      same React batch would both read the pre-batch value, and the second would
      silently drop the first — selecting a theme and a motion style in quick
      succession lost the theme. */
-  const set = (key: "theme" | "motion", value: string) => {
+  const set = (key: "theme" | "motion" | "interaction", value: string) => {
     setParams(
       (prev) => {
         const p = new URLSearchParams(prev);
@@ -78,7 +82,7 @@ export default function Start() {
     };
 
     return [
-      `/* ${theme.name} + ${motion.name} — from kidastro.com/themes */`,
+      `/* ${theme.name} + ${motion.name} + ${interaction.name} — from kidastro.com/themes */`,
       ``,
       block(`[data-theme="${themeSlug}"]`, tokenNames),
       ``,
@@ -153,7 +157,7 @@ export default function Start() {
     () =>
       [
         `I'm starting a React + Tailwind CSS v4 project using a design system called`,
-        `"${theme.name}" with "${motion.name}" motion.`,
+        `"${theme.name}" with "${motion.name}" motion and "${interaction.name}" interaction.`,
         ``,
         `Rules:`,
         `- Style with tokens only. Never hardcode a hex, font, radius, shadow, or`,
@@ -166,15 +170,24 @@ export default function Start() {
         `  Writing duration-300 opts an element out of the system, so don't.`,
         `- Use hover-lift for hover elevation and press-scale for press feedback`,
         `  instead of hardcoding a distance.`,
-        `- Set data-theme="${themeSlug}" data-motion="${motionSlug}" on the root element.`,
+        `- Set data-theme="${themeSlug}" data-motion="${motionSlug}" data-interaction="${interactionSlug}"`,
+        `  on the root element.`,
         `- Respect prefers-reduced-motion; the CSS below already handles the tokens.`,
+        ``,
+        `Interaction style — "${interaction.name}". These are structural choices,`,
+        `not CSS, so build them into your components:`,
+        `- Disclosure: open detail ${interaction.disclosure}.`,
+        `- Navigation: ${interaction.nav}.`,
+        `- Hover affordance: ${interaction.affordance}.`,
+        `- Scroll reveal: ${interaction.scrollReveal}.`,
         ``,
         `The theme is ${theme.description.toLowerCase()}`,
         `The motion is ${motion.description.toLowerCase()}`,
+        `The interaction is ${interaction.description.toLowerCase()}`,
         ``,
         `Paste the accompanying CSS into your Tailwind entry file and build from there.`,
       ].join("\n"),
-    [theme, motion, themeSlug, motionSlug]
+    [theme, motion, interaction, themeSlug, motionSlug, interactionSlug]
   );
 
   const copy = async (which: "css" | "prompt") => {
@@ -227,12 +240,15 @@ export default function Start() {
         </p>
 
         {/* Pickers */}
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
+        <div className="mt-12 grid gap-6 lg:grid-cols-3">
           <div className="rounded-2xl border border-border bg-surface p-5 elev-1">
             <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
               Theme — how it looks
             </h2>
-            <div className="mt-4 grid max-h-72 grid-cols-2 gap-2 overflow-y-auto pr-1 sm:grid-cols-3">
+            {/* Two columns at most: the three-axis layout leaves this card about
+                a third of the page, and three columns truncated every theme name
+                to two characters. */}
+            <div className="mt-4 grid max-h-72 grid-cols-1 gap-2 overflow-y-auto pr-1 sm:grid-cols-2">
               {themes.map((t) => (
                 <button
                   key={t.slug}
@@ -277,6 +293,32 @@ export default function Start() {
                 >
                   <span className="text-sm font-medium text-fg">{m.name}</span>
                   <span className="mt-0.5 block text-xs text-muted">{m.description}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="rounded-2xl border border-border bg-surface p-5 elev-1">
+            <h2 className="text-sm font-semibold uppercase tracking-wide text-muted">
+              Interaction — how it&rsquo;s built
+            </h2>
+            <div className="mt-4 space-y-2">
+              {interactionStyles.map((i) => (
+                <button
+                  key={i.slug}
+                  type="button"
+                  onClick={() => set("interaction", i.slug)}
+                  aria-pressed={i.slug === interactionSlug}
+                  className={cn(
+                    "block w-full rounded-lg border px-3 py-2 text-left transition-colors",
+                    i.slug === interactionSlug
+                      ? "border-primary bg-primary/10"
+                      : "border-border hover:bg-surface-2"
+                  )}
+                >
+                  <span className="text-sm font-medium text-fg">{i.name}</span>
+                  <span className="mt-0.5 block font-mono text-[11px] text-muted">
+                    {i.disclosure} · {i.nav} · {i.affordance}
+                  </span>
                 </button>
               ))}
             </div>
