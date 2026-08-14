@@ -45,6 +45,78 @@ function Block({
   );
 }
 
+/** The product faceplate turns the system from a document treatment into a
+ * complete hardware skin. Every color still comes from the active tokens. */
+function ControlSurface() {
+  return (
+    <section aria-label="NW-204 control surface" className="border border-border bg-surface p-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-3 text-sm uppercase tracking-widest">
+        <span>NW—204 / front panel</span>
+        <span className="text-muted">scale 1:2 · fig. A</span>
+      </div>
+
+      <div className="grid gap-4 py-4 lg:grid-cols-[1.1fr_1.9fr]">
+        <div className="flex min-h-40 flex-col justify-between border border-border bg-fg p-3 text-bg">
+          <div className="flex items-center justify-between text-xs uppercase tracking-widest">
+            <span>Pattern 04</span>
+            <span className="text-primary">120.0 bpm</span>
+          </div>
+          <div className="grid grid-cols-8 items-end gap-1">
+            {[32, 54, 38, 82, 66, 44, 72, 58].map((height, index) => (
+              <span
+                key={index}
+                className={index === 3 ? "bg-accent" : "bg-primary"}
+                style={{ height: `${height}px` }}
+              />
+            ))}
+          </div>
+          <div className="flex justify-between text-xs text-bg/60">
+            <span>01:03:22</span>
+            <span>REC ARM</span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-4 gap-x-4 gap-y-5 sm:grid-cols-8">
+          {[
+            "LEVEL", "PAN", "PITCH", "FILTER", "ATTACK", "DECAY", "SEND", "DRIVE",
+          ].map((label, index) => (
+            <div key={label} className="text-center">
+              <div className="relative mx-auto aspect-square w-full max-w-14 rounded-full border border-border bg-surface-2 elev-1">
+                <span
+                  className={`absolute left-1/2 top-1 h-[42%] w-px origin-bottom bg-fg ${
+                    index % 3 === 0 ? "-rotate-45" : index % 3 === 1 ? "rotate-12" : "rotate-45"
+                  }`}
+                />
+              </div>
+              <p className="mt-2 text-[10px] tracking-wide text-muted">{label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-8 gap-1.5 border-t border-border pt-4 sm:grid-cols-16">
+        {Array.from({ length: 16 }, (_, index) => (
+          <div key={index}>
+            <button
+              type="button"
+              aria-label={`Step ${index + 1}`}
+              className={`aspect-square w-full border border-border text-xs tabular-nums ${
+                [0, 3, 7, 10, 12].includes(index)
+                  ? "bg-primary text-primary-fg"
+                  : index === 15
+                    ? "bg-accent text-accent-fg"
+                    : "bg-surface-2 text-muted"
+              }`}
+            >
+              {index + 1}
+            </button>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export function SpecSheetShowcase({ theme }: { theme: ThemeMeta }) {
   return (
     <>
@@ -94,6 +166,8 @@ export function SpecSheetShowcase({ theme }: { theme: ThemeMeta }) {
             ))}
           </nav>
         </div>
+
+        <ControlSurface />
 
         <Block id="A.1" title="Overview">
           <div className="grid gap-8 md:grid-cols-2">

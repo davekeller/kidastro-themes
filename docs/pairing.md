@@ -1,8 +1,8 @@
 # Pairing themes with motion styles
 
 Any theme composes with any motion style — that's the point of keeping them on
-separate attributes, and all 15 motion tokens resolve against all 27 themes with
-nothing missing. But **135 pairs are not 135 equally good ideas.** Notes from
+separate attributes, and all 15 motion tokens resolve against all 20 themes with
+nothing missing. But **100 pairs are not 100 equally good ideas.** Notes from
 spot-checking the matrix.
 
 ## The registry's own suggestions
@@ -14,17 +14,17 @@ the themes it was tuned against, and they're surfaced as clickable chips on
 | Motion | Tuned against |
 |---|---|
 | `precise` | linear, minimal, console, docs |
-| `springy` | clay, candy, neubrutalist, native |
-| `floaty` | glass, liquid, aurora, kidastro |
-| `mechanical` | specsheet, terminal, brutalist, swiss |
-| `cinematic` | kinetic, broadsheet, luxe, deco |
+| `springy` | clay, y2k, neubrutalist, native |
+| `floaty` | liquid, aurora, kidastro, botanical |
+| `mechanical` | specsheet, swiss, console, y2k |
+| `cinematic` | kinetic, broadsheet, luxe, editorial |
 
 ## Pairs that fight
 
 **`mechanical` + anything that leans on elevation.** This style sets
 `--lift: 0px` and `--press: 1` deliberately, so `hover-lift` and `press-scale`
 produce no movement at all. Affordance falls entirely to color change, which is
-fine on `specsheet` or `terminal` where flatness is the aesthetic — and thin on
+fine on `specsheet` or `swiss` where flatness is the aesthetic — and thin on
 `clay` or `liquid`, whose whole identity is depth. If you want mechanical timing
 *with* elevation feedback, override `--lift` rather than reaching for a different
 style.

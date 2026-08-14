@@ -101,7 +101,42 @@ export function SwissShowcase({ theme }: { theme: ThemeMeta }) {
           ))}
         </div>
 
-        <Section num="05" label="Principle">
+        <Section num="05" label="Selected systems">
+          <div className="grid border border-border md:grid-cols-3">
+            {[
+              { code: "KB", client: "Kunsthalle Basel", field: "Identity", tone: "primary" },
+              { code: "MR", client: "Meridian Rail", field: "Wayfinding", tone: "ink" },
+              { code: "VN", client: "Verlag Nord", field: "Editorial", tone: "paper" },
+            ].map((project, index) => (
+              <div
+                key={project.code}
+                className={`flex min-h-64 flex-col justify-between p-5 ${
+                  index > 0 ? "border-t border-border md:border-l md:border-t-0" : ""
+                } ${
+                  project.tone === "primary"
+                    ? "bg-primary text-primary-fg"
+                    : project.tone === "ink"
+                      ? "bg-fg text-bg"
+                      : "bg-surface-2 text-fg"
+                }`}
+              >
+                <div className="flex items-start justify-between text-sm tabular-nums">
+                  <span>0{index + 1}</span>
+                  <span>202{6 - index}</span>
+                </div>
+                <p className="font-display text-6xl font-semibold leading-none tracking-[-0.05em]">
+                  {project.code}
+                </p>
+                <div className="border-t border-current pt-3 text-sm">
+                  <p className="font-medium">{project.client}</p>
+                  <p className="mt-1 opacity-70">{project.field}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section num="06" label="Principle">
           <p className="max-w-2xl text-2xl leading-snug tracking-tight">
             Every element on this page is positioned by the grid and sized by the
             scale. Nothing floats, nothing casts a shadow, and no corner is
@@ -110,7 +145,7 @@ export function SwissShowcase({ theme }: { theme: ThemeMeta }) {
           </p>
         </Section>
 
-        <Section num="06" label="Type scale">
+        <Section num="07" label="Type scale">
           <div className="space-y-3">
             {[
               ["72 / 62", "text-6xl", "Grotesk"],
@@ -132,7 +167,7 @@ export function SwissShowcase({ theme }: { theme: ThemeMeta }) {
           </div>
         </Section>
 
-        <Section num="07" label="Index of work">
+        <Section num="08" label="Index of work">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border text-left uppercase tracking-widest">
@@ -161,7 +196,7 @@ export function SwissShowcase({ theme }: { theme: ThemeMeta }) {
           </table>
         </Section>
 
-        <Section num="08" label="Enquiries">
+        <Section num="09" label="Enquiries">
           <div className="grid gap-6 md:grid-cols-2">
             <p className="text-lg leading-relaxed">
               New projects are reviewed quarterly. Send a brief outline and

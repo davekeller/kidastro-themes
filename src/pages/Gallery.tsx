@@ -75,9 +75,9 @@ export default function Gallery() {
               kidastro-themes
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-loose text-muted">
-              A personal library of {themes.length} hand-tuned UI themes. Click one
-              to open its full component showcase, or point your AI tools at any
-              theme to bootstrap a prototype with the styling already in place.
+              {themes.length} distinct UI skins, each with one carefully tuned
+              palette and a full component showcase. Pick one as the visual
+              foundation for a new product, then hand its style guide to your AI tools.
             </p>
             <p className="pointer-events-auto mx-auto mt-5 max-w-2xl text-base text-muted">
               Ready to build?{" "}
@@ -200,6 +200,11 @@ function ThemeCard({ theme }: { theme: ThemeMeta }) {
       <div className="border-t border-border p-5">
         <h3 className="font-semibold text-fg">{theme.name}</h3>
         <p className="mt-1 text-sm text-muted">{theme.description}</p>
+        <p className="mt-3 text-xs leading-relaxed text-muted">
+          <span className="font-semibold uppercase tracking-wide text-fg/80">Best for</span>
+          {" "}
+          {theme.bestFor.slice(0, 2).join(" · ")}
+        </p>
         <div className="mt-3 flex flex-wrap gap-1.5">
           {theme.tags.map((tag) => (
             <span

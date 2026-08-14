@@ -1,4 +1,8 @@
-# Theme Lab — Project Plan
+# Theme Lab — Original Project Plan (historical)
+
+> This is the 2026 initial build plan and no longer describes current state.
+> For the active 20-skin catalog and architecture, read `docs/context.md` and
+> `docs/theme-catalog.md`.
 
 *Working name: **Theme Lab** (repo `theme-lab`). Alternates: Themebook, Palette, Skins, Facets — easy to rename before we push.*
 

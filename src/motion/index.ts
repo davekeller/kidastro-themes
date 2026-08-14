@@ -33,7 +33,7 @@ export const motionStyles: MotionMeta[] = [
     description:
       "Overshoots and settles. Everything has a little weight and bounce.",
     tags: ["Bouncy", "Playful", "Overshoot"],
-    pairsWith: ["clay", "candy", "neubrutalist", "native"],
+    pairsWith: ["clay", "y2k", "neubrutalist", "native"],
     curves: {
       standard: "cubic-bezier(0.34, 1.56, 0.64, 1)",
       entrance: "cubic-bezier(0.22, 1.7, 0.36, 1)",
@@ -49,7 +49,7 @@ export const motionStyles: MotionMeta[] = [
     description:
       "Slow, long travel, soft eases. Nothing arrives abruptly. Spatial.",
     tags: ["Slow", "Soft", "Spatial"],
-    pairsWith: ["glass", "liquid", "aurora", "kidastro"],
+    pairsWith: ["liquid", "aurora", "kidastro", "botanical"],
     curves: {
       standard: "cubic-bezier(0.25, 0.1, 0.25, 1)",
       entrance: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -65,7 +65,7 @@ export const motionStyles: MotionMeta[] = [
     description:
       "Linear and stepped, zero overshoot. Micro-interactions don't animate at all.",
     tags: ["Stepped", "Instant", "Technical"],
-    pairsWith: ["specsheet", "terminal", "brutalist", "swiss"],
+    pairsWith: ["specsheet", "swiss", "console", "y2k"],
     curves: {
       standard: "linear",
       entrance: "steps(4, end)",
@@ -81,7 +81,7 @@ export const motionStyles: MotionMeta[] = [
     description:
       "Long, heavy ease-in-out, big travel. Every transition is a camera move.",
     tags: ["Slow", "Dramatic", "Editorial"],
-    pairsWith: ["kinetic", "broadsheet", "luxe", "deco"],
+    pairsWith: ["kinetic", "broadsheet", "luxe", "editorial"],
     curves: {
       standard: "cubic-bezier(0.65, 0, 0.35, 1)",
       entrance: "cubic-bezier(0.22, 1, 0.36, 1)",

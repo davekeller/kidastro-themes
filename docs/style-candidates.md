@@ -1,14 +1,19 @@
-# Style candidates — next wave of themes
+# Popular UI reference studies
 
-Curated popular UI styles for the next themes. Unlike the first eleven (which
-differ mostly in tokens), each of these has a **layout signature** — the same
-component library composed into a genuinely different page structure and feel.
-Once styles are picked, we'll pull real screen references from Mobbin to nail
-each one's layout patterns before building.
+This began as a research list of roughly ten popular, recognizable UI styles,
+using Mobbin and the wider design web to understand their recurring patterns.
+The list later grew as missing product surfaces became obvious.
 
-Pick any — they're ordered roughly by how popular/recognizable they are right now.
+This is now a source log, not a roadmap or a queue of themes that must exist.
+References should help identify the rules behind a style—composition, density,
+type, color, controls, and interaction—not produce copies of the source app.
+Only graduate a study into a new skin when it opens a genuinely useful visual
+lane. Most ongoing work should refine a handful of existing experiments.
 
-## Mobbin reference links (collected 2026-07-26, requires Mobbin login)
+Neubrutalist and Y2K / Retro-future are the current completeness benchmark:
+every part of their showcase contributes to a coherent world.
+
+## Reference links (collected 2026-07-26; Mobbin links require login)
 
 | Style | App | Mobbin link |
 |---|---|---|
@@ -50,8 +55,8 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
 - **References:** Stripe, Mercury, Ramp, Retool.
 
 ## 4. Neubrutalism (playful flavor) ✅ *built — theme `neubrutalist`*
-- **Vibe:** Gumroad/Figma-community energy. Loud, sticker-like, fun.
-  (Different from our stark `brutalist`: this one is *candy-colored* chaos.)
+- **Vibe:** Gumroad/Figma-community energy. Loud, sticker-like, fun. This now
+  owns the library's whole brutalist lane: *candy-colored* chaos over raw austerity.
 - **Layout signature:** Overlapping elements, rotated stickers/badges, thick
   black outlines on flat fills, hard offset shadows, marquee text strips,
   zig-zag section seams.
@@ -64,8 +69,9 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   — hierarchy comes purely from type scale and rule lines. Footnote-style meta.
 - **References:** Studio/agency portfolios, ETH-style sites, Readymag showcases.
 
-## 6. Glassmorphism / spatial ✅ *built — theme `glass`*
-- **Vibe:** visionOS depth. Futuristic, layered, luminous.
+## 6. Glassmorphism / spatial ↪ *consolidated into theme `liquid`*
+- **Vibe:** visionOS depth. Futuristic, layered, luminous. The older flat-frost
+  treatment was retired during the 20-skin curation; `liquid` now owns this lane.
 - **Layout signature:** Frosted translucent panels floating at different
   depths over a vivid ambient background, overlapping z-layers, soft big-radius
   cards, glow accents. Nav floats as a glass pill.
@@ -116,7 +122,7 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
 
 ---
 
-# Wave three — the layouts the library was missing
+# Product-surface studies — layouts the library was missing
 
 The twelve above all differ by *layout signature*, but every one of them is
 still a **marketing one-pager**. That was the real gap: the surfaces you
@@ -149,8 +155,8 @@ Sheet), all token-only and reusable by the earlier themes.
 - **Layout signature:** Floating translucent panels with highlights on their
   top *and* bottom edges, large concentric radii, overlapping panel stacks, and
   a caustic wash built from token colors at low opacity.
-- **Distinct from `glass`:** that one is flat visionOS frost; this one has
-  thickness.
+- **Refinement:** this replaces the retired flat-frost `glass` skin with a more
+  current treatment that has visible thickness.
 - **References:** Apple's 2026 design language, Family, Arc.
 
 ## 16. Native / mobile ✅ *built — theme `native`*
@@ -163,11 +169,15 @@ Sheet), all token-only and reusable by the earlier themes.
 
 ---
 
-## How these will be built (the hybrid model)
+## How a reference study becomes a skin
 
-Per `plan.md` §4, themes that earn it get **per-theme composition**: the
-component library stays shared, but a theme can ship its own showcase layout
-(`src/showcases/<slug>.tsx`) instead of the default `ThemeShowcase`. Tokens
-still drive all styling; the layout file only *arranges* shared components
-(plus, where needed, theme-specific section variants that still obey the
-token-only rule).
+Every active skin now has a **per-theme composition**. The component library
+stays shared, while `src/showcases/<Name>Showcase.tsx` gives each experiment its
+own bones. Tokens still drive all styling.
+
+A study has earned a skin when it:
+
+- creates a coherent world rather than a palette swap;
+- offers patterns worth borrowing in a real app;
+- remains meaningfully different from the active catalog; and
+- has enough polish in typography, layout, controls, and details to inspire use.

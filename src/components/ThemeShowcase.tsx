@@ -12,8 +12,9 @@ import { TokenPanel } from "./sections/TokenPanel";
 import { Footer } from "./sections/Footer";
 
 /**
- * The themed one-pager. This composition is shared across every theme —
- * only the tokens (via the data-theme wrapper in ThemePage) change how it looks.
+ * Generic fallback composition for a newly added theme. Every active skin has
+ * an authored showcase in src/showcases; this keeps the add-theme path usable
+ * before a custom composition is ready.
  */
 export function ThemeShowcase({ theme }: { theme: ThemeMeta }) {
   return (

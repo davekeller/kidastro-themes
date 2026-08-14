@@ -24,7 +24,7 @@ import { Bolt, Shield, Sparkle, Star } from "../components/icons";
  * Layout signature: a real application shell — fixed sidebar rail, top bar
  * with search, a KPI row, charts, and a data table as the primary surface.
  * No hero, no pricing, no marketing flow; this is the page behind the login.
- * The first 23 themes are all one-pagers, which is exactly the gap this fills.
+ * It fills the product-shell gap in a library that began with marketing pages.
  */
 
 const groups = [
@@ -54,7 +54,12 @@ const groups = [
 ];
 
 const requests = [24, 31, 28, 42, 38, 51, 47, 63, 58, 71, 66, 82];
-const latency = [61, 58, 64, 59, 55, 62, 57, 54, 60, 56, 52, 58];
+
+const regions = [
+  { name: "Chicago", code: "ord", latency: "24ms", load: "68%", width: "68%" },
+  { name: "Frankfurt", code: "fra", latency: "41ms", load: "54%", width: "54%" },
+  { name: "Singapore", code: "sin", latency: "63ms", load: "39%", width: "39%" },
+];
 
 const deployments = [
   { id: "dpl_9f2a", service: "api-gateway", env: "production", status: "Healthy", took: "48s" },
@@ -100,7 +105,13 @@ export function ConsoleShowcase({ theme }: { theme: ThemeMeta }) {
 
         <div className="flex min-w-0 flex-1 flex-col">
           <AppTopBar
-            heading="Overview"
+            heading={
+              <div className="flex items-center gap-2">
+                <span>Northwind Cloud</span>
+                <span className="text-muted">/</span>
+                <span className="font-normal text-muted">Production</span>
+              </div>
+            }
             actions={
               <>
                 <Button variant="outline" size="sm">
@@ -111,14 +122,28 @@ export function ConsoleShowcase({ theme }: { theme: ThemeMeta }) {
             }
           />
 
-          <div className="flex-1 space-y-6 p-5">
+          <div className="flex-1 space-y-5 p-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface px-4 py-3 elev-1">
+              <div className="flex items-center gap-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-success ring-4 ring-success/15" aria-hidden />
+                <div>
+                  <p className="text-sm font-medium text-fg">Global edge network</p>
+                  <p className="text-xs text-muted">42 points of presence reporting normally</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="hidden font-mono text-xs text-muted sm:inline">updated 42s ago</span>
+                <Badge variant="success">Operational</Badge>
+              </div>
+            </div>
+
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h1 className="font-display text-xl font-semibold tracking-tight text-fg">
-                  All systems operational
+                <h1 className="font-display text-2xl font-semibold tracking-tight text-fg">
+                  Infrastructure overview
                 </h1>
                 <p className="mt-0.5 text-sm text-muted">
-                  12 services across 3 regions.
+                  Production traffic across 12 services and 3 primary regions.
                 </p>
               </div>
               <SegmentedControl
@@ -133,26 +158,45 @@ export function ConsoleShowcase({ theme }: { theme: ThemeMeta }) {
               <StatTile label="Requests" value="4.82M" delta="8.1%" trend="up" caption={`last ${range}`} />
               <StatTile label="p50 latency" value="58ms" delta="3.4%" trend="down" caption="lower is better" />
               <StatTile label="Error rate" value="0.04%" delta="0.01%" trend="down" caption={`last ${range}`} />
-              <StatTile label="Build minutes" value="1,204" delta="0.0%" trend="flat" caption="of 5,000" />
+              <StatTile label="Availability" value="99.99%" delta="0.02%" trend="up" caption="30-day SLO" />
             </div>
 
-            <div className="grid gap-4 xl:grid-cols-2">
+            <div className="grid gap-4 xl:grid-cols-3">
               <ChartCard
-                title="Requests"
+                title="Request volume"
                 value="4.82M"
                 caption={`Last ${range}`}
                 data={requests}
                 variant="area"
                 seriesClassName="text-primary"
+                className="xl:col-span-2"
               />
-              <ChartCard
-                title="p50 latency"
-                value="58ms"
-                caption={`Last ${range}`}
-                data={latency}
-                variant="bars"
-                seriesClassName="text-accent"
-              />
+              <div className="rounded-lg border border-border bg-surface p-4 elev-1">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-medium text-fg">Region health</p>
+                    <p className="mt-0.5 text-xs text-muted">Live traffic distribution</p>
+                  </div>
+                  <Badge variant="outline">3 online</Badge>
+                </div>
+                <div className="mt-4 space-y-4">
+                  {regions.map((region) => (
+                    <div key={region.code}>
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="font-medium text-fg">{region.name}</span>
+                        <span className="font-mono text-muted">{region.code}</span>
+                        <span className="ml-auto font-mono text-muted">{region.latency}</span>
+                      </div>
+                      <div className="mt-1.5 flex items-center gap-2">
+                        <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-surface-2">
+                          <span className="block h-full rounded-full bg-accent" style={{ width: region.width }} />
+                        </span>
+                        <span className="w-8 text-right font-mono text-[10px] text-muted">{region.load}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <div className="space-y-3">

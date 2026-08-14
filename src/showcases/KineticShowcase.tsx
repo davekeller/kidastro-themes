@@ -40,15 +40,15 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
       </header>
 
       <main>
-        {/* Viewport-filling type stack. Sized so the longest word still fits
-            the measure — the page must never scroll sideways. */}
-        <section className="mx-auto max-w-7xl overflow-hidden px-6 pb-10 pt-16">
-          <h1 className="font-display text-[13vw] font-extrabold uppercase leading-[0.82] tracking-[-0.04em]">
+        {/* Display type leads the composition without swallowing the whole
+            first viewport. clamp keeps it dramatic and gives the intro room. */}
+        <section className="mx-auto max-w-7xl overflow-hidden px-6 pb-12 pt-12 sm:pt-16">
+          <h1 className="max-w-6xl font-display text-[clamp(3.2rem,8vw,7rem)] font-extrabold uppercase leading-[0.84] tracking-[-0.04em]">
             <span className="block">We make</span>
             <span className="block text-primary">brands</span>
             <span className="block text-right">move.</span>
           </h1>
-          <div className="mt-10 flex flex-wrap items-end justify-between gap-6 border-t border-border pt-6">
+          <div className="mt-8 flex flex-wrap items-end justify-between gap-6 border-t border-border pt-6">
             <p className="max-w-sm text-lg leading-relaxed text-muted">
               An independent studio working across identity, motion, and the
               web. Small by design, loud by output.
@@ -179,7 +179,7 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
           </p>
           <a
             href="#"
-            className="group mt-4 block font-display text-[11vw] font-extrabold uppercase leading-[0.85] tracking-[-0.03em] transition-colors hover:text-primary"
+            className="group mt-4 block max-w-5xl font-display text-[clamp(3.2rem,8vw,7rem)] font-extrabold uppercase leading-[0.85] tracking-[-0.03em] transition-colors hover:text-primary"
           >
             Say
             <br />

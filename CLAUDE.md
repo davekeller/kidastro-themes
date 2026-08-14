@@ -4,6 +4,22 @@ This project is a gallery of UI themes. Its whole value is that components are
 **token-driven and portable**. Follow these rules so themes stay swappable and
 reusable.
 
+## Product intent
+
+This is an inspiration and experimentation lab, not a theme-counting exercise.
+The original research sampled roughly ten popular UI languages from Mobbin and
+the wider design web, but those are references rather than cloning targets.
+
+Work deeply on a handful of promising skins at a time. The Neubrutalist and Y2K
+/ Retro-future showcases are the benchmark for completeness: palette, type,
+layout, components, and small details reinforce one coherent world. Other skins
+should reach that level in their own visual language.
+
+Prefer refining, merging, or retiring overlapping experiments over adding a
+surface-level variation. A skin succeeds when it contains ideas worth pulling
+into a new app; the showcase is an inspiration specimen, not a page every app
+must copy whole.
+
 ## The golden rule
 
 Style with **tokens only**. Never hardcode a hex color, font family, radius,
@@ -52,8 +68,16 @@ it overrides the default. That's the one thing to avoid.
 
 ## Add a theme
 
+Add one only when it opens a genuinely useful visual lane that the current
+catalog does not already cover.
+
 1. Copy an existing `[data-theme="..."]` block in `src/index.css` and retune the tokens.
-2. Add a matching entry (`slug`, `name`, `description`, `tags`) to `src/themes/index.ts`.
+2. Add a matching entry (`slug`, `name`, `description`, `tags`, `bestFor`,
+   `designRules`, `avoid`) to `src/themes/index.ts`.
+
+Each theme is one coherent **skin with one canonical palette**. Do not add a
+second palette inside the same theme block yet; palette variants will become a
+separate axis when the library is ready for them.
 
 The gallery and `/theme/:slug` route pick it up automatically. Keep the token
 **names** identical across themes — only the values change.
@@ -90,7 +114,9 @@ the two ever disagree, the CSS is right.
 
 ## Add a custom showcase layout (the hybrid model)
 
-Themes are tokens-first, but a theme can earn its own page composition:
+Themes are tokens-first, and every active skin should have its own authored page
+composition. The generic `ThemeShowcase` is only a temporary fallback while a
+new experiment is being developed:
 
 1. Create `src/showcases/<Name>Showcase.tsx` accepting `{ theme: ThemeMeta }`.
    It only *arranges* shared components — styling still comes from tokens.

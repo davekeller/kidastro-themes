@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "A personal gallery of hand-tuned UI themes — token-driven React + Tailwind components you can point AI tools at to bootstrap prototypes.",
+  "description": "A personal UI inspiration lab of token-driven React + Tailwind skins with AI-ready style guidance.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

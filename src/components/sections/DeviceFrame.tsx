@@ -16,7 +16,7 @@ export interface DeviceFrameProps extends HTMLAttributes<HTMLDivElement> {
    Deliberate exception to the token-only rule: the bezel's size and radius are
    fixed rather than derived from --radius. This is hardware geometry, not the
    theme's shape language — a phone is the same shape whatever design system is
-   running on it, and tracking --radius would hand the brutalist theme a
+   running on it, and tracking --radius would hand a zero-radius skin a
    square "phone". Everything inside the frame is still fully tokenized. */
 export function DeviceFrame({
   children,

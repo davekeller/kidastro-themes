@@ -1,11 +1,31 @@
 # kidastro-themes
 
-A personal gallery of hand-tuned UI themes — an extension of the
+A personal UI inspiration lab with 20 active, hand-tuned skins — an extension of the
 [kidastro.com](https://kidastro.com) brand, sharing its space chrome (starfield,
 aurora, drifting color bar, floating icosahedron, astro helmet) and Bricolage
-Grotesque type. The front page lists every theme; click one to open a full-page, marketing-style showcase of the component library rendered in that theme.
+Grotesque type. Each skin currently has one canonical palette, a live component
+showcase with its own page composition, and concise guidance for AI tools:
+best-fit surfaces, defining rules, and visual choices to avoid.
 
-The point: when starting a new prototype or an interview case study, point your AI tools (Cursor, Claude Code, Antigravity) at a theme and start building with the styling already in place — every theme is plain, portable **React + Tailwind**.
+The original reference set sampled roughly ten of the most recognizable UI
+languages from Mobbin and the wider design web. That research is a starting
+point, not a checklist or a set of products to clone. The real purpose is to
+experiment deeply with a handful of visual worlds, understand why they work,
+and pull useful colors, type, layout, components, and interaction ideas into new
+apps.
+
+When starting a prototype or case study, point an AI tool at a skin, copy the
+whole system, or borrow only the ideas that fit. Every skin is plain, portable
+**React + Tailwind**.
+
+## How to use the lab
+
+- Browse for a direction when a new app still feels visually undefined.
+- Treat each showcase as an inspiration specimen, not a required page template.
+- Copy a complete skin when it fits, or extract one strong idea: a palette,
+  navigation pattern, card treatment, type system, or data display.
+- Refine a few promising skins deeply. Merge or retire overlapping experiments
+  rather than growing the catalog for its own sake.
 
 ## Quick start
 
@@ -16,14 +36,14 @@ npm run build    # production build to /dist
 npm run typecheck
 ```
 
-## Two axes
+## Three axes
 
 **Themes** control how things look. **Motion styles** control how they move.
-`data-theme` and `data-motion` sit on the same wrapper and compose freely, so
-`clay` + `springy` and `specsheet` + `mechanical` are both one attribute apart:
+**Interaction styles** describe structural choices such as disclosure and
+navigation. All three sit on the same wrapper and compose freely:
 
 ```html
-<div data-theme="clay" data-motion="springy"> … </div>
+<div data-theme="clay" data-motion="springy" data-interaction="focused"> … </div>
 ```
 
 Five motion styles — `precise` (the default), `springy`, `floaty`, `mechanical`,
@@ -57,7 +77,8 @@ else re-renders — only the variables change.
 ## Add a theme
 
 1. Add a `[data-theme="<slug>"]` block in `src/index.css` (copy an existing one and retune the tokens).
-2. Add an entry to the array in `src/themes/index.ts`.
+2. Add an entry to the array in `src/themes/index.ts`, including its `bestFor`,
+   `designRules`, and `avoid` guidance.
 
 That's it — the gallery and routes pick it up automatically.
 
@@ -75,7 +96,7 @@ src/
   components/
     primitives/   Button, Badge, Input, Card, Avatar, Switch
     sections/     Header, Hero, Features, Stats, Pricing, Testimonial, CTA, Footer, TokenPanel
-    ThemeShowcase.tsx   the shared one-pager composition
+    ThemeShowcase.tsx   fallback while a new skin's composition is being developed
     icons.tsx
   themes/         token metadata + registry (values live in index.css)
   motion/         motion metadata + registry (values live in index.css)

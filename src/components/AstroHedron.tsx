@@ -122,7 +122,9 @@ export function AstroHedron({ className }: { className?: string }) {
 
     const render = (now: number) => {
       if (!width || !height) return;
-      const t = (now - start) / 1000;
+      // The first rAF timestamp can describe the frame start, a fraction before
+      // this effect captured `start`; clamp it so modulo never yields index -1.
+      const t = Math.max(0, (now - start) / 1000);
       ctx.clearRect(0, 0, width, height);
 
       // Color cycle — slow lerp through the theme palette

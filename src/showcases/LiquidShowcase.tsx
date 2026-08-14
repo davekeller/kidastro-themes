@@ -6,10 +6,9 @@ import { ArrowRight, Bolt, Shield, Sparkle } from "../components/icons";
 
 /**
  * Custom showcase for the `liquid` theme.
- * Layout signature: specular translucency. Where `glass` is flat visionOS
- * frost, this is wet — panels carry highlights on their top and bottom edges
- * (via the theme's elev tokens), radii are large and concentric, and content
- * floats in overlapping layers over a soft caustic wash.
+ * Layout signature: wet, dimensional translucency. Panels carry highlights on
+ * their top and bottom edges (via the theme's elev tokens), radii are large and
+ * concentric, and content floats in overlapping layers over a soft caustic wash.
  *
  * The wash is built from token colors at low opacity, so it re-tints with the
  * theme rather than being a fixed gradient.

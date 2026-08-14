@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { getTheme, themes } from "../themes";
 import { DEFAULT_MOTION, getMotion, motionStyles } from "../motion";
@@ -173,7 +173,15 @@ export default function ThemePage() {
         </div>
       </div>
 
-      <Showcase theme={theme} />
+      <Suspense
+        fallback={
+          <div className="grid min-h-[45vh] place-items-center bg-bg text-sm text-muted" aria-busy="true">
+            Loading {theme.name}…
+          </div>
+        }
+      >
+        <Showcase theme={theme} />
+      </Suspense>
     </div>
   );
 }
