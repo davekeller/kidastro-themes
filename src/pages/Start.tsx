@@ -167,7 +167,7 @@ export default function Start() {
         `- For motion, use dur-1…dur-5 (micro, control, surface, overlay, scene) and`,
         `  ease-standard | ease-entrance | ease-exit | ease-emphasis. A plain`,
         `  transition-colors is already correct — it resolves through the tokens.`,
-        `  Writing duration-300 opts an element out of the system, so don't.`,
+        `  Writing a fixed duration-[N] opts an element out of the system, so don't.`,
         `- Use hover-lift for hover elevation and press-scale for press feedback`,
         `  instead of hardcoding a distance.`,
         `- Set data-theme="${themeSlug}" data-motion="${motionSlug}" data-interaction="${interactionSlug}"`,

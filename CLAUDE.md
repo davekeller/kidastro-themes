@@ -122,10 +122,25 @@ repo redeploys:
 gh workflow run deploy.yml --repo davekeller/kidastro
 ```
 
+## Checks (all run in CI, and `npm run check` runs them in order)
+
+```bash
+npm run typecheck  # tsc --noEmit
+npm run lint       # eslint
+npm run guard      # token-only guard — the golden rule, enforced
+npm run build      # production build
+npm run check      # all of the above, in order
+```
+
+`npm run guard` (`scripts/check-tokens.mjs`) fails if a component, page, or
+showcase hardcodes a color, palette shade, radius, duration, or easing instead
+of a token. For a genuine non-token literal, add a `guard-allow: <reason>`
+comment on the line (or `guard-allow-file: <reason>` for a file that *displays*
+code samples) — sparingly, with a reason.
+
 ## Commands
 
 ```bash
 npm run dev        # dev server
-npm run build      # production build
-npm run typecheck  # tsc --noEmit
+npm run preview    # preview the production build
 ```

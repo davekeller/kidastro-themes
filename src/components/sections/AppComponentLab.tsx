@@ -24,6 +24,8 @@ import {
 const revenue = [12, 19, 15, 24, 22, 31, 28, 36, 33, 41, 38, 47];
 const sessions = [8, 14, 11, 17, 22, 18, 26, 21, 29, 34, 30, 38];
 
+// guard-allow-file: renders a [data-theme] token snippet as sample code, so the
+// literal token values below are displayed content, not component styling.
 const tokenSnippet = `[data-theme="minimal"] {
   --bg: #ffffff;
   --fg: #111827;
