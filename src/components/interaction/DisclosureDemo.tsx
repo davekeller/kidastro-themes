@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useInteraction } from "../../interaction";
-import { Button, Card, CardContent, CardDescription, CardTitle, Modal, Sheet } from "../primitives";
+import { Button, Modal, Sheet } from "../primitives";
 import { cn } from "../../lib/cn";
 
 /**
