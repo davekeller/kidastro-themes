@@ -70,6 +70,107 @@
   --default-transition-timing-function: var(--curve-standard);
 }
 
+/* ==================== SKIN × PALETTE (the model) ====================
+   A theme is a skin (form + motion) wearing a palette (color). Both are
+   attributes on one wrapper; components style from tokens only, so any skin
+   in any palette just works. Contract + how-to: docs/skin-contract.md.
+
+   Reference skin: Neubrutalist. The legacy single-axis [data-theme] blocks
+   below still drive the current gallery and come out in Phase 4; until then
+   the two coexist and no element carries both. Custom properties set on the
+   [data-skin] wrapper govern its subtree, overriding the :root defaults. */
+
+/* ---- Neubrutalist: form + motion (baked-in "springy") ---- */
+[data-skin="neubrutalist"] {
+  --radius: 4px;
+
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-display: "Outfit", system-ui, sans-serif;
+
+  /* Hard offset shadow — geometry here, ink from the palette. */
+  --elev-1: 4px 4px 0 var(--shadow-ink);
+  --elev-2: 8px 8px 0 var(--shadow-ink);
+  --elev-glow: none;
+
+  /* Motion feel: springy (overshoots and settles). */
+  --curve-standard: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --curve-entrance: cubic-bezier(0.22, 1.7, 0.36, 1);
+  --curve-exit: cubic-bezier(0.5, -0.4, 0.8, 0.5);
+  --curve-emphasis: cubic-bezier(0.28, 2, 0.4, 1);
+  --dur-1: 120ms;
+  --dur-2: 220ms;
+  --dur-3: 340ms;
+  --dur-4: 520ms;
+  --dur-5: 820ms;
+  --travel-sm: 6px;
+  --travel-md: 16px;
+  --travel-lg: 36px;
+  --lift: -4px;
+  --press: 0.94;
+  --stagger: 60ms;
+}
+
+/* ---- Neubrutalist · Light ("Paper") ---- */
+[data-skin="neubrutalist"][data-palette="light"] {
+  --bg: #f7f2ea;
+  --surface: #ffffff;
+  --surface-2: #ffe8f7;
+  --fg: #0a0a0a;
+  --muted: #57534e;
+  --border: #0a0a0a;
+  --ring: #ff90e8;
+  --primary: #ff90e8;
+  --primary-fg: #0a0a0a;
+  --accent: #90e8ff;
+  --accent-fg: #0a0a0a;
+  --success: #0f766e;
+  --warning: #a16207;
+  --danger: #b91c1c;
+  --shadow-ink: #0a0a0a;
+}
+
+/* ---- Neubrutalist · Dark ("Blackout") — chalk-on-slate: light-ink borders
+   and a light-ink hard shadow so the offset still reads on charcoal. ---- */
+[data-skin="neubrutalist"][data-palette="dark"] {
+  --bg: #17151a;
+  --surface: #201d24;
+  --surface-2: #2a2630;
+  --fg: #f7f2ea;
+  --muted: #b8b0a8;
+  --border: #efeae2;
+  --ring: #ff90e8;
+  --primary: #ff90e8;
+  --primary-fg: #17151a;
+  --accent: #90e8ff;
+  --accent-fg: #17151a;
+  --success: #6ee7b7;
+  --warning: #fcd34d;
+  --danger: #fca5a5;
+  --shadow-ink: #efeae2;
+}
+
+/* ---- Neubrutalist · Fun ("Candy") — loud: hot magenta + electric violet
+   on pink-tinted paper. ---- */
+[data-skin="neubrutalist"][data-palette="fun"] {
+  --bg: #fff0f6;
+  --surface: #ffffff;
+  --surface-2: #d9fff5;
+  --fg: #1a0a14;
+  --muted: #7a4a63;
+  --border: #1a0a14;
+  --ring: #ff2d9b;
+  --primary: #ff2d9b;
+  --primary-fg: #1a0a14;
+  --accent: #6633ee;
+  --accent-fg: #fff0f6;
+  --success: #0f766e;
+  --warning: #9a5b00;
+  --danger: #d61f1f;
+  --shadow-ink: #1a0a14;
+}
+
 /* =========================== THEMES =========================== */
 
 /* Clean / Minimal — neutral, tight, subtle (also the app default) */

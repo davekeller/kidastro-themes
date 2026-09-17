@@ -128,6 +128,7 @@ gh workflow run deploy.yml --repo davekeller/kidastro
 npm run typecheck  # tsc --noEmit
 npm run lint       # eslint
 npm run guard      # token-only guard — the golden rule, enforced
+npm run contrast   # WCAG-AA contrast on every [data-skin][data-palette]
 npm run build      # production build
 npm run check      # all of the above, in order
 ```

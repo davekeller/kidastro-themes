@@ -23,4 +23,5 @@ jobs:
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run guard
+      - run: npm run contrast
       - run: npm run build
