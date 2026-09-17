@@ -6,6 +6,7 @@ import MotionPage from "./pages/MotionPage";
 import Start from "./pages/Start";
 import InteractionGallery from "./pages/InteractionGallery";
 import InteractionPage from "./pages/InteractionPage";
+import SkinLab from "./pages/SkinLab";
 
 export default function App() {
   return (
@@ -17,6 +18,8 @@ export default function App() {
       <Route path="/interaction" element={<InteractionGallery />} />
       <Route path="/interaction/:slug" element={<InteractionPage />} />
       <Route path="/start" element={<Start />} />
+      {/* Phase 1 QA harness (unlinked); superseded by the Phase 2 theme detail. */}
+      <Route path="/lab" element={<SkinLab />} />
       <Route path="*" element={<Gallery />} />
     </Routes>
   );

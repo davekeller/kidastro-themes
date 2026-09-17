@@ -12,7 +12,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "guard": "node scripts/check-tokens.mjs",
-    "check": "npm run typecheck && npm run lint && npm run guard && npm run build"
+    "contrast": "node scripts/check-contrast.mjs",
+    "check": "npm run typecheck && npm run lint && npm run guard && npm run contrast && npm run build"
   },
   "dependencies": {
     "react": "^19.0.0",
