@@ -299,7 +299,9 @@ export function AstroHelmet({ className }: { className?: string }) {
 
     const render = (now: number) => {
       if (!width || !height) return;
-      const t = (now - start) / 1000;
+      // rAF hands each frame its start time, which can precede the
+      // performance.now() taken above; a negative t would index palette[-1].
+      const t = Math.max(0, now - start) / 1000;
       ctx.clearRect(0, 0, width, height);
 
       // Shared palette cross-fade
