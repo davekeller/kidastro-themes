@@ -85,8 +85,11 @@ export const paletteTokenNames = [
   "--accent",
   "--accent-fg",
   "--success",
+  "--success-fg",
   "--warning",
+  "--warning-fg",
   "--danger",
+  "--danger-fg",
   "--shadow-ink",
 ] as const;
 

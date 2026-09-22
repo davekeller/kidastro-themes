@@ -4,12 +4,15 @@ import { cn } from "../../lib/cn";
 type Tone = "note" | "tip" | "warning" | "danger";
 
 /* Tinted with token/opacity mixes rather than fixed washes, so a callout sits
-   correctly on a paper theme and a near-black one without retuning. */
+   correctly on a paper palette and a near-black one without retuning. The tone
+   colors the edge, the tint, and the glyph — never the text. The glyph is the
+   tone's fill with its -fg, the title is --fg, so every tone reads in every
+   palette (a pale primary makes a fine fill and an unreadable heading). */
 const tones: Record<Tone, { wrap: string; mark: string; label: string }> = {
-  note: { wrap: "border-border bg-surface-2/50", mark: "text-muted", label: "Note" },
-  tip: { wrap: "border-primary/35 bg-primary/8", mark: "text-primary", label: "Tip" },
-  warning: { wrap: "border-warning/40 bg-warning/10", mark: "text-warning", label: "Warning" },
-  danger: { wrap: "border-danger/40 bg-danger/10", mark: "text-danger", label: "Careful" },
+  note: { wrap: "border-border bg-surface-2/50", mark: "border border-current text-muted", label: "Note" },
+  tip: { wrap: "border-primary/35 bg-primary/8", mark: "bg-primary text-primary-fg", label: "Tip" },
+  warning: { wrap: "border-warning/40 bg-warning/10", mark: "bg-warning text-warning-fg", label: "Warning" },
+  danger: { wrap: "border-danger/40 bg-danger/10", mark: "bg-danger text-danger-fg", label: "Careful" },
 };
 
 const glyphs: Record<Tone, string> = {
@@ -45,16 +48,14 @@ export function Callout({
       <span
         aria-hidden
         className={cn(
-          "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-current font-mono text-[11px] font-bold",
+          "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full font-mono text-[11px] font-bold",
           t.mark
         )}
       >
         {glyphs[tone]}
       </span>
       <div className="min-w-0">
-        {heading && (
-          <div className={cn("text-sm font-semibold", t.mark)}>{heading}</div>
-        )}
+        {heading && <div className="text-sm font-semibold text-fg">{heading}</div>}
         <div className={cn("text-sm leading-relaxed text-muted", heading && "mt-1")}>
           {children}
         </div>

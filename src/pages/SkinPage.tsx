@@ -109,7 +109,7 @@ export default function SkinPage({ view }: { view: SkinView }) {
           </div>
           <p className="mt-4 font-mono text-xs text-muted">
             data-skin="{skin.slug}" data-palette="{palette}"
-            <span className="text-muted/60"> · {paletteMeta.label}</span>
+            <span> · {paletteMeta.label}</span>
           </p>
         </div>
       </header>

@@ -39,6 +39,13 @@ const RULES = [
     hint: "use a semantic token (bg-surface, text-muted, border-border, …)",
   },
   {
+    name: "literal white/black",
+    // `text-white` is a hex color with a friendlier name: it can't follow a
+    // palette, and on a pale fill it disappears.
+    re: /\b(?:text|bg|border|fill|stroke|ring|from|via|to|outline|decoration|divide|caret|shadow)-(?:white|black)\b/,
+    hint: "use the -fg that pairs with the fill (text-primary-fg, text-danger-fg, …) or a surface/ink token",
+  },
+  {
     name: "hardcoded duration",
     re: /\bduration-\[?[0-9]/,
     hint: "let motion tokens drive it (transition-*), or use dur-1…5",

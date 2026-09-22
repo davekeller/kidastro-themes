@@ -2,11 +2,15 @@
 /**
  * Contrast guard — every palette must clear WCAG AA.
  *
- * Reads each `[data-skin][data-palette]` block from src/index.css and asserts
- * the pairs that actually carry meaning:
- *   - --fg and --muted on --bg, --surface, and --surface-2   (≥ 4.5)
- *   - --primary-fg on --primary, --accent-fg on --accent      (≥ 4.5)
- * A palette that fails is not done (see docs/skin-contract.md).
+ * Reads each `[data-skin][data-palette]` block from src/index.css, checks that
+ * it defines the whole palette contract (docs/skin-contract.md), and asserts
+ * the pairs that actually carry meaning, all at ≥ 4.5:
+ *   - --fg and --muted on --bg, --surface, and --surface-2   (text on surfaces)
+ *   - each fill's -fg on that fill: primary, accent, success,
+ *     warning, danger                                          (text on fills)
+ *   - --success, --warning, --danger on --surface             (status set as
+ *     text: a trend delta, a destructive menu item)
+ * A palette that fails is not done. Palette values are hex so this can read them.
  *
  * Run: `npm run contrast`
  */
@@ -50,6 +54,29 @@ if (palettes.length === 0) {
   process.exit(1);
 }
 
+// The palette half of the contract. A missing token would otherwise inherit
+// whatever an ancestor happens to set — and skip its pairs here silently.
+const REQUIRED = [
+  "bg",
+  "surface",
+  "surface-2",
+  "fg",
+  "muted",
+  "border",
+  "ring",
+  "primary",
+  "primary-fg",
+  "accent",
+  "accent-fg",
+  "success",
+  "success-fg",
+  "warning",
+  "warning-fg",
+  "danger",
+  "danger-fg",
+  "shadow-ink",
+];
+
 const PAIRS = [
   ["fg", "bg"],
   ["fg", "surface"],
@@ -59,11 +86,20 @@ const PAIRS = [
   ["muted", "surface-2"],
   ["primary-fg", "primary"],
   ["accent-fg", "accent"],
+  ["success-fg", "success"],
+  ["warning-fg", "warning"],
+  ["danger-fg", "danger"],
+  ["success", "surface"],
+  ["warning", "surface"],
+  ["danger", "surface"],
 ];
 
 const failures = [];
 let checks = 0;
 for (const { skin, palette, tokens } of palettes) {
+  for (const name of REQUIRED) {
+    if (!tokens[name]) failures.push(`  ${skin}/${palette}: missing --${name} (as a hex value)`);
+  }
   for (const [fg, bg] of PAIRS) {
     if (!tokens[fg] || !tokens[bg]) continue;
     checks++;
@@ -77,7 +113,7 @@ for (const { skin, palette, tokens } of palettes) {
 }
 
 if (failures.length) {
-  console.error(`✗ contrast: ${failures.length} pair(s) below AA\n`);
+  console.error(`✗ contrast: ${failures.length} problem(s)\n`);
   console.error(failures.join("\n"));
   console.error(
     `\nRaise contrast by choosing the readable *-fg (dark or light) or ` +

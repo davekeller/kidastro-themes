@@ -29,6 +29,9 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
+  --color-success-fg: var(--success-fg);
+  --color-warning-fg: var(--warning-fg);
+  --color-danger-fg: var(--danger-fg);
 
   /* shape — tracks each theme's base --radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -128,6 +131,9 @@
   --success: #0f766e;
   --warning: #a16207;
   --danger: #b91c1c;
+  --success-fg: #ffffff;
+  --warning-fg: #ffffff;
+  --danger-fg: #ffffff;
   --shadow-ink: #0a0a0a;
 }
 
@@ -148,6 +154,9 @@
   --success: #6ee7b7;
   --warning: #fcd34d;
   --danger: #fca5a5;
+  --success-fg: #17151a;
+  --warning-fg: #17151a;
+  --danger-fg: #17151a;
   --shadow-ink: #efeae2;
 }
 
@@ -168,6 +177,9 @@
   --success: #0f766e;
   --warning: #9a5b00;
   --danger: #d61f1f;
+  --success-fg: #ffffff;
+  --warning-fg: #ffffff;
+  --danger-fg: #ffffff;
   --shadow-ink: #1a0a14;
 }
 
@@ -178,6 +190,17 @@
 }
 
 /* =========================== THEMES =========================== */
+
+/* Status -fg defaults for the legacy themes. They predate the tokens, and each
+   one was designed with white text on its status fills, so white keeps them
+   exactly as they were. Every skin palette sets its own (SKIN × PALETTE above);
+   this rule also stops a skin's values leaking into a [data-theme] subtree. */
+:root,
+[data-theme] {
+  --success-fg: #ffffff;
+  --warning-fg: #ffffff;
+  --danger-fg: #ffffff;
+}
 
 /* Clean / Minimal — neutral, tight, subtle (also the app default) */
 :root,

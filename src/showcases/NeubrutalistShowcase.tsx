@@ -12,6 +12,9 @@ import { ArrowRight, Bolt, Star } from "../components/icons";
  * and hard offset shadows everywhere. Nothing is subtle.
  */
 
+/* The caller names the fill (and, on a colored fill, its -fg). A default
+   bg-surface here would sit beside the caller's bg-primary and let stylesheet
+   order pick the winner. */
 function Slab({
   className,
   children,
@@ -23,7 +26,7 @@ function Slab({
 }) {
   return (
     <div
-      className={cn("border-2 border-border bg-surface p-6 elev-1", className)}
+      className={cn("border-2 border-border p-6 elev-1", className)}
       style={tilt ? { transform: `rotate(${tilt})` } : undefined}
     >
       {children}
@@ -52,7 +55,7 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
           <Button
             size="sm"
             variant="secondary"
-            className="border-2 border-border bg-surface font-bold elev-1"
+            className="border-2 border-border font-bold elev-1"
           >
             Start selling
           </Button>
@@ -78,8 +81,8 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
               </Button>
               <Button
                 size="lg"
-                variant="secondary"
-                className="border-2 border-border bg-accent font-bold text-accent-fg elev-1"
+                variant="accent"
+                className="border-2 border-border font-bold elev-1"
               >
                 See examples
               </Button>
@@ -89,7 +92,7 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
 
         {/* Rotated starburst sticker, breaking the grid */}
         <div
-          className="absolute -right-6 top-8 hidden h-32 w-32 place-items-center border-2 border-border bg-warning text-center font-display text-sm font-black uppercase leading-tight text-fg lg:grid"
+          className="absolute -right-6 top-8 hidden h-32 w-32 place-items-center border-2 border-border bg-warning text-center font-display text-sm font-black uppercase leading-tight text-warning-fg lg:grid"
           style={{ transform: "rotate(14deg)", borderRadius: "50%" }}
         >
           zero
@@ -116,7 +119,7 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
             ["176k", "people selling"],
             ["4.9★", "creator rating"],
           ].map(([val, label], i) => (
-            <Slab key={label} tilt={["-1.5deg", "1deg", "-0.5deg"][i]}>
+            <Slab key={label} className="bg-surface" tilt={["-1.5deg", "1deg", "-0.5deg"][i]}>
               <p className="font-display text-4xl font-black tracking-tight">{val}</p>
               <p className="mt-1 font-medium uppercase tracking-wide text-muted">
                 {label}
@@ -133,10 +136,10 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
           {[
             { title: "Type Specimens", price: "$29", fill: "bg-primary", fg: "text-primary-fg" },
             { title: "Risograph Pack", price: "$18", fill: "bg-accent", fg: "text-accent-fg" },
-            { title: "Zine Templates", price: "$12", fill: "bg-warning", fg: "text-fg" },
+            { title: "Zine Templates", price: "$12", fill: "bg-warning", fg: "text-warning-fg" },
             { title: "Brush Set Vol. 3", price: "$34", fill: "bg-surface-2", fg: "text-fg" },
-            { title: "Sticker Mockups", price: "$22", fill: "bg-success", fg: "text-white" },
-            { title: "Grid Poster Kit", price: "$40", fill: "bg-danger", fg: "text-white" },
+            { title: "Sticker Mockups", price: "$22", fill: "bg-success", fg: "text-success-fg" },
+            { title: "Grid Poster Kit", price: "$40", fill: "bg-danger", fg: "text-danger-fg" },
           ].map((p) => (
             <div key={p.title} className="border-2 border-border bg-surface elev-1">
               <div
@@ -162,7 +165,7 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
 
         {/* Overlapping quote + signup, deliberately collaged */}
         <div className="relative mt-20 grid gap-6 lg:grid-cols-5">
-          <Slab className="bg-primary lg:col-span-3" tilt="-1deg">
+          <Slab className="bg-primary text-primary-fg lg:col-span-3" tilt="-1deg">
             <Bolt size={28} />
             <p className="mt-4 font-display text-2xl font-black uppercase leading-tight tracking-tight">
               "I made more in one Gumroad weekend than a whole month of client
@@ -173,7 +176,7 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
               <span className="font-bold">Tess Moreau — illustrator</span>
             </div>
           </Slab>
-          <Slab className="lg:col-span-2" tilt="1.5deg">
+          <Slab className="bg-surface lg:col-span-2" tilt="1.5deg">
             <h3 className="font-display text-2xl font-black uppercase tracking-tight">
               Get the newsletter
             </h3>
@@ -185,7 +188,7 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
                 placeholder="you@email.com"
                 className="border-2 border-border font-medium"
               />
-              <Button className="w-full border-2 border-border bg-accent font-bold text-accent-fg elev-1">
+              <Button variant="accent" className="w-full border-2 border-border font-bold elev-1">
                 Subscribe
               </Button>
             </div>
@@ -194,7 +197,7 @@ export function NeubrutalistShowcase({ theme }: { theme: ThemeMeta }) {
       </main>
 
       {/* Loud CTA */}
-      <div className="border-y-2 border-border bg-warning">
+      <div className="border-y-2 border-border bg-warning text-warning-fg">
         <div className="mx-auto max-w-4xl px-6 py-20 text-center">
           <h2 className="font-display text-5xl font-black uppercase leading-none tracking-tighter sm:text-6xl">
             start today.
