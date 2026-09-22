@@ -171,6 +171,12 @@
   --shadow-ink: #1a0a14;
 }
 
+/* A dark palette on <body> flips the UA color scheme too, so the viewport
+   scrollbar and native controls match instead of glaring white. */
+:root:has(> body[data-palette="dark"]) {
+  color-scheme: dark;
+}
+
 /* =========================== THEMES =========================== */
 
 /* Clean / Minimal — neutral, tight, subtle (also the app default) */

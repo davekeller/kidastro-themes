@@ -45,7 +45,8 @@ Two shifts define the work:
 - Information architecture:
   - **Themes** (top level) — a grid of skin thumbnails; each thumbnail is a
     miniature page rendered in the skin's default palette. Searchable/filterable.
-  - **Theme detail** (`/theme/:skin`) — a **palette switcher** (Light/Dark/Fun)
+  - **Theme detail** (`/skin/:slug` — not `/theme/`, which the legacy pages
+    keep until Phase 4) — a **palette switcher** (Light/Dark/Fun)
     and a **view toggle: Page ⇄ Components**. _Page_ is a full page laid out in
     the skin; _Components_ is the component library in that same skin+palette.
     The skin/palette choice lives here, inside the theme, exactly as Dave
