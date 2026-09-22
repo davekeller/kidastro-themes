@@ -42,6 +42,95 @@ export function themeTokensToCss(slug: string, el: Element): string {
   return `[data-theme="${slug}"] {\n${lines.join("\n")}\n}\n`;
 }
 
+/* ------------------- skin × palette (the new model) ------------------- */
+
+/** What a skin's form block owns — kept in sync with docs/skin-contract.md. */
+export const skinFormTokenNames = [
+  "--radius",
+  "--font-sans",
+  "--font-serif",
+  "--font-mono",
+  "--font-display",
+  "--elev-1",
+  "--elev-2",
+  "--elev-glow",
+  "--curve-standard",
+  "--curve-entrance",
+  "--curve-exit",
+  "--curve-emphasis",
+  "--dur-1",
+  "--dur-2",
+  "--dur-3",
+  "--dur-4",
+  "--dur-5",
+  "--travel-sm",
+  "--travel-md",
+  "--travel-lg",
+  "--lift",
+  "--press",
+  "--stagger",
+] as const;
+
+/** What a palette block owns: every color, plus the ink the skin's shadows use. */
+export const paletteTokenNames = [
+  "--bg",
+  "--surface",
+  "--surface-2",
+  "--fg",
+  "--muted",
+  "--border",
+  "--ring",
+  "--primary",
+  "--primary-fg",
+  "--accent",
+  "--accent-fg",
+  "--success",
+  "--warning",
+  "--danger",
+  "--shadow-ink",
+] as const;
+
+/**
+ * Build a ready-to-paste pair of blocks — the skin's form block and the one
+ * palette currently showing — from the tokens resolved on `el`.
+ *
+ * Computed custom properties come back with var() already substituted, so the
+ * elevation lines would read `4px 4px 0 #0a0a0a` and lose the split the
+ * contract is built on. Putting `var(--shadow-ink)` back is what makes the
+ * copied skin wear its other two palettes correctly.
+ */
+export function skinTokensToCss(skin: string, palette: string, el: Element): string {
+  const styles = getComputedStyle(el);
+  const read = (name: string) => styles.getPropertyValue(name).trim();
+  const ink = read("--shadow-ink");
+
+  const form = skinFormTokenNames
+    .map((name) => {
+      let value = read(name);
+      if (!value) return null;
+      if (ink && name.startsWith("--elev-")) value = value.split(ink).join("var(--shadow-ink)");
+      return `  ${name}: ${value};`;
+    })
+    .filter(Boolean);
+  const colors = paletteTokenNames
+    .map((name) => {
+      const value = read(name);
+      return value ? `  ${name}: ${value};` : null;
+    })
+    .filter(Boolean);
+
+  return [
+    `[data-skin="${skin}"] {`,
+    ...form,
+    `}`,
+    ``,
+    `[data-skin="${skin}"][data-palette="${palette}"] {`,
+    ...colors,
+    `}`,
+    ``,
+  ].join("\n");
+}
+
 /**
  * The motion half of the schema — kept in sync with the [data-motion] blocks in
  * src/index.css.

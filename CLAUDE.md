@@ -11,10 +11,38 @@ shadow, **or timing** in a component. If you reach for `#fff`, `text-gray-500`,
 `rounded-[6px]`, `duration-300`, `ease-out`, `hover:-translate-y-1`, or a literal
 font — stop and use a token instead.
 
-There are **three axes**, all on the same wrapper, all composing freely:
-`data-theme` controls how things look, `data-motion` how they move, and
-`data-interaction` how they're structured. The first two are pure tokens; the
-third is structural and works differently — see below.
+## The model: skin × palette
+
+A theme is a **skin** wearing a **palette** — two attributes on one wrapper:
+
+- `data-skin` is the **form**: radius, elevation *geometry*, type, and the
+  skin's baked-in motion feel.
+- `data-palette` is the **color**, one of `light` / `dark` / `fun`. Every skin
+  ships all three. It owns every color token plus `--shadow-ink`, the ink the
+  skin's shadows are drawn in — that split is what lets one hard offset shadow
+  read on paper and on charcoal.
+
+Contract and how-to: [docs/skin-contract.md](docs/skin-contract.md). Every
+palette is checked for WCAG AA by `npm run contrast`.
+
+**The active pair lives on `<body>`** (`src/lib/skin-state.ts`) and the whole
+app wears it: `index.html` restores the saved pair before first paint,
+`applySkin` / `applyPalette` change it, `useSkinState()` reads it. Body rather
+than `<html>` because `:root` and `[data-skin]` tie on specificity and the
+`:root` defaults come later in `index.css` — a skin on `<html>` would lose its
+form tokens. Anything that needs its *own* skin (a thumbnail, a swatch) sets the
+attributes on itself; the nearest ancestor wins.
+
+**App structure** — `/` is the Themes list; `/skin/:slug` is a skin's Page view,
+`/skin/:slug/components` its component library, `/skin/:slug/guide` its style
+guide, all inside the shell (`src/components/shell`). Opening a skin makes it
+the active one.
+
+**Legacy, until Phase 4:** the pre-migration single-axis system still exists —
+`data-theme` (look), `data-motion` (feel), `data-interaction` (structure) — and
+drives `/gallery`, `/theme/:slug`, `/motion`, `/interaction`, and `/start`, each
+wrapped in a `LegacyFrame` that restores the `:root` defaults. The keepers get
+rebuilt as skins; the rest go. Don't add new legacy themes.
 
 ## Token utilities (all track the active theme)
 
@@ -50,13 +78,24 @@ a tooltip that should feel instant, an overlay that should feel slow.
 Conversely: **writing `duration-300` opts that element out of the system**, since
 it overrides the default. That's the one thing to avoid.
 
-## Add a theme
+## Add a skin
 
-1. Copy an existing `[data-theme="..."]` block in `src/index.css` and retune the tokens.
-2. Add a matching entry (`slug`, `name`, `description`, `tags`) to `src/themes/index.ts`.
+1. In `src/index.css`, under "SKIN × PALETTE", write one `[data-skin="<slug>"]`
+   form block and three `[data-skin="<slug>"][data-palette="light|dark|fun"]`
+   color blocks. Copy Neubrutalist's and retune.
+2. Add an entry to `src/skins/index.ts` — slug, name, description, tags, the
+   three palettes' display labels, and the `bestFor` / `rules` / `avoid` lines
+   the style guide shows.
+3. Optionally register a Page composition in `src/showcases/index.ts` under the
+   same slug (see the hybrid model below); otherwise the shared one-pager renders.
+4. `npm run contrast` must pass for all three palettes.
 
-The gallery and `/theme/:slug` route pick it up automatically. Keep the token
-**names** identical across themes — only the values change.
+The Themes list, the `/skin/:slug` routes, and the deep-link fallback pick it up
+automatically. Keep the token **names** identical across skins — only the values
+change.
+
+(Adding a `[data-theme]` block is the legacy path and is closed — migrate a
+theme into a skin instead.)
 
 ## The third axis (proof of concept)
 
@@ -108,9 +147,11 @@ as token documentation. Examples: `bento`, `linear`.
 
 ## Reuse in a new prototype
 
-To bootstrap a new app from a theme: copy that theme's `[data-theme]` block, the
-`@theme inline` mapping from `index.css`, and the components you need. Set
-`data-theme="<slug>"` on the root element.
+To bootstrap a new app from a skin: the **Copy tokens** button on a skin's page
+hands you its form block and the palette you're looking at, ready to paste.
+Take the `@theme inline` mapping from `index.css` and the components you need,
+and set `data-skin="<slug>" data-palette="<light|dark|fun>"` on the root
+element.
 
 ## Shipping changes
 

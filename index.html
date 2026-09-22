@@ -27,7 +27,23 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <!-- The active skin × palette lives on <body> (see src/lib/skin-state.ts for
+       why body and not html). Defaults here, then the saved pair is restored
+       synchronously before #root exists, so the first paint is already right —
+       no flash of the default. Keys mirror SKIN_KEY / PALETTE_KEY. -->
+  <body data-skin="neubrutalist" data-palette="light">
+    <script>
+      (function () {
+        try {
+          var s = localStorage.getItem("kt-skin");
+          var p = localStorage.getItem("kt-palette");
+          if (s) document.body.setAttribute("data-skin", s);
+          if (p === "light" || p === "dark" || p === "fun") {
+            document.body.setAttribute("data-palette", p);
+          }
+        } catch (e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
