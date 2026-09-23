@@ -31,7 +31,7 @@ export function Modal({ open, onClose, title, children, footer, className }: Mod
       aria-label={title}
     >
       <div
-        className="absolute inset-0 bg-fg/40 backdrop-blur-sm"
+        className="absolute inset-0 bg-scrim backdrop-blur-sm"
         onClick={onClose}
       />
       <div

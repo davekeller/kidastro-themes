@@ -99,7 +99,9 @@ export function ClayShowcase({ theme }: { theme: ThemeMeta }) {
         </h2>
         <div className="mt-8 space-y-5">
           {PATH_STEPS.map((s) => (
-            <div key={s.label} className={cn("flex items-center gap-4", s.offset)}>
+            // w-fit: the row is only as wide as its content, so the zigzag offset
+            // moves the step rather than pushing an empty full-width row off the edge.
+            <div key={s.label} className={cn("flex w-fit items-center gap-4", s.offset)}>
               <span
                 className={cn(
                   "grid h-16 w-16 shrink-0 place-items-center rounded-full font-display text-lg font-extrabold elev-1",

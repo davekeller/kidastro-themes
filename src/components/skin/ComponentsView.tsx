@@ -997,7 +997,7 @@ function Spec({ entry }: { entry: Entry }) {
     <article
       id={entry.id}
       aria-labelledby={`${entry.id}-title`}
-      className={cn("min-w-0 scroll-mt-32 lg:scroll-mt-8", entry.wide && "md:col-span-2")}
+      className={cn("min-w-0 scroll-mt-32 lg:scroll-mt-20", entry.wide && "md:col-span-2")}
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <h3 id={`${entry.id}-title`} className="font-display text-base font-semibold tracking-tight">
@@ -1023,7 +1023,7 @@ function GroupSection({ group }: { group: Group }) {
     <section
       id={group.id}
       aria-labelledby={`${group.id}-title`}
-      className="scroll-mt-32 lg:scroll-mt-8"
+      className="scroll-mt-32 lg:scroll-mt-20"
     >
       <div className="border-b border-border pb-3">
         <h2 id={`${group.id}-title`} className="font-display text-xl font-semibold tracking-tight">
@@ -1044,7 +1044,8 @@ function GroupSection({ group }: { group: Group }) {
 function Index() {
   return (
     <nav aria-label="Component index" className="hidden xl:block">
-      <div className="sticky top-8 max-h-[calc(100vh-4rem)] overflow-y-auto pb-4">
+      {/* Clears the shell's sticky top bar, which is one 56px row at this width. */}
+      <div className="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pb-4">
         <p className="font-mono text-xs tracking-widest text-muted uppercase">On this page</p>
         <ul className="mt-3 space-y-4 text-sm">
           {GROUPS.map((g) => (
@@ -1078,7 +1079,7 @@ export function ComponentsView({ skin }: { skin: SkinMeta }) {
       <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_11rem]">
         <div className="min-w-0">
           <header className="max-w-3xl">
-            <h2 className="font-display text-2xl font-semibold tracking-tight">Component library</h2>
+            <h1 className="font-display text-2xl font-semibold tracking-tight">Component library</h1>
             <p className="mt-2 text-sm leading-6 text-muted">
               All {TOTAL} components in the shared library, in {skin.name} and the active
               palette. None of them is styled for this skin — each only names tokens — so

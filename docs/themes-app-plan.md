@@ -157,6 +157,12 @@ component legible in that skin × all three palettes, both layouts.
 **Phase 4 — Skin migration.** Bring the keeper skins across (Dave's shortlist),
 each elevated to a real skin with three palettes and a Page showcase. _Verify:_
 per-skin browser pass + contrast per palette; the thumbnail grid fills in.
+_2026-09-23: running in waves, one PR each, Dave's order — Kid Astro first,
+then Neubrutalist brought up to the same bar, before any other skin. Wave 1
+makes Kid Astro the default and house skin (Daylight / Deep space / Arcade, its
+Page ported from the Codex curation), reshapes the shell into a collapsible
+house rail plus a content area with its own top bar, and adds the
+palette-owned `--scrim`._
 
 **Phase 5 — Trends Loop v1.** Build the capture inbox → ingest → cluster →
 moodboard → skin-spec handoff described in [trends-loop.md](trends-loop.md), as

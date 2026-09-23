@@ -16,6 +16,34 @@ export type { PaletteMeta, PaletteSlug, SkinMeta } from "./types";
  */
 export const skins: SkinMeta[] = [
   {
+    slug: "kidastro",
+    name: "Kid Astro",
+    description:
+      "kidastro.com as a skin — deep-space navy, Bricolage Grotesque, a teal-and-yellow arcade signal, soft rim-lit depth. The house skin.",
+    tags: ["Dark", "Portfolio", "Playful", "Custom layout"],
+    palettes: [
+      { slug: "light", label: "Daylight" },
+      { slug: "dark", label: "Deep space" },
+      { slug: "fun", label: "Arcade" },
+    ],
+    bestFor: [
+      "Creative portfolios and personal sites",
+      "Experimental products and creative tools",
+      "Developer tools that are allowed a personality",
+    ],
+    rules: [
+      "Deep layers, not flat black: surfaces float on the canvas with a rim-lit edge and a soft drop.",
+      "Teal leads; yellow and pink turn up as small arcade signals — a status dot, a highlight, a glow.",
+      "Balance round, friendly surfaces with crisp technical detail: mono labels, coordinates, readouts.",
+      "Bricolage Grotesque for everything — heavy and tight for display, easygoing for body.",
+    ],
+    avoid: [
+      "Large rainbow gradients. The color cycle belongs to thin lines and the icosahedron.",
+      "Corporate blue-on-white defaults — even Daylight keeps the teal-and-yellow signal.",
+      "Setting text in the signal colors. They're fills, rules, and dots; ink stays --fg.",
+    ],
+  },
+  {
     slug: "neubrutalist",
     name: "Neubrutalist",
     description:
@@ -45,8 +73,14 @@ export const skins: SkinMeta[] = [
   },
 ];
 
-export const DEFAULT_SKIN = "neubrutalist";
-export const DEFAULT_PALETTE: PaletteSlug = "light";
+/** What a first visit wears before any skin has been opened. */
+export const DEFAULT_SKIN = "kidastro";
+export const DEFAULT_PALETTE: PaletteSlug = "dark";
+
+/** The app's own chrome — the rail and the Themes list — always wears this,
+ *  whatever skin the content area is showing. */
+export const HOUSE_SKIN = "kidastro";
+export const HOUSE_PALETTE: PaletteSlug = "dark";
 
 export function getSkin(slug?: string | null): SkinMeta | undefined {
   return skins.find((s) => s.slug === slug);

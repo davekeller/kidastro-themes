@@ -1,13 +1,17 @@
-import { useLayoutEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { useCallback, useLayoutEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import { ensureSkinState } from "../../lib/skin-state";
-import { Rail } from "./Rail";
+import { HOUSE_PALETTE, HOUSE_SKIN } from "../../skins";
+import { HouseChrome, RailDrawer } from "./HouseRail";
+import { TopBar } from "./TopBar";
 
 /**
- * The app frame for the new information architecture: a rail on the left, the
- * page on the right, the whole thing wearing the active skin × palette that
- * <body> carries. Pages inside decide their own container width — the Page
- * view of a skin wants the full column, the lists want a measure.
+ * The app frame: the house rail on the left, always in Kid Astro, and the
+ * content area beside it with its top bar. On a skin's pages the content area
+ * wears the active skin × palette from <body>; everywhere else in the shell —
+ * the Themes list — it wears the house skin, the same as the rail. Pages decide
+ * their own container width: a skin's Page view wants the full column, the
+ * lists want a measure.
  */
 export function Shell() {
   // Before first paint: if index.html restored a pair we no longer know, fix it.
@@ -15,10 +19,21 @@ export function Shell() {
     ensureSkinState();
   }, []);
 
+  const { pathname } = useLocation();
+  const onSkin = pathname.startsWith("/skin/");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const closeMenu = useCallback(() => setMenuOpen(false), []);
+
   return (
     <div className="min-h-screen bg-bg font-sans text-fg">
-      <Rail />
-      <div className="lg:pl-60">
+      <HouseChrome />
+      {menuOpen && <RailDrawer onClose={closeMenu} />}
+      <div
+        data-skin={onSkin ? undefined : HOUSE_SKIN}
+        data-palette={onSkin ? undefined : HOUSE_PALETTE}
+        className="min-h-screen bg-bg font-sans text-fg transition-[padding] md:pl-[var(--rail-w)]"
+      >
+        <TopBar onOpenMenu={() => setMenuOpen(true)} />
         <Outlet />
       </div>
     </div>

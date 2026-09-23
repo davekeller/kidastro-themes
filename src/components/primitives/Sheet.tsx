@@ -42,7 +42,7 @@ export function Sheet({
       aria-modal="true"
       aria-label={title ?? "Sheet"}
     >
-      <div className="absolute inset-0 bg-fg/40" onClick={onClose} />
+      <div className="absolute inset-0 bg-scrim" onClick={onClose} />
 
       <div
         className={cn(

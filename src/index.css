@@ -32,6 +32,9 @@
   --color-success-fg: var(--success-fg);
   --color-warning-fg: var(--warning-fg);
   --color-danger-fg: var(--danger-fg);
+  /* The dimming layer behind a modal or sheet. Palette-owned, alpha included,
+     because "darker" means different things on paper and on charcoal. */
+  --color-scrim: var(--scrim);
 
   /* shape — tracks each theme's base --radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -78,10 +81,131 @@
    attributes on one wrapper; components style from tokens only, so any skin
    in any palette just works. Contract + how-to: docs/skin-contract.md.
 
-   Reference skin: Neubrutalist. The legacy single-axis [data-theme] blocks
-   below still drive the current gallery and come out in Phase 4; until then
-   the two coexist and no element carries both. Custom properties set on the
-   [data-skin] wrapper govern its subtree, overriding the :root defaults. */
+   Kid Astro is the house skin — the app's default and the look of its own
+   chrome — and Neubrutalist is the reference for block shape. The legacy
+   single-axis [data-theme] blocks below still drive the current gallery and
+   come out in Phase 4; until then the two coexist and no element carries both.
+   Custom properties set on the [data-skin] wrapper govern its subtree,
+   overriding the :root defaults. Each palette also sets color-scheme, so native
+   scrollbars and controls inside it match. */
+
+/* ---- Kid Astro: form + motion (baked-in "orbital") ----
+   kidastro.com as a skin: Bricolage Grotesque throughout, a 12px radius, soft
+   depth with a rim light, and a glow tinted by the palette's primary. */
+[data-skin="kidastro"] {
+  --radius: 12px;
+
+  --font-sans: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+
+  /* Soft depth — geometry here, ink from the palette. The 1px rim is a
+     highlight rather than a shadow, so it stays white: it catches the light on
+     the dark palettes and simply disappears on Daylight. */
+  --elev-1:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 4px 16px color-mix(in srgb, var(--shadow-ink) 40%, transparent);
+  --elev-2:
+    inset 0 1px 0 rgb(255 255 255 / 0.06),
+    0 18px 50px color-mix(in srgb, var(--shadow-ink) 45%, transparent);
+  --elev-glow:
+    0 0 26px color-mix(in srgb, var(--primary) 22%, transparent),
+    0 0 90px color-mix(in srgb, var(--primary) 10%, transparent);
+
+  /* Motion feel: orbital — long, smooth decelerations, and a small arcade pop
+     on emphasis. */
+  --curve-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --curve-entrance: cubic-bezier(0.16, 1, 0.3, 1);
+  --curve-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --curve-emphasis: cubic-bezier(0.34, 1.45, 0.64, 1);
+  --dur-1: 110ms;
+  --dur-2: 180ms;
+  --dur-3: 300ms;
+  --dur-4: 480ms;
+  --dur-5: 800ms;
+  --travel-sm: 6px;
+  --travel-md: 14px;
+  --travel-lg: 32px;
+  --lift: -3px;
+  --press: 0.97;
+  --stagger: 50ms;
+}
+
+/* ---- Kid Astro · Light ("Daylight") — the same signal in daylight: cool
+   paper, deep-navy ink, the teal and yellow kept as fills. ---- */
+[data-skin="kidastro"][data-palette="light"] {
+  color-scheme: light;
+  --bg: #f3f5fa;
+  --surface: #ffffff;
+  --surface-2: #e8ecf5;
+  --fg: #0b1020;
+  --muted: #4b5572;
+  --border: #cdd4e3;
+  --ring: #0f9f96;
+  --primary: #39d5cb;
+  --primary-fg: #042f2b;
+  --accent: #f4fd7b;
+  --accent-fg: #2b2c05;
+  --success: #0b7a53;
+  --warning: #9a5a00;
+  --danger: #c8285a;
+  --success-fg: #ffffff;
+  --warning-fg: #ffffff;
+  --danger-fg: #ffffff;
+  --shadow-ink: #1b2440;
+  --scrim: #0b102066;
+}
+
+/* ---- Kid Astro · Dark ("Deep space") — kidastro.com as it is: deep-space
+   navy, teal signal, arcade yellow, the portfolio's pink for danger. ---- */
+[data-skin="kidastro"][data-palette="dark"] {
+  color-scheme: dark;
+  --bg: #05070f;
+  --surface: #0d1220;
+  --surface-2: #151b2e;
+  --fg: #ffffff;
+  --muted: #a8b0c2;
+  --border: #262d40;
+  --ring: #39d5cb;
+  --primary: #39d5cb;
+  --primary-fg: #042f2b;
+  --accent: #f4fd7b;
+  --accent-fg: #2b2c05;
+  --success: #6ee7b7;
+  --warning: #fcd34d;
+  --danger: #e4416f;
+  --success-fg: #04241a;
+  --warning-fg: #2e2102;
+  --danger-fg: #16040b;
+  --shadow-ink: #000000;
+  --scrim: #000000b3;
+}
+
+/* ---- Kid Astro · Fun ("Arcade") — loud: the cabinet at night. Violet dark,
+   hot-pink primary, the yellow and teal as neon. ---- */
+[data-skin="kidastro"][data-palette="fun"] {
+  color-scheme: dark;
+  --bg: #150b33;
+  --surface: #20124a;
+  --surface-2: #2b1a5e;
+  --fg: #fdf7ff;
+  --muted: #c9bde6;
+  --border: #45307e;
+  --ring: #39d5cb;
+  --primary: #ff4fa3;
+  --primary-fg: #2a0418;
+  --accent: #f4fd7b;
+  --accent-fg: #2b2c05;
+  --success: #6ee7b7;
+  --warning: #fcd34d;
+  --danger: #ff6b57;
+  --success-fg: #04241a;
+  --warning-fg: #2e2102;
+  --danger-fg: #2b0703;
+  --shadow-ink: #07021a;
+  --scrim: #07021acc;
+}
 
 /* ---- Neubrutalist: form + motion (baked-in "springy") ---- */
 [data-skin="neubrutalist"] {
@@ -117,6 +241,7 @@
 
 /* ---- Neubrutalist · Light ("Paper") ---- */
 [data-skin="neubrutalist"][data-palette="light"] {
+  color-scheme: light;
   --bg: #f7f2ea;
   --surface: #ffffff;
   --surface-2: #ffe8f7;
@@ -135,11 +260,13 @@
   --warning-fg: #ffffff;
   --danger-fg: #ffffff;
   --shadow-ink: #0a0a0a;
+  --scrim: #0a0a0a66;
 }
 
 /* ---- Neubrutalist · Dark ("Blackout") — chalk-on-slate: light-ink borders
    and a light-ink hard shadow so the offset still reads on charcoal. ---- */
 [data-skin="neubrutalist"][data-palette="dark"] {
+  color-scheme: dark;
   --bg: #17151a;
   --surface: #201d24;
   --surface-2: #2a2630;
@@ -158,11 +285,13 @@
   --warning-fg: #17151a;
   --danger-fg: #17151a;
   --shadow-ink: #efeae2;
+  --scrim: #000000a6;
 }
 
 /* ---- Neubrutalist · Fun ("Candy") — loud: hot magenta + electric violet
    on pink-tinted paper. ---- */
 [data-skin="neubrutalist"][data-palette="fun"] {
+  color-scheme: light;
   --bg: #fff0f6;
   --surface: #ffffff;
   --surface-2: #d9fff5;
@@ -181,12 +310,30 @@
   --warning-fg: #ffffff;
   --danger-fg: #ffffff;
   --shadow-ink: #1a0a14;
+  --scrim: #1a0a1466;
 }
 
 /* A dark palette on <body> flips the UA color scheme too, so the viewport
-   scrollbar and native controls match instead of glaring white. */
-:root:has(> body[data-palette="dark"]) {
+   scrollbar and native controls match instead of glaring white. Kid Astro's
+   fun palette is a dark one, so it's listed by name. */
+:root:has(> body[data-palette="dark"]),
+:root:has(> body[data-skin="kidastro"][data-palette="fun"]) {
   color-scheme: dark;
+}
+
+/* ======================== APP CHROME ========================
+   The house rail is collapsed to icons by default and widens when <body>
+   carries data-rail="expanded" (restored before first paint in index.html) —
+   from lg up only: on a tablet a 15rem rail would leave the page too little
+   room, so it stays compact there whatever was saved. The rail and the column
+   beside it both size from this one variable. */
+body {
+  --rail-w: 4rem;
+}
+@media (min-width: 64rem) {
+  body[data-rail="expanded"] {
+    --rail-w: 15rem;
+  }
 }
 
 /* =========================== THEMES =========================== */
@@ -194,12 +341,14 @@
 /* Status -fg defaults for the legacy themes. They predate the tokens, and each
    one was designed with white text on its status fills, so white keeps them
    exactly as they were. Every skin palette sets its own (SKIN × PALETTE above);
-   this rule also stops a skin's values leaking into a [data-theme] subtree. */
+   this rule also stops a skin's values leaking into a [data-theme] subtree.
+   The scrim default is a neutral black that dims on light and dark alike. */
 :root,
 [data-theme] {
   --success-fg: #ffffff;
   --warning-fg: #ffffff;
   --danger-fg: #ffffff;
+  --scrim: #0000006b;
 }
 
 /* Clean / Minimal — neutral, tight, subtle (also the app default) */

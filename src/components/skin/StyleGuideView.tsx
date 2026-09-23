@@ -95,6 +95,11 @@ export function StyleGuideView({ skin, palette }: { skin: SkinMeta; palette: Pal
 
   return (
     <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
+      <header className="mb-10 max-w-3xl">
+        <h1 className="font-display text-2xl font-semibold tracking-tight">{skin.name} style guide</h1>
+        <p className="mt-2 text-sm leading-6 text-muted">{skin.description}</p>
+      </header>
+
       {/* ---------------- Type ---------------- */}
       <Section title="Type">
         <Panel className="p-6">

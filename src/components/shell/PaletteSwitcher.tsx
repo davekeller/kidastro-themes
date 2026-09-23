@@ -32,8 +32,17 @@ export function PaletteDots({
 }
 
 /** Light / Dark / Fun for the given skin. Selection is app-wide: it paints
- *  <body> immediately and persists, so the whole shell follows. */
-export function PaletteSwitcher({ skin, compact = false }: { skin: SkinMeta; compact?: boolean }) {
+ *  <body> immediately and persists, so every skin page follows. Compact is the
+ *  row of swatches; `showActiveLabel` names the selected one beside its dots. */
+export function PaletteSwitcher({
+  skin,
+  compact = false,
+  showActiveLabel = false,
+}: {
+  skin: SkinMeta;
+  compact?: boolean;
+  showActiveLabel?: boolean;
+}) {
   const { palette } = useSkinState();
 
   return (
@@ -61,9 +70,16 @@ export function PaletteSwitcher({ skin, compact = false }: { skin: SkinMeta; com
           >
             <PaletteDots skin={skin.slug} palette={p.slug} />
             {compact ? (
-              <span className="sr-only">
-                {p.slug} · {p.label}
-              </span>
+              active && showActiveLabel ? (
+                <span className="pr-0.5 whitespace-nowrap">
+                  <span className="sr-only">{p.slug} · </span>
+                  {p.label}
+                </span>
+              ) : (
+                <span className="sr-only">
+                  {p.slug} · {p.label}
+                </span>
+              )
             ) : (
               <span className="min-w-0 truncate">
                 <span className="capitalize">{p.slug}</span>

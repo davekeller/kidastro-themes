@@ -75,6 +75,7 @@ const REQUIRED = [
   "danger",
   "danger-fg",
   "shadow-ink",
+  "scrim",
 ];
 
 const PAIRS = [
