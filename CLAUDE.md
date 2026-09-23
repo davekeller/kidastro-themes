@@ -176,13 +176,20 @@ element.
 
 ## Shipping changes
 
-Work on a branch and open a PR — don't push to `main` directly. After a PR
-merges, the live site at kidastro.com/themes only refreshes when the portfolio
-repo redeploys:
+Work on a branch and open a PR — don't push to `main` directly.
 
-```bash
-gh workflow run deploy.yml --repo davekeller/kidastro
-```
+The app has two homes from one build (`vite.config.ts` picks the base path):
+
+- **themes.kidastro.com** — a Vercel project on this repo. Every push to
+  `main` deploys; every PR gets a preview URL. `vercel.json` carries the SPA
+  rewrite. Nothing to trigger by hand.
+- **kidastro.com/themes** — the portfolio repo's Pages workflow builds this
+  repo and serves `dist/` under `/themes`. It only refreshes when that repo
+  redeploys:
+
+  ```bash
+  gh workflow run deploy.yml --repo davekeller/kidastro
+  ```
 
 ## Checks (all run in CI, and `npm run check` runs them in order)
 

@@ -165,7 +165,10 @@ clustered trend board and one proposed skin spec.
 
 **Phase 6 — Cutover.** Create the Vercel project, wire DNS to
 themes.kidastro.com, add SPA rewrites, decide the kidastro.com/themes redirect,
-and retire daves-demos. _Verify:_ the subdomain serves the built app; routing,
+and retire daves-demos. _Pulled forward on 2026-09-22 (Dave: "I want this to
+live at themes.kidastro.com"): the repo half — `vercel.json`, a base path that
+resolves to `/` on Vercel and `/themes/` on Pages — shipped ahead of Phase 3;
+the Vercel project, the domain, and the DNS record are Dave's to create._ _Verify:_ the subdomain serves the built app; routing,
 DNS, and build are green.
 
 **Phase 7 — Keep it fresh.** Run the loop on call; add skins/palettes as trends
