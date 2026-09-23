@@ -49,12 +49,24 @@ rebuilt as skins; the rest go. Don't add new legacy themes.
 - **Surfaces:** `bg-bg`, `bg-surface`, `bg-surface-2`
 - **Text:** `text-fg`, `text-muted`
 - **Brand:** `bg-primary` / `text-primary-fg`, `bg-accent` / `text-accent-fg`
-- **Status:** `bg-success`, `bg-warning`, `bg-danger`
+- **Status:** `bg-success` / `text-success-fg`, `bg-warning` / `text-warning-fg`, `bg-danger` / `text-danger-fg`
 - **Lines & focus:** `border-border`, `ring-ring`
 - **Radius:** `rounded-sm | rounded-md | rounded-lg | rounded-xl` (scale from each theme's base `--radius`)
 - **Type:** `font-display` (headings), `font-sans`, `font-serif`, `font-mono`
 - **Elevation:** `elev-1`, `elev-2`, `glow` (helper classes in `index.css`)
 - **Opacity mixes are fine:** e.g. `bg-primary/12`, `bg-surface-2/40`.
+
+**Every fill has its ink.** Text on a colored fill takes that fill's `-fg`
+(`bg-danger text-danger-fg`), never `text-white` — a palette is free to make a
+fill pale, and the guard fails literal white/black for that reason.
+
+**Fills are not ink.** `--primary` and `--accent` are fill colors: a light
+palette's pale pink primary is a fine button and an unreadable heading. Don't
+set text in them (`text-primary`). Text goes in `text-fg` / `text-muted`, or in
+the fill's own `-fg` when it sits on the fill, and "active" is marked with a
+rule, a bar, or a fill rather than colored words. Status colors are the one
+exception — they're contrast-checked on `--surface`, so a trend delta or a
+destructive menu item may be set in them.
 
 ## Motion utilities (all track the active motion style)
 
@@ -143,7 +155,16 @@ as token documentation. Examples: `bento`, `linear`.
 
 - Primitives go in `src/components/primitives`, page sections in `src/components/sections`.
 - Accept `className` and spread rest props; compose classes with `cn()` from `src/lib/cn.ts`.
-- Token-only styling. Test it visually under all themes before considering it done.
+- Token-only styling. `cn()` only joins, it doesn't merge — don't give a
+  component a default `bg-*` that callers override, or stylesheet order picks
+  the winner. Let the caller name the fill.
+- When something that isn't the component needs its look (a router link styled
+  as a button, a native control that should read as a field), use a class
+  recipe from `primitives/recipes.ts` (`buttonClasses`, `fieldClasses`) rather
+  than copying the classes.
+- Add it to the catalogue in `src/components/skin/ComponentsView.tsx` so it
+  renders on every skin's Components view, then check it there in all three
+  palettes before considering it done.
 
 ## Reuse in a new prototype
 
@@ -175,8 +196,9 @@ npm run check      # all of the above, in order
 ```
 
 `npm run guard` (`scripts/check-tokens.mjs`) fails if a component, page, or
-showcase hardcodes a color, palette shade, radius, duration, or easing instead
-of a token. For a genuine non-token literal, add a `guard-allow: <reason>`
+showcase hardcodes a color (including `text-white` / `bg-black`), palette
+shade, radius, duration, or easing instead of a token. `npm run contrast` also
+fails a palette that leaves out any token of the contract. For a genuine non-token literal, add a `guard-allow: <reason>`
 comment on the line (or `guard-allow-file: <reason>` for a file that *displays*
 code samples) — sparingly, with a reason.
 

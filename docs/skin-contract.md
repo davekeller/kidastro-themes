@@ -41,8 +41,18 @@ there is no `.dark` class:
 - **Ink:** `--fg`, `--muted`
 - **Lines & focus:** `--border`, `--ring`
 - **Brand:** `--primary`, `--primary-fg`, `--accent`, `--accent-fg`
-- **Status:** `--success`, `--warning`, `--danger`
+- **Status:** `--success`, `--success-fg`, `--warning`, `--warning-fg`,
+  `--danger`, `--danger-fg`
 - **Shadow color:** `--shadow-ink` (feeds the skin's elevation geometry)
+
+Every fill comes with its `-fg`: the text color that reads on that fill. Text
+on a fill always uses it, so a palette can make a fill pale (dark ink) or deep
+(light ink) without any component changing. Brand fills are *only* fills —
+nothing sets text in `--primary` or `--accent`. Status colors are also used as
+text on cards (a trend delta, a destructive menu item), so they must read on
+`--surface` as well as carry their `-fg`. (Added in Phase 3; the legacy themes
+default the three status `-fg` tokens to white, which is what they were
+designed with.)
 
 ## The three palettes
 
@@ -57,11 +67,16 @@ Display labels can differ per skin (e.g. Neubrutalist's fun palette shows as
 
 ## Contrast is a check, not a hope
 
-`npm run contrast` reads every `[data-skin][data-palette]` block and asserts
-WCAG AA: `--fg` and `--muted` on `--bg` and on `--surface`, and each
-`*-fg` on its fill. A palette that fails is not done. Keep fills saturated by
-choosing the readable `*-fg` (dark or light) per palette rather than dulling
-the color.
+`npm run contrast` reads every `[data-skin][data-palette]` block, fails any
+that leaves out a token above, and asserts WCAG AA (4.5:1) on 14 pairs:
+`--fg` and `--muted` on `--bg`, `--surface` and `--surface-2`; each of the five
+`*-fg` on its fill; and `--success` / `--warning` / `--danger` on `--surface`.
+A palette that fails is not done. Keep fills saturated by choosing the readable
+`*-fg` (dark or light) per palette rather than dulling the color.
+
+That checks the tokens. Whether the *components* use them correctly is checked
+on the rendered page: each skin's Components view shows the whole library, and
+it should be read in all three palettes before a change ships.
 
 ## Adding a skin
 

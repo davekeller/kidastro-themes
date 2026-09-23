@@ -14,9 +14,9 @@ const styles: Record<BadgeVariant, string> = {
   default: "bg-surface-2 text-fg",
   primary: "bg-primary text-primary-fg",
   accent: "bg-accent text-accent-fg",
-  success: "bg-success text-white",
-  warning: "bg-warning text-white",
-  danger: "bg-danger text-white",
+  success: "bg-success text-success-fg",
+  warning: "bg-warning text-warning-fg",
+  danger: "bg-danger text-danger-fg",
   outline: "border border-border text-fg",
 };
 

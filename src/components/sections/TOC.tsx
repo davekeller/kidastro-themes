@@ -27,11 +27,15 @@ export function TOC({ entries, title = "On this page", className, ...props }: TO
       <ul className="space-y-1.5">
         {entries.map((e) => (
           <li key={e.label} className={cn(e.level === 3 && "pl-3")}>
+            {/* Active is a primary rule plus weight, with the label in --fg:
+                primary is a fill color, and a pale one doesn't read as text. */}
             <span
               aria-current={e.active ? "true" : undefined}
               className={cn(
-                "block cursor-pointer leading-snug transition-colors",
-                e.active ? "font-medium text-primary" : "text-muted hover:text-fg"
+                "block cursor-pointer border-l-2 pl-3 leading-snug transition-[color,border-color]",
+                e.active
+                  ? "border-primary font-medium text-fg"
+                  : "border-transparent text-muted hover:text-fg"
               )}
             >
               {e.label}

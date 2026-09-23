@@ -139,7 +139,7 @@ export function StyleGuideView({ skin, palette }: { skin: SkinMeta; palette: Pal
         }
       >
         <Panel className="overflow-x-auto">
-          <table className="w-full min-w-[640px] border-collapse text-left">
+          <table className="w-full min-w-[760px] border-collapse text-left">
             <thead>
               <tr className="border-b border-border">
                 <th className="px-4 py-2.5">
@@ -157,15 +157,23 @@ export function StyleGuideView({ skin, palette }: { skin: SkinMeta; palette: Pal
                 const meta = skin.palettes.find((p) => p.slug === slug);
                 const active = slug === palette.slug;
                 return (
+                  // Each row is a strip of its own palette — its canvas, its ink —
+                  // so the labels read against the colors they describe rather
+                  // than against whichever palette happens to be active.
                   <tr
                     key={slug}
                     data-skin={skin.slug}
                     data-palette={slug}
-                    className={cn("border-b border-border last:border-b-0", active && "bg-surface-2")}
+                    className="border-b border-border bg-bg text-fg last:border-b-0"
                   >
                     <td className="px-4 py-3 text-sm whitespace-nowrap">
-                      <span className="capitalize">{slug}</span>
+                      <span className={cn("capitalize", active && "font-semibold")}>{slug}</span>
                       <span className="text-muted"> · {meta?.label}</span>
+                      {active && (
+                        <span className="ml-2 rounded-full border border-border px-1.5 py-px font-mono text-[10px] text-muted">
+                          active
+                        </span>
+                      )}
                     </td>
                     {colorNames.map((n) => (
                       <td key={n} className="px-1 py-3">

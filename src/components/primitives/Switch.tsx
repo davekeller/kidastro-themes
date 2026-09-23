@@ -21,10 +21,12 @@ export function Switch({ defaultChecked = false, label, className }: SwitchProps
           on ? "bg-primary" : "border border-border bg-surface-2"
         )}
       >
+        {/* The knob is content on the track: on, it takes the fill's -fg;
+            off, --muted, which every palette keeps AA against its surfaces. */}
         <span
           className={cn(
-            "inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform",
-            on ? "translate-x-6" : "translate-x-1"
+            "inline-block h-4 w-4 transform rounded-full transition-transform",
+            on ? "translate-x-6 bg-primary-fg" : "translate-x-1 bg-muted"
           )}
         />
       </button>
