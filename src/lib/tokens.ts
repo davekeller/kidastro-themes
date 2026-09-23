@@ -42,6 +42,22 @@ export function themeTokensToCss(slug: string, el: Element): string {
   return `[data-theme="${slug}"] {\n${lines.join("\n")}\n}\n`;
 }
 
+/**
+ * A token value as it was written rather than as the production minifier left
+ * it: `#fff` → `#ffffff`, `.22s` → `220ms`, `cubic-bezier(.34, …)` →
+ * `cubic-bezier(0.34, …)`. Same value either way — this is for the readouts
+ * (the Tokens panel, the style guide) and for CSS someone copies out.
+ */
+export function formatTokenValue(value: string): string {
+  const seconds = value.match(/^(-?\d*\.?\d+)s$/);
+  if (seconds) return `${Math.round(parseFloat(seconds[1]) * 1000)}ms`;
+  return value
+    .replace(/#([0-9a-fA-F]{3,4})(?![0-9a-fA-F])/g, (_, h: string) =>
+      "#" + [...h].map((c) => c + c).join("")
+    )
+    .replace(/(^|[\s(,/-])\.(\d)/g, "$10.$2");
+}
+
 /* ------------------- skin × palette (the new model) ------------------- */
 
 /** What a skin's form block owns — kept in sync with docs/skin-contract.md. */
@@ -116,13 +132,13 @@ export function skinTokensToCss(skin: string, palette: string, el: Element): str
       if (!value) return null;
       if (ink && name.startsWith("--elev-")) value = value.split(ink).join("var(--shadow-ink)");
       if (primary && name === "--elev-glow") value = value.split(primary).join("var(--primary)");
-      return `  ${name}: ${value};`;
+      return `  ${name}: ${formatTokenValue(value)};`;
     })
     .filter(Boolean);
   const colors = paletteTokenNames
     .map((name) => {
       const value = read(name);
-      return value ? `  ${name}: ${value};` : null;
+      return value ? `  ${name}: ${formatTokenValue(value)};` : null;
     })
     .filter(Boolean);
 

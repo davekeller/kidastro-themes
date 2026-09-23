@@ -6,6 +6,7 @@ import {
   isPaletteSlug,
   type PaletteSlug,
 } from "../skins";
+import { formatTokenValue } from "./tokens";
 
 /* How the active skin × palette works, end to end:
  *
@@ -100,7 +101,8 @@ const SEP = "\u0000";
 
 /**
  * The values the given custom properties currently resolve to on <body>, i.e.
- * under the active skin × palette, re-read whenever the pair changes. Pass a
+ * under the active skin × palette, re-read whenever the pair changes — spelled
+ * out as written (formatTokenValue), since these are for reading. Pass a
  * module-level constant for `names` so the memo holds.
  */
 export function useResolvedTokens(names: readonly string[]): Record<string, string> {
@@ -108,7 +110,7 @@ export function useResolvedTokens(names: readonly string[]): Record<string, stri
     subscribe,
     () => {
       const styles = getComputedStyle(document.body);
-      return names.map((n) => styles.getPropertyValue(n).trim()).join(SEP);
+      return names.map((n) => formatTokenValue(styles.getPropertyValue(n).trim())).join(SEP);
     },
     () => ""
   );
