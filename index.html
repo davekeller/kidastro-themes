@@ -28,18 +28,27 @@
     />
   </head>
   <!-- The active skin × palette lives on <body> (see src/lib/skin-state.ts for
-       why body and not html). Defaults here, then the saved pair is restored
-       synchronously before #root exists, so the first paint is already right —
-       no flash of the default. Keys mirror SKIN_KEY / PALETTE_KEY. -->
-  <body data-skin="neubrutalist" data-palette="light">
+       why body and not html). Defaults here — Kid Astro, the house skin — then
+       the saved pair is restored synchronously before #root exists, so the
+       first paint is already right: no flash of the default. A /skin/<slug>
+       deep link wins over the saved skin, since the route is what will render.
+       The house rail's collapsed/expanded state is restored the same way.
+       Keys mirror SKIN_KEY / PALETTE_KEY (skin-state.ts) and RAIL_KEY
+       (rail-state.ts). -->
+  <body data-skin="kidastro" data-palette="dark">
     <script>
       (function () {
         try {
           var s = localStorage.getItem("kt-skin");
           var p = localStorage.getItem("kt-palette");
+          var route = location.pathname.match(/\/skin\/([a-z0-9-]+)/);
+          if (route) s = route[1];
           if (s) document.body.setAttribute("data-skin", s);
           if (p === "light" || p === "dark" || p === "fun") {
             document.body.setAttribute("data-palette", p);
+          }
+          if (localStorage.getItem("kt-rail") === "expanded") {
+            document.body.setAttribute("data-rail", "expanded");
           }
         } catch (e) {}
       })();

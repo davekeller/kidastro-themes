@@ -91,6 +91,7 @@ export const paletteTokenNames = [
   "--danger",
   "--danger-fg",
   "--shadow-ink",
+  "--scrim",
 ] as const;
 
 /**
@@ -99,19 +100,22 @@ export const paletteTokenNames = [
  *
  * Computed custom properties come back with var() already substituted, so the
  * elevation lines would read `4px 4px 0 #0a0a0a` and lose the split the
- * contract is built on. Putting `var(--shadow-ink)` back is what makes the
- * copied skin wear its other two palettes correctly.
+ * contract is built on. Putting `var(--shadow-ink)` back — and `var(--primary)`
+ * in a glow tinted by it, as Kid Astro's is — is what makes the copied skin
+ * wear its other two palettes correctly.
  */
 export function skinTokensToCss(skin: string, palette: string, el: Element): string {
   const styles = getComputedStyle(el);
   const read = (name: string) => styles.getPropertyValue(name).trim();
   const ink = read("--shadow-ink");
+  const primary = read("--primary");
 
   const form = skinFormTokenNames
     .map((name) => {
       let value = read(name);
       if (!value) return null;
       if (ink && name.startsWith("--elev-")) value = value.split(ink).join("var(--shadow-ink)");
+      if (primary && name === "--elev-glow") value = value.split(primary).join("var(--primary)");
       return `  ${name}: ${value};`;
     })
     .filter(Boolean);

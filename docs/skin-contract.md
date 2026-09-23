@@ -44,6 +44,13 @@ there is no `.dark` class:
 - **Status:** `--success`, `--success-fg`, `--warning`, `--warning-fg`,
   `--danger`, `--danger-fg`
 - **Shadow color:** `--shadow-ink` (feeds the skin's elevation geometry)
+- **Overlay:** `--scrim` — the dimming layer behind a modal or sheet, alpha
+  included (an 8-digit hex). It's the palette's because "darker" means
+  different things on paper and on charcoal; the `bg-fg/40` it replaced
+  lightened every dark palette. (Added in Phase 4.)
+
+Each palette block also sets `color-scheme` (`light` or `dark`), so native
+scrollbars and form controls inside it match the palette rather than the page.
 
 Every fill comes with its `-fg`: the text color that reads on that fill. Text
 on a fill always uses it, so a palette can make a fill pale (dark ink) or deep
@@ -87,7 +94,9 @@ it should be read in all three palettes before a change ships.
    palette labels.
 3. `npm run check && npm run contrast`, then eyeball all three palettes.
 
-Neubrutalist is the reference implementation — copy its block shape.
+Neubrutalist is the reference implementation — copy its block shape. Kid Astro
+is the house skin: the app's default, and the look of its own chrome (the rail
+and the Themes list), whatever skin the content area is showing.
 
 ## Transition note
 

@@ -1,6 +1,7 @@
 import type { ComponentType } from "react";
 import type { ThemeMeta } from "../themes/types";
 import { BentoShowcase } from "./BentoShowcase";
+import { KidAstroShowcase } from "./KidAstroShowcase";
 import { LinearShowcase } from "./LinearShowcase";
 import { AuroraShowcase } from "./AuroraShowcase";
 import { NeubrutalistShowcase } from "./NeubrutalistShowcase";
@@ -24,6 +25,7 @@ import { NativeShowcase } from "./NativeShowcase";
  * Tokens still do all the styling; a showcase only *arranges* components.
  */
 export const customShowcases: Record<string, ComponentType<{ theme: ThemeMeta }>> = {
+  kidastro: KidAstroShowcase,
   bento: BentoShowcase,
   linear: LinearShowcase,
   aurora: AuroraShowcase,
