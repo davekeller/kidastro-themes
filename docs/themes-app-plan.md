@@ -162,12 +162,26 @@ then Neubrutalist brought up to the same bar, before any other skin. Wave 1
 makes Kid Astro the default and house skin (Daylight / Deep space / Arcade, its
 Page ported from the Codex curation), reshapes the shell into a collapsible
 house rail plus a content area with its own top bar, and adds the
-palette-owned `--scrim`._ _2026-10-02: the next keeper wave is Native Mobile,
-Liquid Chrome, Docs Knowledge Base, Console Dashboard, Kinetic Agency, and
-Retro Future. Each
-keeps its authored Page composition and adds Light / Dark / Fun palettes;
-Kinetic's display scale is deliberately capped so type drives the page without
-swallowing it._
+palette-owned `--scrim`._
+
+**Keeper wave 2 — PR #20.** Build the six selected legacy directions into
+first-class skins without flattening their authored Page compositions:
+
+| Skin | Light | Dark | Fun | Defining treatment |
+| --- | --- | --- | --- | --- |
+| Native Mobile | System light | Midnight | Orchid | Grouped mobile surfaces, generous touch geometry, restrained depth |
+| Liquid Chrome | Pearl | Deep indigo | Ultraviolet | Specular edges, concentric curves, optically thick translucent layers |
+| Docs Knowledge Base | Paper | Night shift | Highlighter | Reading-first hierarchy, precise navigation, crisp code and callouts |
+| Console Dashboard | Control room | Night ops | Phosphor | Dense operational state, shallow elevation, mono measurements |
+| Kinetic Agency | Studio | After dark | Poster | Editorial pacing and marquee energy with deliberately capped display type |
+| Retro Future | Poolside | Night drive | Cyber pop | Beveled desktop chrome, pixel metadata, tactile machine feedback |
+
+The delivery sequence is: register metadata and AI usage rules; author three
+AA-clean palettes; tune skin-owned form, type, elevation, and motion; preserve
+and polish the custom Page showcase; then verify Page, Components, and Style
+Guide at desktop and 390px. Completion requires zero horizontal overflow,
+clean token guards, all registered palette blocks, passing production build,
+and green CI and preview deployment. _Implemented 2026-10-02 in PR #20._
 
 **Phase 5 — Trends Loop v1.** Build the capture inbox → ingest → cluster →
 moodboard → skin-spec handoff described in [trends-loop.md](trends-loop.md), as
