@@ -164,6 +164,24 @@ export const Menu = (p: IconProps) => (
   </Icon>
 );
 
+export const Search = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-4-4" />
+  </Icon>
+);
+
+export const SlidersHorizontal = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4 7h10" />
+    <path d="M18 7h2" />
+    <path d="M4 17h2" />
+    <path d="M10 17h10" />
+    <circle cx="16" cy="7" r="2" />
+    <circle cx="8" cy="17" r="2" />
+  </Icon>
+);
+
 export const PanelLeft = (p: IconProps) => (
   <Icon {...p}>
     <rect width="18" height="18" x="3" y="3" rx="2" />
