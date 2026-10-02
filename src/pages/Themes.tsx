@@ -10,7 +10,8 @@ import type { ThemeMeta } from "../themes";
 /* The top level of the new IA: every skin as a card that previews itself in
  * all three palettes, then — until Phase 4 has migrated the keepers — the
  * single-palette themes from the previous library, still on their own pages.
- * Search and tags live in the sticky top bar and filter both sections. */
+ * The page has no hero: its title, search, and tag filter live in the sticky
+ * top bar and filter both sections. */
 
 export default function Themes() {
   const { query, tags } = useThemeFilters();
@@ -26,19 +27,9 @@ export default function Themes() {
   const visibleLegacy = legacyThemes.filter(matches);
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8 lg:py-12">
-      <header>
-        <p className="font-mono text-xs tracking-widest text-muted uppercase">Themes</p>
-        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-          Pick a skin
-        </h1>
-        <p className="mt-2 max-w-2xl text-muted">
-          A skin is a form — radius, ink, type, motion — that wears any of three palettes.
-          Open one to see it as a full page, as a component library, and as a style guide.
-        </p>
-      </header>
-
-      <section className="mt-10">
+    <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8 lg:py-8">
+      <h1 className="sr-only">Themes</h1>
+      <section>
         <h2 className="flex items-baseline gap-3 font-display text-xl font-semibold tracking-tight">
           Skins
           <span className="font-mono text-xs font-normal tracking-wider text-muted uppercase">

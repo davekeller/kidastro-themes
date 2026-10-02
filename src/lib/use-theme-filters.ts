@@ -89,21 +89,6 @@ export function useThemeFilters() {
     [updateParams]
   );
 
-  const removeTag = useCallback(
-    (tag: string) => {
-      updateParams((next) => {
-        const selected = next
-          .getAll(TAG_PARAM)
-          .filter((candidate) => validTags.has(candidate) && candidate !== tag);
-        next.delete(TAG_PARAM);
-        themeFilterOptions.forEach((option) => {
-          if (selected.includes(option)) next.append(TAG_PARAM, option);
-        });
-      });
-    },
-    [updateParams]
-  );
-
   const clearTags = useCallback(
     () => updateParams((next) => next.delete(TAG_PARAM)),
     [updateParams]
@@ -120,7 +105,6 @@ export function useThemeFilters() {
     options: themeFilterOptions,
     setQuery,
     toggleTag,
-    removeTag,
     clearTags,
     shown,
     total: allThemes.length,

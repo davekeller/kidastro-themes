@@ -43,9 +43,12 @@ pair for a first visit.
 guide, all inside the shell (`src/components/shell`). The shell is the house
 rail (`HouseRail.tsx`: Themes, the skins, the legacy pages — collapsed to icons
 by default, expandable from lg up, a drawer at phone width) beside the content
-area, whose sticky top bar (`TopBar.tsx`) carries the breadcrumb with a skin
-switcher, the Page · Components · Style guide views, the palette, and a Tokens
-panel. Opening a skin makes it the active one.
+area, whose sticky top bar (`TopBar.tsx`) is a row of ruled-off cells: on a
+skin, the skin switcher, the Page · Components · Style guide views, the
+palette, and a Tokens panel; on the Themes list, its title, search, and one
+multi-select tag filter (URL-backed, `src/lib/use-theme-filters.ts`) — the list
+itself has no hero. A selected cell takes a fill and a rule along its foot,
+never a pill. Opening a skin makes it the active one.
 
 **Legacy, until Phase 4:** the pre-migration single-axis system still exists —
 `data-theme` (look), `data-motion` (feel), `data-interaction` (structure) — and
