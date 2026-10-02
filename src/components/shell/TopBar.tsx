@@ -11,9 +11,9 @@ import { buttonClasses, SegmentedControl } from "../primitives";
 import { PaletteDots, PaletteSwitcher } from "./PaletteSwitcher";
 
 /* The content area's own navigation. It sits inside the skin, so it wears
- * whatever the page wears: the breadcrumb (with the skin as a switcher), the
- * Page · Components · Style guide views, the palette, and the live tokens.
- * One row from lg up; below that the views and palette take a second row. */
+ * whatever the page wears: the skin switcher, the Page · Components · Style
+ * guide views, the palette, and the live tokens. One row from lg up; below
+ * that the views and palette take a second row. */
 
 const focusRing = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
@@ -24,14 +24,6 @@ function useSkinRoute() {
   const skin = m ? getSkin(m[1]) : undefined;
   const view = SKIN_VIEWS.find((v) => v.path === (m?.[2] ?? "")) ?? SKIN_VIEWS[0];
   return { skin, view };
-}
-
-function Sep() {
-  return (
-    <span aria-hidden className="text-muted">
-      /
-    </span>
-  );
 }
 
 /** Page · Components · Style guide as a segmented control. `short` swaps in the
@@ -80,42 +72,21 @@ export function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
           <Menu size={20} />
         </button>
 
-        <nav aria-label="Breadcrumb" className="min-w-0 flex-1">
-          <ol className="flex min-w-0 items-center gap-2 text-sm">
-            {skin ? (
-              <>
-                <li className="hidden shrink-0 items-center gap-2 sm:flex">
-                  <Link
-                    to="/"
-                    className={cn("rounded-sm text-muted transition-colors hover:text-fg", focusRing)}
-                  >
-                    Themes
-                  </Link>
-                  <Sep />
-                </li>
-                <li className="min-w-0">
-                  <SkinSwitcher skin={skin} viewPath={view.path} />
-                </li>
-                <li className="hidden shrink-0 items-center gap-2 xl:flex">
-                  <Sep />
-                  <span aria-current="page" className="font-medium text-fg">
-                    {view.label}
-                  </span>
-                </li>
-              </>
-            ) : (
-              <li>
-                <span aria-current="page" className="font-display font-semibold tracking-tight text-fg">
-                  Themes
-                </span>
-              </li>
-            )}
-          </ol>
-        </nav>
+        {skin ? (
+          <div className="flex min-w-0 flex-1 items-center gap-2">
+            <SkinSwitcher skin={skin} viewPath={view.path} />
+            <div className="hidden shrink-0 lg:block">
+              <ViewSwitch skin={skin} view={view} />
+            </div>
+          </div>
+        ) : (
+          <div className="min-w-0 flex-1">
+            <span className="font-display font-semibold tracking-tight text-fg">Themes</span>
+          </div>
+        )}
 
         {skin && (
-          <div className="hidden shrink-0 items-center gap-3 lg:flex">
-            <ViewSwitch skin={skin} view={view} />
+          <div className="hidden shrink-0 items-center lg:flex">
             <PaletteSwitcher skin={skin} compact showActiveLabel />
           </div>
         )}
@@ -137,8 +108,8 @@ export function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
   );
 }
 
-/** The skin crumb: its colors and name, opening onto every skin. Picking one
- *  keeps you on the same view. */
+/** The first control in the bar: its colors and name, opening onto every skin.
+ *  Picking one keeps you on the same view. */
 function SkinSwitcher({ skin, viewPath }: { skin: SkinMeta; viewPath: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -155,7 +126,7 @@ function SkinSwitcher({ skin, viewPath }: { skin: SkinMeta; viewPath: string }) 
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         className={cn(
-          "inline-flex h-9 max-w-full items-center gap-2 rounded-md border border-border bg-surface px-2.5 font-medium text-fg transition-colors hover:bg-surface-2",
+          "inline-flex h-9 max-w-full items-center gap-2 rounded-sm px-1 font-medium text-fg transition-colors hover:text-primary",
           focusRing
         )}
       >
