@@ -54,14 +54,14 @@ export function Sidebar({ title, groups, footer, className, ...props }: SidebarP
                   <span
                     aria-current={item.active ? "page" : undefined}
                     className={cn(
-                      "flex cursor-pointer items-center gap-2.5 rounded-md px-2 py-1.5 text-sm transition-[background-color,color]",
+                      "flex cursor-pointer items-center gap-2.5 rounded-md border-l-2 px-2 py-1.5 text-sm transition-[background-color,color,border-color]",
                       item.active
-                        ? "bg-primary/12 font-medium text-fg"
-                        : "text-muted hover:bg-surface-2 hover:text-fg"
+                        ? "border-primary bg-surface-2 font-medium text-fg"
+                        : "border-transparent text-muted hover:bg-surface-2 hover:text-fg"
                     )}
                   >
                     {item.icon && (
-                      <span className={cn("shrink-0", item.active && "text-primary")}>
+                      <span className="shrink-0">
                         {item.icon}
                       </span>
                     )}

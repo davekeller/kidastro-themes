@@ -36,11 +36,11 @@ function Window({
       <div className="flex items-center justify-between gap-3 border-b border-border bg-surface-2 px-2 py-1">
         <span className="flex items-center gap-1.5">
           <span className="h-3 w-3 border border-border bg-primary" />
-          <span className="font-mono text-[10px] uppercase tracking-wider text-fg">
+          <span className="font-mono text-[11px] uppercase tracking-wider text-fg">
             {title}
           </span>
         </span>
-        <span className="flex gap-1">
+        <span aria-hidden className="flex gap-1">
           <span className="grid h-3.5 w-3.5 place-items-center border border-border bg-surface text-fg">
             <span className="block h-px w-1.5 bg-fg" />
           </span>
@@ -61,7 +61,10 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
     <>
       {/* Ticker */}
       <div className="overflow-hidden border-b border-border bg-primary py-1">
-        <div className="marquee-track whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-primary-fg">
+        <span className="sr-only">
+          Now playing Summer Mix Volume 7, 128 kilobits per second, dial-up friendly.
+        </span>
+        <div aria-hidden className="marquee-track whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-primary-fg">
           <span>{TICKER.repeat(4)}</span>
           <span aria-hidden>{TICKER.repeat(4)}</span>
         </div>
@@ -71,10 +74,10 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
         {/* Hero window */}
         <Window title="northwind.exe" wide>
           <div className="text-center">
-            <p className="font-mono text-[10px] uppercase tracking-widest text-muted">
+            <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
               est. 1998 · v2.0
             </p>
-            <h1 className="mt-3 font-display text-5xl font-black uppercase leading-none tracking-tight sm:text-6xl">
+            <h1 className="mt-3 font-display text-4xl font-black uppercase leading-none tracking-tight sm:text-6xl">
               super-summer
               <br />
               music player
@@ -97,8 +100,7 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
             {/* Starburst badge */}
             <div className="mt-6 flex justify-center">
               <span
-                className="grid h-20 w-20 place-items-center border border-border bg-accent text-center font-mono text-[9px] uppercase leading-tight text-accent-fg"
-                style={{ transform: "rotate(-8deg)", borderRadius: "50%" }}
+                className="grid size-20 -rotate-6 place-items-center rounded-full border border-border bg-accent text-center font-mono text-[11px] uppercase leading-tight text-accent-fg"
               >
                 free
                 <br />
@@ -113,12 +115,12 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
           <div className="grid gap-5 sm:grid-cols-[auto_1fr] sm:items-center">
             {/* Album art */}
             <div className="mx-auto grid h-32 w-32 place-items-center border border-border bg-surface-2 elev-1">
-              <span className="font-mono text-[10px] uppercase text-muted">
+              <span className="font-mono text-[11px] uppercase text-muted">
                 cover.bmp
               </span>
             </div>
             <div>
-              <p className="font-mono text-[10px] uppercase tracking-widest text-muted">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
                 track 04 of 12
               </p>
               <h2 className="mt-1 font-display text-2xl font-black uppercase tracking-tight">
@@ -127,18 +129,24 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
               <p className="text-sm text-muted">Cassette Club — Summer Mix Vol. 7</p>
               <div className="mt-4">
                 <Progress value={42} />
-                <div className="mt-1 flex justify-between font-mono text-[10px] text-muted">
+                <div className="mt-1 flex justify-between font-mono text-[11px] text-muted">
                   <span>01:48</span>
                   <span>04:12</span>
                 </div>
               </div>
               <div className="mt-4 flex gap-2">
-                {["◀◀", "▶", "▶▶", "■"].map((s) => (
+                {[
+                  { symbol: "◀◀", label: "Previous track" },
+                  { symbol: "▶", label: "Play" },
+                  { symbol: "▶▶", label: "Next track" },
+                  { symbol: "■", label: "Stop" },
+                ].map(({ symbol, label }) => (
                   <button
-                    key={s}
-                    className="border border-border bg-surface-2 px-3 py-1 font-mono text-xs text-fg elev-1 transition-transform active:translate-y-px"
+                    key={label}
+                    aria-label={label}
+                    className="grid min-h-11 min-w-11 place-items-center border border-border bg-surface-2 px-3 font-mono text-xs text-fg elev-1 press-scale transition-[background-color,transform] hover:bg-bg focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    {s}
+                    {symbol}
                   </button>
                 ))}
               </div>
@@ -177,7 +185,7 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
                 <div key={who} className="border-b border-border pb-2 last:border-0">
                   <div className="flex items-center gap-2">
                     <Avatar name={who} size={22} className="border border-border" />
-                    <span className="font-mono text-[10px] uppercase text-muted">
+                    <span className="font-mono text-[11px] uppercase text-muted">
                       {who}
                     </span>
                   </div>
@@ -187,7 +195,7 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
               <Button
                 variant="secondary"
                 size="sm"
-                className="w-full border border-border font-mono text-[10px] uppercase"
+                className="w-full border border-border font-mono text-[11px] uppercase"
               >
                 Sign guestbook
               </Button>
@@ -206,7 +214,7 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
             ].map(([val, label]) => (
               <div key={label} className="border border-border bg-surface-2 p-3 elev-1">
                 <p className="font-display text-xl font-black tracking-tight">{val}</p>
-                <p className="font-mono text-[9px] uppercase tracking-widest text-muted">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
                   {label}
                 </p>
               </div>
@@ -225,7 +233,7 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
           <Button className="mt-5 border border-border font-bold uppercase">
             Subscribe now
           </Button>
-          <p className="mt-3 font-mono text-[9px] uppercase tracking-widest text-muted">
+          <p className="mt-3 font-mono text-[11px] uppercase tracking-widest text-muted">
             best viewed at 1024 × 768
           </p>
         </Window>
@@ -234,7 +242,7 @@ export function Y2KShowcase({ theme }: { theme: ThemeMeta }) {
       <TokenPanel themeName={theme.name} />
 
       <footer className="border-t border-border bg-surface-2">
-        <p className="mx-auto max-w-3xl px-6 py-6 text-center font-mono text-[10px] uppercase tracking-widest text-muted">
+        <p className="mx-auto max-w-3xl px-6 py-6 text-center font-mono text-[11px] uppercase tracking-widest text-muted">
           © 2026 northwind — {theme.name}, tokens only
         </p>
       </footer>

@@ -5,6 +5,7 @@ import {
   Button,
   Callout,
   CodeBlock,
+  Input,
   Pagination,
 } from "../components/primitives";
 import { DocsNav } from "../components/sections/DocsNav";
@@ -68,8 +69,34 @@ export default defineConfig({
 export function DocsShowcase({ theme }: { theme: ThemeMeta }) {
   return (
     <>
+      <div className="border-b border-border bg-surface">
+        <div className="mx-auto flex max-w-7xl items-center gap-4 px-6 py-3">
+          <div className="flex min-w-0 items-center gap-2">
+            <span className="font-display text-sm font-semibold tracking-tight text-fg">
+              Northwind Docs
+            </span>
+            <Badge variant="outline">v2.4</Badge>
+          </div>
+          <nav className="ml-auto hidden items-center gap-5 text-sm text-muted md:flex">
+            <a href="#" className="transition-colors hover:text-fg">Guides</a>
+            <a href="#" className="transition-colors hover:text-fg">Reference</a>
+            <a href="#" className="transition-colors hover:text-fg">Examples</a>
+          </nav>
+          <Input
+            type="search"
+            aria-label="Search documentation"
+            placeholder="Search docs…"
+            className="ml-auto max-w-48 md:ml-2"
+          />
+        </div>
+      </div>
+
       <div className="mx-auto flex max-w-7xl gap-10 px-6 py-10">
-        <DocsNav sections={navSections} version="v2.4" className="hidden lg:block" />
+        <DocsNav
+          sections={navSections}
+          version="v2.4"
+          className="hidden self-start lg:sticky lg:top-20 lg:block"
+        />
 
         {/* Prose column */}
         <main className="min-w-0 flex-1">
@@ -161,7 +188,7 @@ export function DocsShowcase({ theme }: { theme: ThemeMeta }) {
           </div>
         </main>
 
-        <TOC entries={toc} className="hidden xl:block" />
+        <TOC entries={toc} className="hidden self-start xl:sticky xl:top-20 xl:block" />
       </div>
 
       <TokenPanel themeName={theme.name} />

@@ -19,9 +19,10 @@ import { LiquidShowcase } from "./LiquidShowcase";
 import { NativeShowcase } from "./NativeShowcase";
 
 /**
- * The hybrid model: themes are tokens-first, but a theme can earn its own
- * page composition. Register a component here and /theme/:slug renders it
- * instead of the shared ThemeShowcase — same primitives, different bones.
+ * The hybrid model: styles are tokens-first, but a theme or skin can earn its
+ * own page composition. Register a component here and /theme/:slug or
+ * /skin/:slug renders it instead of the shared showcase — same primitives,
+ * different bones.
  * Tokens still do all the styling; a showcase only *arranges* components.
  */
 export const customShowcases: Record<string, ComponentType<{ theme: ThemeMeta }>> = {

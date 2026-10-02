@@ -1,10 +1,10 @@
-# Style candidates — next wave of themes
+# Style candidates — skin migration queue
 
-Curated popular UI styles for the next themes. Unlike the first eleven (which
-differ mostly in tokens), each of these has a **layout signature** — the same
-component library composed into a genuinely different page structure and feel.
-Once styles are picked, we'll pull real screen references from Mobbin to nail
-each one's layout patterns before building.
+Curated UI directions for the skin library. Unlike the first eleven legacy
+themes (which differ mostly in tokens), each has a **layout signature** — the
+same component library composed into a genuinely different page structure and
+feel. Selected directions graduate into first-class skins with three palettes,
+AI usage rules, and their own showcase composition.
 
 Pick any — they're ordered roughly by how popular/recognizable they are right now.
 
@@ -49,7 +49,7 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   generous whitespace, angled section dividers.
 - **References:** Stripe, Mercury, Ramp, Retool.
 
-## 4. Neubrutalism (playful flavor) ✅ *built — theme `neubrutalist`*
+## 4. Neubrutalism (playful flavor) ✅ *migrated — skin `neubrutalist`*
 - **Vibe:** Gumroad/Figma-community energy. Loud, sticker-like, fun.
   (Different from our stark `brutalist`: this one is *candy-colored* chaos.)
 - **Layout signature:** Overlapping elements, rotated stickers/badges, thick
@@ -86,7 +86,7 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   as a newspaper colophon. Hero is a headline stack, not a marketing hero.
 - **References:** NYT apps, The Browser, Substack reader, Are.na.
 
-## 9. Y2K / retro-futurism ✅ *built — theme `y2k`*
+## 9. Y2K / retro-futurism ✅ *migrated — skin `y2k`*
 - **Vibe:** Chrome, glitter, dial-up nostalgia — back in fashion.
 - **Layout signature:** Center-stacked "desktop" with window-chrome panels
   (title bars, close buttons), pixel fonts for meta text, starburst badges,
@@ -107,11 +107,11 @@ Arc Browser (glassmorphism) is desktop-only and not indexed on Mobbin.
   that feel pasted-up rather than gridded.
 - **References:** Notion marketing, Tally, indie newsletters.
 
-## 12. Kinetic type / agency ✅ *built — theme `kinetic`*
+## 12. Kinetic type / agency ✅ *migrated — skin `kinetic`*
 - **Vibe:** Awwwards portfolio. Confident, showy, motion-first.
-- **Layout signature:** Oversized display type as the primary visual (words
-  fill the viewport), horizontal marquee strips, hover-reveal media, sticky
-  scroll-pinned sections, footer as a giant contact headline.
+- **Layout signature:** Large but deliberately capped display type sets the
+  primary rhythm without swallowing the first view, supported by horizontal
+  marquees, hover-reveal media, sticky sections, and a bold contact footer.
 - **References:** Agency sites, personal portfolios, fashion editorials.
 
 ---
@@ -128,7 +128,7 @@ alongside them (Sidebar, AppTopBar, StatTile, ChartCard, FilterChips, DocsNav,
 TOC, CodeBlock, Callout, DeviceFrame, ListRow, SegmentedControl, TabBar,
 Sheet), all token-only and reusable by the earlier themes.
 
-## 13. Console / dashboard ✅ *built — theme `console`*
+## 13. Console / dashboard ✅ *migrated — skin `console`*
 - **Vibe:** The app behind the login. Dark, engineered, data-first.
 - **Layout signature:** A real application shell — fixed sidebar rail, top bar
   with search and actions, a KPI row, charts, and a data table as the primary
@@ -137,14 +137,14 @@ Sheet), all token-only and reusable by the earlier themes.
   the product itself.
 - **References:** Vercel, Linear's app, Grafana, Railway.
 
-## 14. Docs / knowledge base ✅ *built — theme `docs`*
+## 14. Docs / knowledge base ✅ *migrated — skin `docs`*
 - **Vibe:** Calm, readable, authoritative. Warm-neutral paper, violet accent.
 - **Layout signature:** Three columns — nav tree, prose column with anchored
   headings, and an on-this-page rail. Code blocks and callouts carry as much
   weight as the prose.
 - **References:** Mintlify, Stripe docs, Vercel docs, Docusaurus sites.
 
-## 15. Liquid / chrome ✅ *built — theme `liquid`*
+## 15. Liquid / chrome ✅ *migrated — skin `liquid`*
 - **Vibe:** Specular and wet. The current 2026 look.
 - **Layout signature:** Floating translucent panels with highlights on their
   top *and* bottom edges, large concentric radii, overlapping panel stacks, and
@@ -153,7 +153,7 @@ Sheet), all token-only and reusable by the earlier themes.
   thickness.
 - **References:** Apple's 2026 design language, Family, Arc.
 
-## 16. Native / mobile ✅ *built — theme `native`*
+## 16. Native / mobile ✅ *migrated — skin `native`*
 - **Vibe:** iOS-flavored. Systemy, thumb-first.
 - **Layout signature:** Content lives inside phone viewports rather than on a
   page — grouped list rows on the page-gray, large titles, segmented controls,

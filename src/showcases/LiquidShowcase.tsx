@@ -84,7 +84,10 @@ export function LiquidShowcase({ theme }: { theme: ThemeMeta }) {
             </Badge>
             <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
               Interfaces with
-              <span className="text-primary"> actual depth</span>
+              <span className="relative inline-block">
+                {" "}actual depth
+                <span aria-hidden className="absolute inset-x-0 -bottom-1 h-1 bg-primary" />
+              </span>
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted">
               A surface system built on light rather than lines. Everything
@@ -106,7 +109,7 @@ export function LiquidShowcase({ theme }: { theme: ThemeMeta }) {
             <Panel className="relative z-10">
               <div className="grid gap-4 sm:grid-cols-3">
                 <StatTile label="Refraction" value="0.94" delta="6%" trend="up" />
-                <StatTile label="Frame budget" value="8.2ms" delta="1.1ms" trend="down" />
+                <StatTile label="Frame budget" value="8.2ms" delta="1.1ms" trend="down" tone="positive" />
                 <StatTile label="Layers" value="12" caption="composited" />
               </div>
             </Panel>
@@ -131,7 +134,7 @@ export function LiquidShowcase({ theme }: { theme: ThemeMeta }) {
           <div className="mt-20 grid gap-5 md:grid-cols-3">
             {features.map((f) => (
               <Panel key={f.title}>
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/70 bg-primary/15 text-primary">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-border/70 bg-primary text-primary-fg">
                   {f.icon}
                 </span>
                 <h3 className="mt-4 font-display text-lg font-semibold">{f.title}</h3>
