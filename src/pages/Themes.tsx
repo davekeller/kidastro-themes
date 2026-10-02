@@ -1,102 +1,35 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FilterChips, Input } from "../components/primitives";
 import { SkinMiniature } from "../components/skin/SkinMiniature";
 import { cn } from "../lib/cn";
 import { useSkinState } from "../lib/skin-state";
+import { legacyThemes, matchesTheme, useThemeFilters } from "../lib/use-theme-filters";
 import { skins, type SkinMeta } from "../skins";
-import { themes, type ThemeMeta } from "../themes";
+import type { ThemeMeta } from "../themes";
 
 /* The top level of the new IA: every skin as a card that previews itself in
  * all three palettes, then — until Phase 4 has migrated the keepers — the
  * single-palette themes from the previous library, still on their own pages.
- * One search and one tag set filter both sections. */
-
-interface Searchable {
-  name: string;
-  description: string;
-  tags: string[];
-}
+ * The page has no hero: its title, search, and tag filter live in the sticky
+ * top bar and filter both sections. */
 
 export default function Themes() {
-  const [tags, setTags] = useState<string[]>([]);
-  const [query, setQuery] = useState("");
+  const { query, tags } = useThemeFilters();
   const { skin: activeSkin } = useSkinState();
 
   useEffect(() => {
     document.title = "kidastro-themes";
   }, []);
 
-  // A theme that has become a skin leaves the legacy section.
-  const legacy = useMemo(() => {
-    const migrated = new Set(skins.map((s) => s.slug));
-    return themes.filter((t) => !migrated.has(t.slug));
-  }, []);
-
-  const allTags = useMemo(
-    () =>
-      [...new Set([...skins, ...legacy].flatMap((t) => t.tags))].sort((a, b) =>
-        a.localeCompare(b)
-      ),
-    [legacy]
-  );
-
-  const matches = (t: Searchable) => {
-    const q = query.trim().toLowerCase();
-    // Tags are OR'd — selecting "Dark" and "Serif" widens rather than demands both.
-    const tagMatch = tags.length === 0 || t.tags.some((tag) => tags.includes(tag));
-    const textMatch =
-      !q ||
-      t.name.toLowerCase().includes(q) ||
-      t.description.toLowerCase().includes(q) ||
-      t.tags.some((tag) => tag.toLowerCase().includes(q));
-    return tagMatch && textMatch;
-  };
+  const matches = (theme: SkinMeta | ThemeMeta) => matchesTheme(theme, query, tags);
 
   const visibleSkins = skins.filter(matches);
-  const visibleLegacy = legacy.filter(matches);
-  const total = skins.length + legacy.length;
-  const shown = visibleSkins.length + visibleLegacy.length;
-
-  const toggleTag = (tag: string) =>
-    setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+  const visibleLegacy = legacyThemes.filter(matches);
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8 lg:py-12">
-      <header>
-        <p className="font-mono text-xs tracking-widest text-muted uppercase">Themes</p>
-        <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-          Pick a skin
-        </h1>
-        <p className="mt-2 max-w-2xl text-muted">
-          A skin is a form — radius, ink, type, motion — that wears any of three palettes.
-          Open one to see it as a full page, as a component library, and as a style guide.
-        </p>
-      </header>
-
-      <div className="mt-8 flex flex-col gap-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <Input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Filter — name, tag, vibe…"
-            aria-label="Filter themes"
-            className="max-w-xs"
-          />
-          <p aria-live="polite" className="text-sm text-muted">
-            {shown} of {total}
-          </p>
-        </div>
-        <FilterChips
-          options={allTags}
-          selected={tags}
-          onToggle={toggleTag}
-          onClear={() => setTags([])}
-        />
-      </div>
-
-      <section className="mt-10">
+    <div className="mx-auto max-w-6xl px-5 py-6 sm:px-8 lg:py-8">
+      <h1 className="sr-only">Themes</h1>
+      <section>
         <h2 className="flex items-baseline gap-3 font-display text-xl font-semibold tracking-tight">
           Skins
           <span className="font-mono text-xs font-normal tracking-wider text-muted uppercase">
@@ -116,7 +49,7 @@ export default function Themes() {
         )}
       </section>
 
-      {legacy.length > 0 && (
+      {legacyThemes.length > 0 && (
         <section className="mt-14">
           <h2 className="flex items-baseline gap-3 font-display text-xl font-semibold tracking-tight">
             Not yet migrated

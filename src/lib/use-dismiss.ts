@@ -5,7 +5,8 @@ import { useEffect, type RefObject } from "react";
 export function useDismiss(
   ref: RefObject<HTMLElement | null>,
   open: boolean,
-  close: () => void
+  close: () => void,
+  returnFocusRef?: RefObject<HTMLElement | null>
 ) {
   useEffect(() => {
     if (!open) return;
@@ -13,7 +14,10 @@ export function useDismiss(
       if (ref.current && !ref.current.contains(e.target as Node)) close();
     };
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
+      if (e.key === "Escape") {
+        close();
+        window.requestAnimationFrame(() => returnFocusRef?.current?.focus());
+      }
     };
     window.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("keydown", onKey);
@@ -21,5 +25,5 @@ export function useDismiss(
       window.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("keydown", onKey);
     };
-  }, [ref, open, close]);
+  }, [ref, open, close, returnFocusRef]);
 }
