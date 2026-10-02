@@ -162,7 +162,11 @@ then Neubrutalist brought up to the same bar, before any other skin. Wave 1
 makes Kid Astro the default and house skin (Daylight / Deep space / Arcade, its
 Page ported from the Codex curation), reshapes the shell into a collapsible
 house rail plus a content area with its own top bar, and adds the
-palette-owned `--scrim`._
+palette-owned `--scrim`._ _2026-10-02: the next keeper wave is Native Mobile,
+Liquid Chrome, Docs Knowledge Base, Console Dashboard, and Kinetic Agency. Each
+keeps its authored Page composition and adds Light / Dark / Fun palettes;
+Kinetic's display scale is deliberately capped so type drives the page without
+swallowing it._
 
 **Phase 5 — Trends Loop v1.** Build the capture inbox → ingest → cluster →
 moodboard → skin-spec handoff described in [trends-loop.md](trends-loop.md), as

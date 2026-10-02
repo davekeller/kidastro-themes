@@ -55,7 +55,7 @@ export function NativeShowcase({ theme }: { theme: ThemeMeta }) {
 
   return (
     <>
-      <div className="mx-auto max-w-6xl px-6 py-14">
+      <div className="mx-auto max-w-6xl px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-2xl text-center">
           <Badge variant="primary">Mobile shell</Badge>
           <h1 className="mt-4 font-display text-4xl font-bold tracking-tight text-fg">
@@ -67,7 +67,7 @@ export function NativeShowcase({ theme }: { theme: ThemeMeta }) {
           </p>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-start justify-center gap-10">
+        <div className="mt-10 flex flex-wrap items-start justify-center gap-10">
           {/* Screen one — grouped list with a large title */}
           <DeviceFrame>
             <div className="shrink-0 px-4 pb-2 pt-3">

@@ -18,6 +18,7 @@ import { readFileSync } from "node:fs";
 
 const AA = 4.5;
 const css = readFileSync(new URL("../src/index.css", import.meta.url), "utf8");
+const registry = readFileSync(new URL("../src/skins/index.ts", import.meta.url), "utf8");
 
 function srgbToLin(c) {
   const s = c / 255;
@@ -53,6 +54,14 @@ if (palettes.length === 0) {
   console.error("✗ contrast: no [data-skin][data-palette] blocks found");
   process.exit(1);
 }
+
+// A valid palette is not enough if a registered skin forgot one. Skin entries
+// use four-space indentation; nested palette metadata uses eight, which keeps
+// this intentionally small parser focused on the registry's top-level slugs.
+const registeredSkins = [
+  ...registry.matchAll(/^ {4}slug: "([^"]+)",$/gm),
+].map((match) => match[1]);
+const expectedPalettes = ["light", "dark", "fun"];
 
 // The palette half of the contract. A missing token would otherwise inherit
 // whatever an ancestor happens to set — and skip its pairs here silently.
@@ -97,6 +106,22 @@ const PAIRS = [
 
 const failures = [];
 let checks = 0;
+
+for (const skin of registeredSkins) {
+  for (const palette of expectedPalettes) {
+    const count = palettes.filter((entry) => entry.skin === skin && entry.palette === palette).length;
+    if (count === 0) failures.push(`  ${skin}/${palette}: missing palette block`);
+    if (count > 1) failures.push(`  ${skin}/${palette}: ${count} palette blocks found (need exactly 1)`);
+  }
+}
+
+for (const { skin, palette } of palettes) {
+  if (!registeredSkins.includes(skin)) failures.push(`  ${skin}/${palette}: skin is not registered`);
+  if (!expectedPalettes.includes(palette)) {
+    failures.push(`  ${skin}/${palette}: palette must be light, dark, or fun`);
+  }
+}
+
 for (const { skin, palette, tokens } of palettes) {
   for (const name of REQUIRED) {
     if (!tokens[name]) failures.push(`  ${skin}/${palette}: missing --${name} (as a hex value)`);

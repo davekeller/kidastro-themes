@@ -7,6 +7,7 @@ import {
   FilterChips,
   SegmentedControl,
   StatTile,
+  StatusPill,
   TBody,
   TD,
   TH,
@@ -112,12 +113,13 @@ export function ConsoleShowcase({ theme }: { theme: ThemeMeta }) {
           />
 
           <div className="flex-1 space-y-6 p-5">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex flex-wrap items-end justify-between gap-3">
               <div>
-                <h1 className="font-display text-xl font-semibold tracking-tight text-fg">
-                  All systems operational
+                <StatusPill tone="success">All systems operational</StatusPill>
+                <h1 className="mt-2 font-display text-xl font-semibold tracking-tight text-fg">
+                  Production overview
                 </h1>
-                <p className="mt-0.5 text-sm text-muted">
+                <p className="mt-1 text-sm text-muted">
                   12 services across 3 regions.
                 </p>
               </div>
@@ -131,10 +133,20 @@ export function ConsoleShowcase({ theme }: { theme: ThemeMeta }) {
 
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <StatTile label="Requests" value="4.82M" delta="8.1%" trend="up" caption={`last ${range}`} />
-              <StatTile label="p50 latency" value="58ms" delta="3.4%" trend="down" caption="lower is better" />
-              <StatTile label="Error rate" value="0.04%" delta="0.01%" trend="down" caption={`last ${range}`} />
+              <StatTile label="p50 latency" value="58ms" delta="3.4%" trend="down" tone="positive" caption="lower is better" />
+              <StatTile label="Error rate" value="0.04%" delta="0.01%" trend="down" tone="positive" caption={`last ${range}`} />
               <StatTile label="Build minutes" value="1,204" delta="0.0%" trend="flat" caption="of 5,000" />
             </div>
+
+            <section className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-surface px-4 py-3 elev-1">
+              <div className="mr-auto">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted">Region health</p>
+                <p className="mt-0.5 text-sm text-fg">Global edge · checked 18s ago</p>
+              </div>
+              <StatusPill tone="success">iad1 · 99.99%</StatusPill>
+              <StatusPill tone="success">fra1 · 99.98%</StatusPill>
+              <StatusPill tone="warning">sin1 · 99.91%</StatusPill>
+            </section>
 
             <div className="grid gap-4 xl:grid-cols-2">
               <ChartCard

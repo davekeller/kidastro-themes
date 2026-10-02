@@ -2,11 +2,12 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { cn } from "../../lib/cn";
 
 type Trend = "up" | "down" | "flat";
+type DeltaTone = "positive" | "negative" | "neutral";
 
-const trendStyles: Record<Trend, string> = {
-  up: "text-success",
-  down: "text-danger",
-  flat: "text-muted",
+const toneStyles: Record<DeltaTone, string> = {
+  positive: "text-success",
+  negative: "text-danger",
+  neutral: "text-muted",
 };
 
 const arrows: Record<Trend, string> = {
@@ -21,6 +22,9 @@ export interface StatTileProps extends HTMLAttributes<HTMLDivElement> {
   /** Optional delta shown beside the value, e.g. "12.4%". */
   delta?: string;
   trend?: Trend;
+  /** Meaning of the delta, independent of arrow direction. Defaults to up =
+   * positive and down = negative; set it when lower is better. */
+  tone?: DeltaTone;
   /** Small caption under the value — period, comparison, footnote. */
   caption?: string;
 }
@@ -31,10 +35,13 @@ export function StatTile({
   value,
   delta,
   trend = "flat",
+  tone,
   caption,
   className,
   ...props
 }: StatTileProps) {
+  const resolvedTone = tone ?? (trend === "up" ? "positive" : trend === "down" ? "negative" : "neutral");
+
   return (
     <div
       className={cn("rounded-lg border border-border bg-surface p-4 elev-1", className)}
@@ -48,7 +55,7 @@ export function StatTile({
           {value}
         </span>
         {delta && (
-          <span className={cn("text-sm font-medium", trendStyles[trend])}>
+          <span className={cn("text-sm font-medium", toneStyles[resolvedTone])}>
             {arrows[trend]} {delta}
           </span>
         )}

@@ -5,10 +5,10 @@ import { ArrowRight } from "../components/icons";
 
 /**
  * Custom showcase for the `kinetic` theme (ref: Awwwards agency portfolios).
- * Layout signature: display type *is* the layout — words fill the viewport,
+ * Layout signature: display type sets the pace without swallowing the page,
  * marquee strips run edge to edge, project rows reveal detail on hover, a
- * scroll-pinned scene holds while content passes, and the footer is one giant
- * contact headline.
+ * scroll-pinned scene holds while content passes, and the footer closes on a
+ * strong contact headline.
  */
 
 const PROJECTS = [
@@ -25,7 +25,7 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
   return (
     <>
       {/* Sticky micro-nav */}
-      <header className="sticky top-14 z-30 border-b border-border bg-bg/80 backdrop-blur">
+      <header className="border-b border-border bg-bg/80 backdrop-blur lg:sticky lg:top-14 lg:z-30">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-3 text-sm uppercase tracking-widest">
           <span className="font-display font-bold">Northwind</span>
           <nav className="hidden gap-6 md:flex">
@@ -40,12 +40,12 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
       </header>
 
       <main>
-        {/* Viewport-filling type stack. Sized so the longest word still fits
-            the measure — the page must never scroll sideways. */}
+        {/* Large editorial type, capped so it leaves useful work and context in
+            the first viewport instead of turning the hero into a billboard. */}
         <section className="mx-auto max-w-7xl overflow-hidden px-6 pb-10 pt-16">
-          <h1 className="font-display text-[13vw] font-extrabold uppercase leading-[0.82] tracking-[-0.04em]">
+          <h1 className="font-display text-[clamp(2.75rem,8vw,7rem)] font-extrabold uppercase leading-[0.88] tracking-[-0.035em]">
             <span className="block">We make</span>
-            <span className="block text-primary">brands</span>
+            <span className="block w-fit bg-primary px-2 text-primary-fg">brands</span>
             <span className="block text-right">move.</span>
           </h1>
           <div className="mt-10 flex flex-wrap items-end justify-between gap-6 border-t border-border pt-6">
@@ -61,7 +61,8 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
 
         {/* Marquee strip */}
         <div className="overflow-hidden border-y border-border bg-primary py-3">
-          <div className="marquee-track whitespace-nowrap font-display text-2xl font-extrabold uppercase tracking-tight text-primary-fg">
+          <span className="sr-only">Brand, digital, film, type, and motion.</span>
+          <div aria-hidden className="marquee-track whitespace-nowrap font-display text-2xl font-extrabold uppercase tracking-tight text-primary-fg">
             <span>{MARQUEE.repeat(4)}</span>
             <span aria-hidden>{MARQUEE.repeat(4)}</span>
           </div>
@@ -74,7 +75,10 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
             would otherwise refuse to shrink below the display type's width). */}
         <section className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 py-20 lg:grid-cols-2">
           <div className="min-w-0 lg:sticky lg:top-32 lg:self-start">
-            <p className="text-sm uppercase tracking-widest text-primary">Approach</p>
+            <p className="flex items-center gap-2 text-sm uppercase tracking-widest text-muted">
+              <span aria-hidden className="size-2 bg-primary" />
+              Approach
+            </p>
             <h2 className="mt-3 font-display text-4xl font-extrabold uppercase leading-[0.9] tracking-tight sm:text-5xl">
               Strategy
               <br />
@@ -112,7 +116,8 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
         {/* Hover-reveal project index */}
         <section className="border-t border-border">
           <div className="mx-auto max-w-7xl px-6 py-16">
-            <p className="text-sm uppercase tracking-widest text-primary">
+            <p className="flex items-center gap-2 text-sm uppercase tracking-widest text-muted">
+              <span aria-hidden className="size-2 bg-primary" />
               Selected work
             </p>
             <div className="mt-6">
@@ -127,11 +132,11 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
                   </span>
                   {/* min-w-0 + a smaller mobile step: at 375px the display size
                       plus the year and arrow otherwise exceed the viewport. */}
-                  <span className="min-w-0 flex-1 font-display text-2xl font-extrabold uppercase tracking-tight transition-transform dur-3 group-hover:translate-x-3 sm:text-4xl md:text-5xl">
+                  <span className="min-w-0 flex-1 font-display text-2xl font-extrabold uppercase tracking-tight transition-transform dur-3 sm:text-4xl md:text-5xl lg:group-hover:translate-x-3">
                     {p.name}
                   </span>
-                  {/* Revealed on hover */}
-                  <span className="hidden text-sm uppercase tracking-widest text-muted opacity-0 transition-opacity dur-3 group-hover:opacity-100 sm:block">
+                  {/* Always available to touch layouts; hover reveals it on desktop. */}
+                  <span className="hidden text-sm uppercase tracking-widest text-muted transition-opacity dur-3 sm:block lg:opacity-0 lg:group-hover:opacity-100">
                     {p.disc}
                   </span>
                   <span className="font-mono text-sm tabular-nums text-muted">
@@ -139,7 +144,7 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
                   </span>
                   <ArrowRight
                     size={20}
-                    className="shrink-0 -translate-x-2 text-primary opacity-0 transition-all dur-3 group-hover:translate-x-0 group-hover:opacity-100"
+                    className="shrink-0 -translate-x-2 text-fg opacity-0 transition-all dur-3 group-hover:translate-x-0 group-hover:opacity-100"
                   />
                 </a>
               ))}
@@ -157,7 +162,7 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
               ["4", "people"],
             ].map(([val, label]) => (
               <div key={label}>
-                <p className="font-display text-6xl font-extrabold tracking-tight text-primary">
+                <p className="border-l-2 border-primary pl-3 font-display text-6xl font-extrabold tracking-tight text-fg">
                   {val}
                 </p>
                 <p className="mt-1 text-sm uppercase tracking-widest text-muted">
@@ -174,12 +179,13 @@ export function KineticShowcase({ theme }: { theme: ThemeMeta }) {
       {/* Footer as a giant contact headline */}
       <footer className="border-t border-border">
         <div className="mx-auto max-w-7xl overflow-hidden px-6 py-20">
-          <p className="text-sm uppercase tracking-widest text-primary">
+          <p className="flex items-center gap-2 text-sm uppercase tracking-widest text-muted">
+            <span aria-hidden className="size-2 bg-primary" />
             New business
           </p>
           <a
             href="#"
-            className="group mt-4 block font-display text-[11vw] font-extrabold uppercase leading-[0.85] tracking-[-0.03em] transition-colors hover:text-primary"
+            className="group mt-4 block font-display text-[clamp(3rem,7vw,6rem)] font-extrabold uppercase leading-[0.9] tracking-[-0.03em] transition-opacity hover:opacity-70"
           >
             Say
             <br />

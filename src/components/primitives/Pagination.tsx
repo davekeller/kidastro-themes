@@ -26,6 +26,20 @@ export function Pagination({
   const itemClass =
     "inline-flex h-9 min-w-9 items-center justify-center rounded-md px-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-40";
 
+  const pageButton = (p: number, key: string) => (
+    <button
+      key={key}
+      aria-current={p === page ? "page" : undefined}
+      onClick={() => go(p)}
+      className={cn(
+        itemClass,
+        p === page ? "bg-primary text-primary-fg" : "text-fg hover:bg-surface-2"
+      )}
+    >
+      {p}
+    </button>
+  );
+
   return (
     <nav aria-label="Pagination" className={cn("flex items-center gap-1", className)}>
       <button
@@ -36,21 +50,28 @@ export function Pagination({
       >
         <ChevronLeft size={16} />
       </button>
-      {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) => (
-        <button
-          key={p}
-          aria-current={p === page ? "page" : undefined}
-          onClick={() => go(p)}
-          className={cn(
-            itemClass,
-            p === page
-              ? "bg-primary text-primary-fg"
-              : "text-fg hover:bg-surface-2"
-          )}
-        >
-          {p}
-        </button>
-      ))}
+      {/* Phones keep the current page plus the two endpoints; the complete
+          run returns at sm, where it has room. */}
+      <span className="contents sm:hidden">
+        {pageButton(1, "mobile-first")}
+        {page > 2 && (
+          <span aria-hidden className="inline-flex h-9 min-w-5 items-center justify-center text-muted">
+            …
+          </span>
+        )}
+        {page > 1 && page < pageCount && pageButton(page, "mobile-current")}
+        {page < pageCount - 1 && (
+          <span aria-hidden className="inline-flex h-9 min-w-5 items-center justify-center text-muted">
+            …
+          </span>
+        )}
+        {pageCount > 1 && pageButton(pageCount, "mobile-last")}
+      </span>
+      <span className="hidden sm:contents">
+        {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) =>
+          pageButton(p, `desktop-${p}`)
+        )}
+      </span>
       <button
         aria-label="Next page"
         disabled={page === pageCount}
