@@ -163,7 +163,8 @@ makes Kid Astro the default and house skin (Daylight / Deep space / Arcade, its
 Page ported from the Codex curation), reshapes the shell into a collapsible
 house rail plus a content area with its own top bar, and adds the
 palette-owned `--scrim`._ _2026-10-02: the next keeper wave is Native Mobile,
-Liquid Chrome, Docs Knowledge Base, Console Dashboard, and Kinetic Agency. Each
+Liquid Chrome, Docs Knowledge Base, Console Dashboard, Kinetic Agency, and
+Retro Future. Each
 keeps its authored Page composition and adds Light / Dark / Fun palettes;
 Kinetic's display scale is deliberately capped so type drives the page without
 swallowing it._

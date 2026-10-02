@@ -211,6 +211,34 @@ export const skins: SkinMeta[] = [
       "Generic card grids that erase the skin's editorial pacing.",
     ],
   },
+  {
+    slug: "y2k",
+    name: "Retro Future",
+    description:
+      "An optimistic desktop from the early web — beveled OS chrome, sun-faded media graphics, pixel metadata, and playful machine-like feedback.",
+    tags: ["Retro", "Y2K", "Bevel", "Custom layout"],
+    palettes: [
+      { slug: "light", label: "Poolside" },
+      { slug: "dark", label: "Night drive" },
+      { slug: "fun", label: "Cyber pop" },
+    ],
+    bestFor: [
+      "Music, media, and culture products",
+      "Nostalgic campaigns and playful product launches",
+      "Creative tools and microsites that benefit from a visible interface metaphor",
+    ],
+    rules: [
+      "Build the page from little application windows: title bars, inset wells, hard controls, and visible system state.",
+      "Pair heavyweight grotesk display type with pixel metadata; keep body copy readable and contemporary.",
+      "Use bevels as structure, not garnish — every raised control needs a light edge and a shadow edge.",
+      "Let tickers, timestamps, track counters, and tiny utility labels sell the machine before adding decoration.",
+    ],
+    avoid: [
+      "Soft modern card shadows or glass blur; the material is molded plastic and desktop chrome.",
+      "Pixel fonts for paragraphs. They are metadata, labels, and short bursts only.",
+      "Nostalgia without hierarchy — novelty details should still support the task on screen.",
+    ],
+  },
 ];
 
 /** What a first visit wears before any skin has been opened. */
