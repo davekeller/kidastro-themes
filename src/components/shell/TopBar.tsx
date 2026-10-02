@@ -1,19 +1,29 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../../lib/cn";
 import { useResolvedTokens, useSkinState } from "../../lib/skin-state";
 import { skinTokensToCss } from "../../lib/tokens";
 import { useDismiss } from "../../lib/use-dismiss";
+import { useThemeFilters } from "../../lib/use-theme-filters";
 import { getPalette, getSkin, skins, type SkinMeta } from "../../skins";
 import { SKIN_VIEWS } from "../../skins/views";
-import { Braces, Check, ChevronDown, Copy, Menu } from "../icons";
-import { buttonClasses, SegmentedControl } from "../primitives";
+import {
+  Braces,
+  Check,
+  ChevronDown,
+  Copy,
+  Menu,
+  Search,
+  SlidersHorizontal,
+  X,
+} from "../icons";
+import { buttonClasses, fieldClasses, SegmentedControl } from "../primitives";
 import { PaletteDots, PaletteSwitcher } from "./PaletteSwitcher";
 
 /* The content area's own navigation. It sits inside the skin, so it wears
- * whatever the page wears: the skin switcher, the Page · Components · Style
- * guide views, the palette, and the live tokens. One row from lg up; below
- * that the views and palette take a second row. */
+ * whatever the page wears. On Themes it carries search + filtering; on a skin
+ * it carries the switcher, Page · Components · Style guide views, palette,
+ * and live tokens. */
 
 const focusRing = "focus:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
@@ -23,7 +33,7 @@ function useSkinRoute() {
   const m = pathname.match(/^\/skin\/([^/]+)(\/components|\/guide)?\/?$/);
   const skin = m ? getSkin(m[1]) : undefined;
   const view = SKIN_VIEWS.find((v) => v.path === (m?.[2] ?? "")) ?? SKIN_VIEWS[0];
-  return { skin, view };
+  return { pathname, skin, view };
 }
 
 /** Page · Components · Style guide as a segmented control. `short` swaps in the
@@ -55,7 +65,9 @@ function ViewSwitch({
 }
 
 export function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
-  const { skin, view } = useSkinRoute();
+  const { pathname, skin, view } = useSkinRoute();
+  const themeFilters = useThemeFilters();
+  const onThemesHome = pathname === "/";
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-bg/85 backdrop-blur">
@@ -79,6 +91,8 @@ export function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
               <ViewSwitch skin={skin} view={view} />
             </div>
           </div>
+        ) : onThemesHome ? (
+          <ThemesToolbar filters={themeFilters} />
         ) : (
           <div className="min-w-0 flex-1">
             <span className="font-display font-semibold tracking-tight text-fg">Themes</span>
@@ -104,7 +118,205 @@ export function TopBar({ onOpenMenu }: { onOpenMenu: () => void }) {
           <PaletteSwitcher skin={skin} compact />
         </div>
       )}
+
+      {onThemesHome && themeFilters.tags.length > 0 && (
+        <ActiveThemeFilters filters={themeFilters} />
+      )}
     </header>
+  );
+}
+
+type ThemeFilters = ReturnType<typeof useThemeFilters>;
+
+function ThemesToolbar({ filters }: { filters: ThemeFilters }) {
+  return (
+    <>
+      <div className="flex min-w-0 flex-1 items-center gap-2 sm:gap-3">
+        <span className="hidden shrink-0 font-display font-semibold tracking-tight text-fg sm:inline">
+          Themes
+        </span>
+        <label className="relative min-w-0 flex-1 sm:max-w-sm">
+          <span className="sr-only">Search themes</span>
+          <Search
+            size={16}
+            className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted"
+          />
+          <input
+            type="search"
+            value={filters.query}
+            onChange={(event) => filters.setQuery(event.target.value)}
+            placeholder="Search themes…"
+            className={cn("h-10 pl-9", fieldClasses)}
+          />
+        </label>
+      </div>
+
+      {filters.active && (
+        <span className="hidden shrink-0 text-xs text-muted md:inline" aria-hidden>
+          {filters.shown} of {filters.total}
+        </span>
+      )}
+      <span className="sr-only" aria-live="polite" aria-atomic="true">
+        {filters.active
+          ? `${filters.shown} of ${filters.total} themes shown`
+          : `${filters.total} themes shown`}
+      </span>
+      <ThemeFilterMenu filters={filters} />
+    </>
+  );
+}
+
+function ThemeFilterMenu({ filters }: { filters: ThemeFilters }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const close = useCallback(() => setOpen(false), []);
+  useDismiss(ref, open, close, triggerRef);
+
+  useEffect(() => {
+    if (!open) return;
+    const frame = window.requestAnimationFrame(() => {
+      const selected = ref.current?.querySelector<HTMLButtonElement>(
+        'button[data-filter-option][aria-pressed="true"]'
+      );
+      const first = ref.current?.querySelector<HTMLButtonElement>(
+        "button[data-filter-option]"
+      );
+      (selected ?? first)?.focus();
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative shrink-0">
+      <button
+        ref={triggerRef}
+        type="button"
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        aria-controls="theme-filter-panel"
+        aria-label={
+          filters.tags.length > 0
+            ? `Filters, ${filters.tags.length} selected`
+            : "Filters"
+        }
+        onClick={() => setOpen((value) => !value)}
+        className={buttonClasses(
+          filters.tags.length > 0 ? "secondary" : "outline",
+          "md",
+          "px-2.5 sm:px-3"
+        )}
+      >
+        <SlidersHorizontal size={16} />
+        <span className="hidden sm:inline">Filters</span>
+        {filters.tags.length > 0 && (
+          <span className="grid min-w-5 place-items-center rounded-full bg-primary px-1.5 py-0.5 text-[11px] leading-none text-primary-fg">
+            {filters.tags.length}
+          </span>
+        )}
+        <ChevronDown
+          size={13}
+          className={cn("hidden text-muted transition-transform sm:block", open && "rotate-180")}
+        />
+      </button>
+
+      {open && (
+        <div
+          id="theme-filter-panel"
+          role="dialog"
+          aria-label="Filter themes"
+          className="absolute top-full right-0 z-40 mt-2 flex max-h-[calc(100dvh-4.5rem)] w-[min(30rem,calc(100vw-1.5rem))] flex-col overflow-hidden rounded-lg border border-border bg-surface elev-2"
+        >
+          <div className="flex items-start justify-between gap-4 border-b border-border p-4">
+            <div>
+              <p className="font-display text-base font-semibold tracking-tight text-fg">
+                Filter by style
+              </p>
+              <p className="mt-0.5 text-xs text-muted">Matches any selected tag.</p>
+            </div>
+            {filters.tags.length > 0 && (
+              <button
+                type="button"
+                onClick={filters.clearTags}
+                className={cn(
+                  "shrink-0 rounded-sm px-2 py-1 text-xs font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg",
+                  focusRing
+                )}
+              >
+                Clear all
+              </button>
+            )}
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-y-auto p-3">
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+              {filters.options.map((option) => {
+                const selected = filters.tags.includes(option);
+                return (
+                  <button
+                    key={option}
+                    type="button"
+                    data-filter-option
+                    aria-pressed={selected}
+                    onClick={() => filters.toggleTag(option)}
+                    className={cn(
+                      "flex min-w-0 items-center justify-between gap-2 rounded-md border px-3 py-2 text-left text-xs font-medium transition-[background-color,color,border-color] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                      selected
+                        ? "border-primary bg-primary text-primary-fg"
+                        : "border-border bg-bg text-muted hover:bg-surface-2 hover:text-fg"
+                    )}
+                  >
+                    <span className="truncate">{option}</span>
+                    {selected && <Check size={13} className="shrink-0" />}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="border-t border-border px-4 py-3 text-xs text-muted">
+            {filters.shown} of {filters.total} themes
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ActiveThemeFilters({ filters }: { filters: ThemeFilters }) {
+  return (
+    <div className="flex items-center gap-2 px-3 pb-2.5 sm:px-5">
+      <span className="hidden shrink-0 font-mono text-[10px] tracking-widest text-muted uppercase sm:inline">
+        Active
+      </span>
+      <div aria-label="Active theme filters" className="flex min-w-0 flex-1 gap-1.5 overflow-x-auto">
+        {filters.tags.map((tag) => (
+          <button
+            key={tag}
+            type="button"
+            aria-label={`Remove ${tag} filter`}
+            onClick={() => filters.removeTag(tag)}
+            className={cn(
+              "inline-flex shrink-0 items-center gap-1 rounded-full border border-primary bg-primary px-2.5 py-1 text-xs font-medium text-primary-fg",
+              focusRing
+            )}
+          >
+            {tag}
+            <X size={12} />
+          </button>
+        ))}
+      </div>
+      <button
+        type="button"
+        onClick={filters.clearTags}
+        className={cn(
+          "shrink-0 rounded-sm px-2 py-1 text-xs font-medium text-muted transition-colors hover:bg-surface-2 hover:text-fg",
+          focusRing
+        )}
+      >
+        Clear
+      </button>
+    </div>
   );
 }
 
